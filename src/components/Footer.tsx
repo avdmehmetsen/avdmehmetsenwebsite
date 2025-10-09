@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
+import PlaceButton from "./PlaceButton";
+import { colors } from "@/constants/colors";
 
 export default function Footer() {
   return (
@@ -92,19 +94,31 @@ export default function Footer() {
             <h3 className="text-white font-bold text-lg mb-4">İletişim</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start">
-                <Mail className="w-5 h-5 mr-2 mt-0.5 text-amber-500 flex-shrink-0" />
+                <Mail
+                  className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
+                  style={{ color: colors.primary.main }}
+                />
                 <span>info@avmehmetdurdusen.com</span>
               </li>
               <li className="flex items-start">
-                <Phone className="w-5 h-5 mr-2 mt-0.5 text-amber-500 flex-shrink-0" />
+                <Phone
+                  className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
+                  style={{ color: colors.primary.main }}
+                />
                 <span>+90 (507) 736 82 55</span>
               </li>
-              <li className="flex items-start">
-                <MapPin className="w-5 h-5 mr-2 mt-0.5 text-amber-500 flex-shrink-0" />
-                <span>
-                  Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi
-                  No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
-                </span>
+              <li className="flex flex-col items-start ">
+                <div className="flex items-start mb-2">
+                  <MapPin
+                    className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
+                    style={{ color: colors.primary.main }}
+                  />
+                  <span>
+                    Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi
+                    No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
+                  </span>
+                </div>
+                <PlaceButton label="Yol Tarifi" />
               </li>
             </ul>
           </div>

@@ -1,14 +1,18 @@
-import { Metadata } from "next";
-import Link from "next/link";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Makaleler | Av. Mehmet Dürdüsen",
-  description: "Hukuk dünyasından güncel makaleler, analizler ve yorumlar.",
-};
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import ArticleCard from "@/components/ArticleCard";
+import { colors } from "@/constants/colors";
 
 export default function Makaleler() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const articlesPerPage = 6;
+
   // Bu veriler Firebase'den gelecek - şimdilik örnek data
-  const articles = [
+  const allArticles = [
     {
       id: "1",
       slug: "ceza-hukukunda-zamanaşımı",
@@ -17,188 +21,240 @@ export default function Makaleler() {
       excerpt:
         "Ceza hukukunda zamanaşımı sürelerinin hesaplanması ve hukuki sonuçları hakkında detaylı bir inceleme...",
       date: "15 Mart 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "8 dk",
     },
     {
       id: "2",
       slug: "ticaret-hukuku-sozlesmeler",
       title: "Ticaret Hukukunda Sözleşme Serbestisi İlkesi",
-      category: "Ticaret Hukuku",
+      category: "Ceza Hukuku",
       excerpt:
         "Ticari sözleşmelerde tarafların serbestisi, sınırları ve bu ilkenin uygulanmasında dikkat edilmesi gerekenler...",
       date: "10 Mart 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "6 dk",
     },
     {
       id: "3",
       slug: "bosanma-davalarinda-velayet",
       title: "Boşanma Davalarında Velayet Hakkı ve Çocuğun Üstün Yararı",
-      category: "Aile Hukuku",
+      category: "Ceza Hukuku",
       excerpt:
         "Boşanma davalarında velayet hakkının belirlenmesinde mahkemelerin yaklaşımı ve çocuğun üstün yararı ilkesi...",
       date: "5 Mart 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "10 dk",
     },
     {
       id: "4",
       slug: "ise-iade-davalari",
       title: "İşe İade Davalarında Süre ve Usul",
-      category: "İş Hukuku",
+      category: "Ceza Hukuku",
       excerpt:
         "İşten çıkarmalarda işçinin açabileceği işe iade davası, süreleri ve başvuru usulleri hakkında bilgiler...",
       date: "1 Mart 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "7 dk",
     },
     {
       id: "5",
       slug: "tapu-iptal-tescil-davalari",
       title: "Tapu İptal ve Tescil Davalarının Özellikleri",
-      category: "Gayrimenkul Hukuku",
+      category: "Ceza Hukuku",
       excerpt:
         "Gayrimenkul hukukunda tapu iptal ve tescil davalarının açılma şartları, süreci ve sonuçları...",
       date: "25 Şubat 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "9 dk",
     },
     {
       id: "6",
       slug: "miras-payi-hesaplama",
       title: "Yasal Miras Paylarının Hesaplanması",
-      category: "Miras Hukuku",
+      category: "Ceza Hukuku",
       excerpt:
         "Miras hukukunda yasal mirasçılar, miras paylarının hesaplanması ve saklı pay kavramı üzerine açıklamalar...",
       date: "20 Şubat 2024",
-      author: "Av. Mehmet Dürdüsen",
-      readTime: "8 dk",
+    },
+    {
+      id: "7",
+      slug: "is-sozlesmesi-feshi",
+      title: "İş Sözleşmesinin Feshi ve Hukuki Sonuçları",
+      category: "Ceza Hukuku",
+      excerpt:
+        "İş sözleşmesinin fesih türleri, işveren ve işçinin fesih hakları ve tazminat talepleri...",
+      date: "15 Şubat 2024",
+    },
+    {
+      id: "8",
+      slug: "ticari-alacak-takibi",
+      title: "Ticari Alacakların Takibi ve İcra Süreci",
+      category: "Ceza Hukuku",
+      excerpt:
+        "Ticari alacakların yasal yollarla tahsili, icra takibi ve alacaklı haklarının korunması...",
+      date: "10 Şubat 2024",
+    },
+    {
+      id: "9",
+      slug: "kira-sozlesmesi-tahliye",
+      title: "Kira Sözleşmeleri ve Tahliye Davaları",
+      category: "Ceza Hukuku",
+      excerpt:
+        "Kira hukukunda kiracı ve kiralayan hakları, tahliye davası açma şartları ve süreçleri...",
+      date: "5 Şubat 2024",
     },
   ];
 
-  const categories = [
-    "Tümü",
-    "Ceza Hukuku",
-    "Ticaret Hukuku",
-    "Aile Hukuku",
-    "İş Hukuku",
-    "Gayrimenkul Hukuku",
-    "Miras Hukuku",
-  ];
+  // Sayfalandırma hesaplamaları
+  const totalPages = Math.ceil(allArticles.length / articlesPerPage);
+  const startIndex = (currentPage - 1) * articlesPerPage;
+  const endIndex = startIndex + articlesPerPage;
+  const currentArticles = allArticles.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div>
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Makaleler</h1>
-          <p className="text-xl text-gray-300">
-            Hukuk dünyasından güncel yazılar, analizler ve yorumlar
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Makaleler</h1>
+            <p className="text-xl text-gray-300">
+              Hukuk dünyasından güncel yazılar, analizler ve yorumlar
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Category Filter */}
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  className="px-4 py-2 rounded-full bg-white text-slate-900 border border-gray-300 hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-colors"
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Articles Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/makaleler/${article.slug}`}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
-              >
-                <div className="bg-slate-200 h-48 flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">Makale Görseli</span>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-amber-600 text-sm font-semibold">
-                      {article.category}
-                    </span>
-                    <span className="text-gray-500 text-sm">
-                      {article.readTime}
-                    </span>
-                  </div>
-                  <h2 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-amber-600 transition-colors">
-                    {article.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <span className="text-sm text-gray-500">
-                      {article.date}
-                    </span>
-                    <span className="text-amber-600 font-semibold group-hover:translate-x-2 transition-transform inline-block">
-                      Devamını Oku →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+            {currentArticles.map((article, index) => (
+              <ArticleCard key={article.id} article={article} index={index} />
             ))}
           </div>
 
-          {/* Pagination - Firebase'den sonra aktif olacak */}
-          <div className="mt-12 flex justify-center">
-            <div className="flex gap-2">
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                Önceki
+          {/* Pagination */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-12 flex justify-center"
+          >
+            <div className="flex gap-2 items-center">
+              {/* Önceki Butonu */}
+              <button
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className={cn(
+                  "p-2 rounded-lg border transition-all",
+                  currentPage === 1
+                    ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
+                    : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+                )}
+              >
+                <ChevronLeft className="w-5 h-5" />
               </button>
-              <button className="px-4 py-2 bg-amber-500 text-white rounded-lg">
-                1
-              </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                2
-              </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                3
-              </button>
-              <button className="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-100">
-                Sonraki
+
+              {/* Sayfa Numaraları */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={cn(
+                      "px-4 py-2 rounded-lg font-medium transition-all",
+                      page === currentPage
+                        ? "text-white shadow-md"
+                        : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
+                    )}
+                    style={{
+                      backgroundColor:
+                        page === currentPage ? colors.primary.main : undefined,
+                    }}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
+
+              {/* Sonraki Butonu */}
+              <button
+                onClick={() =>
+                  handlePageChange(Math.min(totalPages, currentPage + 1))
+                }
+                disabled={currentPage === totalPages}
+                className={cn(
+                  "p-2 rounded-lg border transition-all",
+                  currentPage === totalPages
+                    ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
+                    : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+                )}
+              >
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Sayfa Bilgisi */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-4 text-center text-sm text-slate-600"
+          >
+            {startIndex + 1} - {Math.min(endIndex, allArticles.length)} arası
+            gösteriliyor (Toplam {allArticles.length} makale)
+          </motion.div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Yeni Makaleleri Kaçırmayın
-          </h2>
-          <p className="text-gray-600 mb-8">
-            E-posta bültenimize abone olun ve yeni makalelerden haberdar olun.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="E-posta adresiniz"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
-            />
-            <button className="bg-amber-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors">
-              Abone Ol
-            </button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div
+              className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center"
+              style={{ backgroundColor: `${colors.primary.main}20` }}
+            >
+              <Mail
+                className="w-8 h-8"
+                style={{ color: colors.primary.main }}
+              />
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+              Yeni Makaleleri Kaçırmayın
+            </h2>
+            <p className="text-gray-600 mb-8">
+              E-posta bültenimize abone olun ve yeni makalelerden haberdar olun.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="E-posta adresiniz"
+                className="flex-1 px-4 py-3 border text-black border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#cb8929] transition-shadow"
+              />
+              <button
+                onClick={() => alert("Bu özellik yakında aktif olacaktır.")}
+                className={cn(
+                  "px-6 py-3 rounded-lg font-semibold transition-all shadow-sm",
+                  "hover:-translate-y-0.5 hover:shadow-md text-white"
+                )}
+                style={{ backgroundColor: colors.primary.main }}
+              >
+                Abone Ol
+              </button>
+            </div>
+          </motion.div>
         </div>
       </section>
+      */}
     </div>
   );
 }

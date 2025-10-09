@@ -1,11 +1,18 @@
-import { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
+"use client";
 
-export const metadata: Metadata = {
-  title: "İletişim | Av. Mehmet Dürdüsen",
-  description:
-    "Hukuki danışmanlık ve destek için bizimle iletişime geçin. Profesyonel ekibimiz size yardımcı olmak için hazır.",
-};
+import ContactForm from "@/components/ContactForm";
+import { motion } from "framer-motion";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Linkedin,
+  Twitter,
+  Instagram,
+} from "lucide-react";
+import { colors } from "@/constants/colors";
+import PlaceButton from "@/components/PlaceButton";
 
 export default function Iletisim() {
   return (
@@ -13,10 +20,16 @@ export default function Iletisim() {
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">İletişim</h1>
-          <p className="text-xl text-gray-300">
-            Hukuki danışmanlık için bizimle iletişime geçin
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">İletişim</h1>
+            <p className="text-xl text-gray-300">
+              Hukuki danışmanlık için bizimle iletişime geçin
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -35,116 +48,85 @@ export default function Iletisim() {
                 sürede size dönüş yapacaktır.
               </p>
 
-              <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-6"
+              >
                 {/* Address */}
-                <div className="flex items-start">
-                  <div className="bg-amber-100 p-3 rounded-lg">
-                    <svg
-                      className="w-6 h-6 text-amber-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
+                <div className="flex items-start group">
+                  <div
+                    className="p-3 rounded-lg transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${colors.primary.main}20` }}
+                  >
+                    <MapPin
+                      className="w-6 h-6"
+                      style={{ color: colors.primary.main }}
+                    />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       Adres
                     </h3>
-                    <p className="text-gray-600">
-                      Örnek Mahallesi, Hukuk Sokak No:15 Kat:3
+                    <p className="text-gray-600 mb-2">
+                      Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. <br /> 4. Halil
+                      Atilla Sitesi No:233 C Blok K:5 D:9
                       <br />
-                      Şişli / İstanbul
+                      Bayraklı / İzmir
                     </p>
+                    <PlaceButton label="Yol Tarifi" />
                   </div>
                 </div>
 
                 {/* Phone */}
-                <div className="flex items-start">
-                  <div className="bg-amber-100 p-3 rounded-lg">
-                    <svg
-                      className="w-6 h-6 text-amber-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
+                <div className="flex items-start group">
+                  <div
+                    className="p-3 rounded-lg transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${colors.primary.main}20` }}
+                  >
+                    <Phone
+                      className="w-6 h-6"
+                      style={{ color: colors.primary.main }}
+                    />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       Telefon
                     </h3>
-                    <p className="text-gray-600">
-                      +90 (212) 555 55 55
-                      <br />
-                      +90 (555) 555 55 55
-                    </p>
+                    <p className="text-gray-600">+90 (507) 736 82 55</p>
                   </div>
                 </div>
 
                 {/* Email */}
-                <div className="flex items-start">
-                  <div className="bg-amber-100 p-3 rounded-lg">
-                    <svg
-                      className="w-6 h-6 text-amber-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                <div className="flex items-start group">
+                  <div
+                    className="p-3 rounded-lg transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${colors.primary.main}20` }}
+                  >
+                    <Mail
+                      className="w-6 h-6"
+                      style={{ color: colors.primary.main }}
+                    />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       E-posta
                     </h3>
-                    <p className="text-gray-600">
-                      info@avmehmetdurdusen.com
-                      <br />
-                      iletisim@avmehmetdurdusen.com
-                    </p>
+                    <p className="text-gray-600">info@avdurdumehmetsen.com</p>
                   </div>
                 </div>
 
                 {/* Working Hours */}
-                <div className="flex items-start">
-                  <div className="bg-amber-100 p-3 rounded-lg">
-                    <svg
-                      className="w-6 h-6 text-amber-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                <div className="flex items-start group">
+                  <div
+                    className="p-3 rounded-lg transition-all duration-300 group-hover:scale-110"
+                    style={{ backgroundColor: `${colors.primary.main}20` }}
+                  >
+                    <Clock
+                      className="w-6 h-6"
+                      style={{ color: colors.primary.main }}
+                    />
                   </div>
                   <div className="ml-4">
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
@@ -159,55 +141,44 @@ export default function Iletisim() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Social Media - Future */}
-              <div className="mt-8">
+              {/* Social Media */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="mt-8"
+              >
                 <h3 className="text-lg font-semibold text-slate-900 mb-4">
                   Sosyal Medya
                 </h3>
                 <div className="flex gap-4">
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
-                  >
-                    <span className="sr-only">LinkedIn</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
+                  {[
+                    { Icon: Linkedin, label: "LinkedIn" },
+                    { Icon: Twitter, label: "Twitter" },
+                    { Icon: Instagram, label: "Instagram" },
+                  ].map(({ Icon, label }) => (
+                    <a
+                      key={label}
+                      href="#"
+                      className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 hover:shadow-md"
+                      style={{ backgroundColor: colors.background.dark }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor =
+                          colors.primary.main)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor =
+                          colors.background.dark)
+                      }
                     >
-                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
-                  >
-                    <span className="sr-only">Twitter</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors"
-                  >
-                    <span className="sr-only">Instagram</span>
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </a>
+                      <span className="sr-only">{label}</span>
+                      <Icon className="w-5 h-5 text-white" />
+                    </a>
+                  ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Contact Form */}
@@ -224,13 +195,21 @@ export default function Iletisim() {
       {/* Map Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-            Ofisimizin Konumu
-          </h2>
-          <div className="bg-slate-200 h-96 rounded-lg flex items-center justify-center">
-            <p className="text-gray-500">
-              Google Maps entegrasyonu buraya eklenecek
-            </p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Ofisimizin Konumu
+            </h2>
+          </div>
+          <div className="bg-slate-200 h-96 rounded-lg flex items-center justify-center shadow-lg">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3123.9689396410945!2d27.19060637655294!3d38.46527837181961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b97de32f1226ed%3A0x3487243a82ced214!2zQXZ1a2F0IER1cmR1IE1laG1ldCDFnmVuIC0gxZ5lbiBIdWt1ayBCw7xyb3N1IC0gxLB6bWlyIEF2dWthdCAtIMSwem1pciBLaXJhIEF2dWthdMSxIC0gxLB6bWlyIMSwxZ8gQXZ1a2F0xLEgLSDEsHptaXIgQm_Fn2FubWEgQXZ1a2F0xLE!5e0!3m2!1str!2str!4v1760042428526!5m2!1str!2str"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </section>

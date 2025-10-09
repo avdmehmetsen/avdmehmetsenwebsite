@@ -340,7 +340,7 @@ export default function UzmanlikAlanlari() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
           >
             {expertiseAreas.map((area, index) => {
               const Icon = iconMap[area.title] || Scale;
@@ -423,8 +423,8 @@ export default function UzmanlikAlanlari() {
               Hukuki Danışmanlık İhtiyacınız mı Var?
             </h2>
             <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-              Uzman kadromuz ile size en uygun çözümü bulmak için buradayız.
-              Ücretsiz ön görüşme için iletişime geçin.
+              Hukuki süreçlerinizde doğru adımlar atmanız için rehberlik
+              ediyoruz. Sizin için en uygun çözümü birlikte belirleyelim.
             </p>
             <Link
               href="/iletisim"

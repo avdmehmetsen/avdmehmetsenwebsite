@@ -91,7 +91,7 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 border text-slate-400 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             placeholder="Adınız ve soyadınız"
           />
         </div>
@@ -110,7 +110,7 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 border text-slate-400 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             placeholder="ornek@email.com"
           />
         </div>
@@ -130,7 +130,7 @@ export default function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 border text-slate-400 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
             placeholder="0555 555 55 55"
           />
         </div>
@@ -148,7 +148,7 @@ export default function ContactForm() {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+            className="w-full px-4 py-3 border text-slate-400 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
           >
             <option value="">Konu seçin</option>
             <option value="Ceza Hukuku">Ceza Hukuku</option>
@@ -176,7 +176,7 @@ export default function ContactForm() {
           onChange={handleChange}
           required
           rows={6}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
+          className="w-full px-4 py-3 border text-slate-400 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none"
           placeholder="Lütfen mesajınızı detaylı bir şekilde yazın..."
         />
       </div>
