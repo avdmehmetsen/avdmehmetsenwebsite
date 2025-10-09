@@ -1,0 +1,231 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Hakkımızda | Av. Mehmet Dürdüsen",
+  description: "Hukuk büromuz ve avukatlarımız hakkında bilgi edinin.",
+};
+
+export default function Hakkimizda() {
+  return (
+    <div>
+      {/* Hero Section */}
+      <section className="bg-slate-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h1>
+          <p className="text-xl text-gray-300">
+            Müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Vizyonumuz ve Misyonumuz
+              </h2>
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p>
+                  Av. Mehmet Dürdüsen Hukuk Bürosu olarak, müvekkillerimize en
+                  kaliteli hukuki hizmeti sunmak ve haklarını en iyi şekilde
+                  korumak için çalışıyoruz. Yılların verdiği tecrübe ve
+                  deneyimle, her davaya özel strateji geliştirerek, en iyi
+                  sonuçları elde etmeyi hedefliyoruz.
+                </p>
+                <p>
+                  Hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
+                  profesyonel ve güvenilir hukuki danışmanlık hizmeti
+                  vermektedir. Etik değerlere bağlı kalarak, adaletin tecelli
+                  etmesi için çalışıyoruz.
+                </p>
+                <p>
+                  Sürekli gelişen hukuk dünyasını yakından takip ederek,
+                  müvekkillerimize en güncel ve etkili çözümleri sunuyoruz.
+                  Uzman kadromuzla birlikte, her türlü hukuki sorunda
+                  yanınızdayız.
+                </p>
+              </div>
+            </div>
+            <div className="bg-slate-200 rounded-lg h-96 flex items-center justify-center">
+              <span className="text-gray-400">Ofis Görseli</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
+            Değerlerimiz
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Güvenilirlik</h3>
+              <p className="text-gray-600">
+                Müvekkillerimizin güvenini kazanmak ve korumak en önemli
+                önceliğimizdir.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Etik</h3>
+              <p className="text-gray-600">
+                Tüm çalışmalarımızda etik değerlere bağlı kalarak hareket
+                ediyoruz.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Hız</h3>
+              <p className="text-gray-600">
+                Hızlı ve etkili çözümler üreterek zamanınıza değer veriyoruz.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-8 h-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Profesyonellik</h3>
+              <p className="text-gray-600">
+                Her işte profesyonel yaklaşım ve uzmanlık sergiliyoruz.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
+            Ekibimiz
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-gray-400">Fotoğraf</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-1">
+                Av. Mehmet Dürdüsen
+              </h3>
+              <p className="text-amber-600 font-medium mb-2">Kurucu Avukat</p>
+              <p className="text-gray-600 text-sm">
+                Ceza Hukuku ve Ticaret Hukuku alanlarında uzman
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-gray-400">Fotoğraf</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-1">Av. [İsim]</h3>
+              <p className="text-amber-600 font-medium mb-2">Kıdemli Avukat</p>
+              <p className="text-gray-600 text-sm">
+                Aile Hukuku ve İş Hukuku alanlarında uzman
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-gray-400">Fotoğraf</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-1">Av. [İsim]</h3>
+              <p className="text-amber-600 font-medium mb-2">Avukat</p>
+              <p className="text-gray-600 text-sm">
+                Gayrimenkul Hukuku ve Miras Hukuku alanlarında uzman
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
+                15+
+              </div>
+              <p className="text-gray-300">Yıllık Deneyim</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
+                500+
+              </div>
+              <p className="text-gray-300">Başarılı Dava</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
+                1000+
+              </div>
+              <p className="text-gray-300">Mutlu Müvekkil</p>
+            </div>
+            <div>
+              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
+                %95
+              </div>
+              <p className="text-gray-300">Başarı Oranı</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
