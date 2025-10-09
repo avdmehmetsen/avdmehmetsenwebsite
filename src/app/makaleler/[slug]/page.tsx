@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   // Firebase'den makale verisi gelecek
   return {
-    title: `${slug} | Av. Mehmet Dürdüsen`,
+    title: `${slug} | Av. Mehmet Durdu Şen`,
     description: "Hukuk makalesi detayı",
   };
 }
@@ -22,7 +22,7 @@ export default async function MakaleDetay({ params }: Props) {
     title: "Ceza Hukukunda Zamanaşımı Sürelerinin Önemi",
     category: "Ceza Hukuku",
     date: "15 Mart 2024",
-    author: "Av. Mehmet Dürdüsen",
+    author: "Av. Mehmet Durdu Şen",
     readTime: "8 dk",
     content: `
       <p>Ceza hukukunda zamanaşımı, belirli bir süre geçtikten sonra kamu davasının açılamaması veya cezanın infaz edilememesi sonucunu doğuran bir kurumdur. Zamanaşımı sürelerinin doğru hesaplanması ve uygulanması, adaletin tecelli etmesi açısından büyük önem taşır.</p>
@@ -82,7 +82,7 @@ export default async function MakaleDetay({ params }: Props) {
     <div>
       {/* Article Header */}
       <section className="bg-slate-900 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <div className="mb-4">
             <Link
               href="/makaleler"

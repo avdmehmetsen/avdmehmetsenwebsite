@@ -1,16 +1,89 @@
-import { Metadata } from "next";
-import Link from "next/link";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Uzmanlık Alanları | Av. Mehmet Dürdüsen",
-  description: "Hukuk büromuzun uzmanlaştığı alanlar ve sunduğu hizmetler.",
+import Link from "next/link";
+import { motion, type Variants } from "framer-motion";
+import { cn } from "@/lib/utils";
+import {
+  Scale,
+  Building2,
+  Users,
+  Briefcase,
+  Home,
+  FileText,
+  Scroll,
+  Landmark,
+  Monitor,
+  Shield,
+  ShoppingCart,
+  Globe,
+  Gavel,
+  Ship,
+  Trophy,
+  Earth,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import { colors } from "@/constants/colors";
+
+// Icon map
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  "Ceza Hukuku": Scale,
+  "Ticaret Hukuku": Building2,
+  "Aile Hukuku": Users,
+  "İş Hukuku": Briefcase,
+  "Gayrimenkul Hukuku": Home,
+  "Miras Hukuku": FileText,
+  "Borçlar Hukuku": Scroll,
+  "İdare Hukuku": Landmark,
+  "Bilişim Hukuku": Monitor,
+  "Sigorta Hukuku": Shield,
+  "Tüketici Hukuku": ShoppingCart,
+  "Yabancılar ve Vatandaşlık Hukuku": Globe,
+  "İcra ve İflas Hukuku": Gavel,
+  "Deniz ve Taşıma Hukuku": Ship,
+  "Spor Hukuku": Trophy,
+  "Uluslararası Hukuk": Earth,
+};
+
+const container: Variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+type ExpertiseAreaType = {
+  title: string;
+  description: string;
+  services: string[];
 };
 
 export default function UzmanlikAlanlari() {
-  const expertiseAreas = [
+  const expertiseAreas: ExpertiseAreaType[] = [
     {
       title: "Ceza Hukuku",
-      icon: "⚖️",
       description:
         "Ceza davalarında etkin savunma hizmeti sunuyoruz. Soruşturma ve kovuşturma aşamalarında müvekkillerimizin haklarını en iyi şekilde koruyoruz.",
       services: [
@@ -23,7 +96,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Ticaret Hukuku",
-      icon: "💼",
       description:
         "Şirket kurulumundan ticari anlaşmazlıklara kadar geniş yelpazede hizmet veriyoruz. İşletmenizin hukuki ihtiyaçları için güvenilir ortağınızız.",
       services: [
@@ -36,7 +108,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Aile Hukuku",
-      icon: "👨‍👩‍👧‍👦",
       description:
         "Aile içi hukuki sorunlarda hassas ve çözüm odaklı yaklaşımla hizmet veriyoruz. Müvekkillerimizin aile hayatının korunması önceliğimizdir.",
       services: [
@@ -49,7 +120,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "İş Hukuku",
-      icon: "🏢",
       description:
         "İşçi ve işveren hakları konusunda uzman danışmanlık hizmeti sunuyoruz. İş yerindeki hukuki sorunlarınız için yanınızdayız.",
       services: [
@@ -62,7 +132,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Gayrimenkul Hukuku",
-      icon: "🏠",
       description:
         "Tapu işlemlerinden kira anlaşmazlıklarına kadar tüm gayrimenkul hukuku konularında hizmet veriyoruz.",
       services: [
@@ -75,7 +144,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Miras Hukuku",
-      icon: "📜",
       description:
         "Miras paylaşımı ve veraset işlemlerinde uzman kadromuzla hizmet veriyoruz. Hak kayıplarının önüne geçiyoruz.",
       services: [
@@ -88,7 +156,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Borçlar Hukuku",
-      icon: "📋",
       description:
         "Sözleşme hukuku ve borç ilişkilerinde profesyonel danışmanlık ve dava takibi hizmeti sunuyoruz.",
       services: [
@@ -101,7 +168,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "İdare Hukuku",
-      icon: "🏛️",
       description:
         "Kamu idaresi ile vatandaşlar arasındaki uyuşmazlıklarda etkili çözümler üretiyoruz.",
       services: [
@@ -114,7 +180,6 @@ export default function UzmanlikAlanlari() {
     },
     {
       title: "Bilişim Hukuku",
-      icon: "💻",
       description:
         "Dijital çağın gerektirdiği hukuki ihtiyaçlar için uzman danışmanlık hizmeti sunuyoruz.",
       services: [
@@ -125,6 +190,126 @@ export default function UzmanlikAlanlari() {
         "Sosyal medya hukuku",
       ],
     },
+    {
+      title: "Sigorta Hukuku",
+      description:
+        "Sigorta sözleşmeleri ve tazminat süreçlerinde müvekkillerimizin haklarını koruyoruz.",
+      services: [
+        "Trafik kazası tazminat davaları",
+        "Hayat ve sağlık sigortası uyuşmazlıkları",
+        "Sigorta şirketlerine karşı dava süreçleri",
+        "Poliçe inceleme ve iptal işlemleri",
+        "Zorunlu mali sorumluluk sigortaları",
+      ],
+    },
+    {
+      title: "Tüketici Hukuku",
+      description:
+        "Ayıplı mal veya hizmet kaynaklı uyuşmazlıklarda tüketici haklarını savunuyoruz.",
+      services: [
+        "Tüketici hakem heyeti başvuruları",
+        "Ayıplı mal ve hizmet davaları",
+        "İade ve tazminat işlemleri",
+        "Sözleşme iptali ve fesih işlemleri",
+        "Banka ve finans kuruluşlarına karşı davalar",
+      ],
+    },
+    {
+      title: "Yabancılar ve Vatandaşlık Hukuku",
+      description:
+        "Türkiye’de yaşamak, yatırım yapmak veya vatandaşlık almak isteyen yabancı müvekkillere danışmanlık sunuyoruz.",
+      services: [
+        "Oturma ve çalışma izni başvuruları",
+        "Türk vatandaşlığı işlemleri",
+        "Yabancı yatırımcı danışmanlığı",
+        "Evlilik ve boşanma işlemleri",
+        "Mülk edinme süreçleri",
+      ],
+    },
+    {
+      title: "İcra ve İflas Hukuku",
+      description:
+        "Alacakların tahsili ve borç yapılandırma süreçlerinde hukuki destek sağlıyoruz.",
+      services: [
+        "Alacak takibi",
+        "İcra ve haciz işlemleri",
+        "İflas erteleme davaları",
+        "Konkordato süreçleri",
+        "Borçlu ve alacaklı vekilliği",
+      ],
+    },
+    {
+      title: "Enerji ve Çevre Hukuku",
+      description:
+        "Enerji sektörü ve çevresel düzenlemelerde hukuki süreçlerde danışmanlık sunuyoruz.",
+      services: [
+        "ÇED (Çevresel Etki Değerlendirmesi) davaları",
+        "Enerji lisanslama işlemleri",
+        "Yenilenebilir enerji yatırımları",
+        "Çevre cezalarına itiraz",
+        "Kamu izinleri ve denetimler",
+      ],
+    },
+    {
+      title: "Sağlık Hukuku",
+      description:
+        "Sağlık çalışanları, hastaneler ve hastalar arasındaki hukuki süreçlerde hakların korunmasını sağlıyoruz.",
+      services: [
+        "Tıbbi malpraktis (doktor hatası) davaları",
+        "Hastane ve sigorta uyuşmazlıkları",
+        "Hasta hakları başvuruları",
+        "İlaç ve tıbbi ürün sorumluluğu",
+        "Disiplin soruşturmaları",
+      ],
+    },
+    {
+      title: "Vergi Hukuku",
+      description:
+        "Vergi cezaları ve denetim süreçlerinde müvekkillerimizin çıkarlarını savunuyoruz.",
+      services: [
+        "Vergi cezası ve tarhiyat itirazları",
+        "Vergi uyuşmazlık davaları",
+        "Uzlaşma ve yapılandırma işlemleri",
+        "Mali denetim danışmanlığı",
+        "Vergisel risk analizi",
+      ],
+    },
+    {
+      title: "Deniz ve Taşıma Hukuku",
+      description:
+        "Deniz, hava ve kara taşımacılığı alanında ulusal ve uluslararası uyuşmazlıklar için hukuki destek sunuyoruz.",
+      services: [
+        "Deniz kazaları ve yük hasarları",
+        "Taşıma sözleşmeleri",
+        "Sigorta ve tazminat süreçleri",
+        "Navlun anlaşmazlıkları",
+        "Gemi alım-satım ve sicil işlemleri",
+      ],
+    },
+    {
+      title: "Spor Hukuku",
+      description:
+        "Sporcular, kulüpler ve federasyonlar arasındaki sözleşme ve disiplin uyuşmazlıklarında profesyonel destek sağlıyoruz.",
+      services: [
+        "Sözleşme hazırlama",
+        "TFF ve CAS başvuruları",
+        "Transfer anlaşmazlıkları",
+        "Sponsorluk ve lisans sözleşmeleri",
+        "Disiplin cezalarına itiraz",
+      ],
+    },
+    {
+      title: "Uluslararası Hukuk",
+      description:
+        "Yabancı unsurlu ticari işlemler ve uluslararası sözleşmelerde hukuki danışmanlık sunuyoruz.",
+      services: [
+        "Milletlerarası sözleşme hazırlama",
+        "Tahkim ve arabuluculuk",
+        "Yabancı mahkeme kararlarının tanınması",
+        "Uluslararası ticaret hukuku",
+        "Yabancı şirket temsilcilikleri",
+      ],
+    },
   ];
 
   return (
@@ -132,78 +317,128 @@ export default function UzmanlikAlanlari() {
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Uzmanlık Alanlarımız
-          </h1>
-          <p className="text-xl text-gray-300">
-            Geniş hukuk alanında uzman kadromuzla hizmetinizdeyiz
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              Uzmanlık Alanlarımız
+            </h1>
+            <p className="text-xl text-gray-300">
+              Hukukun farklı alanlarında güvenilir ve etkili çözümler sunuyorum
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* Expertise Areas Grid */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {expertiseAreas.map((area, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded-lg p-8 hover:shadow-xl transition-shadow"
-              >
-                <div className="flex items-start mb-4">
-                  <div className="text-5xl mr-4">{area.icon}</div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-slate-900">
-                      {area.title}
-                    </h2>
-                  </div>
-                </div>
-                <p className="text-gray-700 mb-6">{area.description}</p>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-3">
-                    Sunduğumuz Hizmetler:
-                  </h3>
-                  <ul className="space-y-2">
-                    {area.services.map((service, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <svg
-                          className="w-5 h-5 text-amber-500 mr-2 mt-0.5 flex-shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          >
+            {expertiseAreas.map((area, index) => {
+              const Icon = iconMap[area.title] || Scale;
+              return (
+                <motion.div key={index} variants={item}>
+                  <Card
+                    className={cn(
+                      "group h-full rounded-xl border border-slate-200/70 bg-white/80 backdrop-blur-sm",
+                      "shadow-sm transition-all duration-300",
+                      "hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
+                    )}
+                  >
+                    <CardHeader className="space-y-4">
+                      <div className="flex items-start gap-4">
+                        <div
+                          className="flex size-14 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-black/5 transition-all duration-300 group-hover:scale-110"
+                          style={{ backgroundColor: colors.primary.main }}
                         >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
+                          <Icon className="size-7 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <CardTitle className="text-2xl font-bold text-slate-900">
+                            {area.title}
+                          </CardTitle>
+                        </div>
+                      </div>
+                      <CardDescription className="text-slate-700 text-base leading-relaxed">
+                        {area.description}
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="pt-0">
+                      <div className="border-t border-slate-200 pt-6">
+                        <h3 className="font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                          <CheckCircle
+                            className="w-5 h-5"
+                            style={{ color: colors.primary.main }}
                           />
-                        </svg>
-                        <span className="text-gray-600">{service}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
+                          Sunduğumuz Hizmetler
+                        </h3>
+                        <ul className="space-y-2.5">
+                          {area.services.map((service, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start text-slate-600 group/item"
+                            >
+                              <CheckCircle
+                                className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 transition-colors"
+                                style={{
+                                  color: colors.primary.main,
+                                  opacity: 0.7,
+                                }}
+                              />
+                              <span className="text-sm leading-relaxed group-hover/item:text-slate-900 transition-colors">
+                                {service}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-16 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Hukuki Danışmanlık İhtiyacınız mı Var?
-          </h2>
-          <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-            Uzman kadromuz ile size en uygun çözümü bulmak için buradayız.
-            Ücretsiz ön görüşme için iletişime geçin.
-          </p>
-          <Link
-            href="/iletisim"
-            className="inline-block bg-amber-500 text-slate-900 px-10 py-4 rounded-lg font-semibold hover:bg-amber-400 transition-colors shadow-lg"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            Hemen İletişime Geçin
-          </Link>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Hukuki Danışmanlık İhtiyacınız mı Var?
+            </h2>
+            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+              Uzman kadromuz ile size en uygun çözümü bulmak için buradayız.
+              Ücretsiz ön görüşme için iletişime geçin.
+            </p>
+            <Link
+              href="/iletisim"
+              className={cn(
+                "inline-flex items-center gap-2 rounded-xl px-10 py-4 font-semibold",
+                "text-slate-900 shadow-lg transition-all",
+                "hover:-translate-y-0.5 hover:shadow-xl"
+              )}
+              style={{ backgroundColor: colors.primary.main }}
+            >
+              Hemen İletişime Geçin
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </div>
       </section>
     </div>

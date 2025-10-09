@@ -97,11 +97,14 @@ export default function Footer() {
               </li>
               <li className="flex items-start">
                 <Phone className="w-5 h-5 mr-2 mt-0.5 text-amber-500 flex-shrink-0" />
-                <span>+90 (212) 555 55 55</span>
+                <span>+90 (507) 736 82 55</span>
               </li>
               <li className="flex items-start">
                 <MapPin className="w-5 h-5 mr-2 mt-0.5 text-amber-500 flex-shrink-0" />
-                <span>Şişli / İstanbul</span>
+                <span>
+                  Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi
+                  No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
+                </span>
               </li>
             </ul>
           </div>
@@ -109,7 +112,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Av. Mehmet Durdu Sen. Tüm hakları
+            &copy; {new Date().getFullYear()} Av. Mehmet Durdu Şen. Tüm hakları
             saklıdır.
           </p>
         </div>

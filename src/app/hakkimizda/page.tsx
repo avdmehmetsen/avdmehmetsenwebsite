@@ -1,7 +1,8 @@
 import { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda | Av. Mehmet Dürdüsen",
+  title: "Hakkımızda | Av. Mehmet Durdu Şen",
   description: "Hukuk büromuz ve avukatlarımız hakkında bilgi edinin.",
 };
 
@@ -23,16 +24,13 @@ export default function Hakkimizda() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                Vizyonumuz ve Misyonumuz
-              </h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>
-                  Av. Mehmet Dürdüsen Hukuk Bürosu olarak, müvekkillerimize en
-                  kaliteli hukuki hizmeti sunmak ve haklarını en iyi şekilde
-                  korumak için çalışıyoruz. Yılların verdiği tecrübe ve
-                  deneyimle, her davaya özel strateji geliştirerek, en iyi
-                  sonuçları elde etmeyi hedefliyoruz.
+                  Şen Hukuk Bürosu olarak, müvekkillerimize en kaliteli hukuki
+                  hizmeti sunmak ve haklarını en iyi şekilde korumak için
+                  çalışıyoruz. Yılların verdiği tecrübe ve deneyimle, her davaya
+                  özel strateji geliştirerek, en iyi sonuçları elde etmeyi
+                  hedefliyoruz.
                 </p>
                 <p>
                   Hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
@@ -48,8 +46,51 @@ export default function Hakkimizda() {
                 </p>
               </div>
             </div>
-            <div className="bg-slate-200 rounded-lg h-96 flex items-center justify-center">
-              <span className="text-gray-400">Ofis Görseli</span>
+            <div className="relative rounded-lg h-96 overflow-hidden">
+              <Image
+                src="/images/hakkimizda/hakkimizda1.jpg"
+                alt="Ofis Görseli"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lawyer Content */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Text - Mobilde önce gelir */}
+            <div className="order-1 lg:order-2">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Av. Mehmet Durdu Şen
+              </h2>
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p>
+                  Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan sonra
+                  mesleki tecrübesini bireysel ve kurumsal müvekkillere sunduğu
+                  hukuki danışmanlık hizmetleriyle pekiştirmiştir. Başta aile
+                  hukuku, iş hukuku, ceza hukuku ve ticaret hukuku olmak üzere
+                  birçok alanda faaliyet göstermektedir.
+                </p>
+                <p>
+                  Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
+                  müvekkillerinin haklarını en etkin biçimde korumayı ve
+                  adaletin sağlanmasına katkıda bulunmayı temel ilke edinmiştir.
+                </p>
+              </div>
+            </div>
+
+            {/* Image - Mobilde sonra gelir */}
+            <div className="relative rounded-lg h-96 overflow-hidden order-2 lg:order-1">
+              <Image
+                src="/images/hakkimizda/hakkimizda2.jpg"
+                alt="Av. Mehmet Durdu Şen"
+                fill
+                className="object-contain"
+              />
             </div>
           </div>
         </div>
@@ -58,9 +99,6 @@ export default function Hakkimizda() {
       {/* Values Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
-            Değerlerimiz
-          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -78,7 +116,9 @@ export default function Hakkimizda() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Güvenilirlik</h3>
+              <h3 className="text-xl text-slate-900 font-semibold mb-2">
+                Güvenilirlik
+              </h3>
               <p className="text-gray-600">
                 Müvekkillerimizin güvenini kazanmak ve korumak en önemli
                 önceliğimizdir.
@@ -100,7 +140,9 @@ export default function Hakkimizda() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Etik</h3>
+              <h3 className="text-xl text-slate-900 font-semibold mb-2">
+                Etik
+              </h3>
               <p className="text-gray-600">
                 Tüm çalışmalarımızda etik değerlere bağlı kalarak hareket
                 ediyoruz.
@@ -122,7 +164,7 @@ export default function Hakkimizda() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Hız</h3>
+              <h3 className="text-xl text-slate-900 font-semibold mb-2">Hız</h3>
               <p className="text-gray-600">
                 Hızlı ve etkili çözümler üreterek zamanınıza değer veriyoruz.
               </p>
@@ -143,7 +185,9 @@ export default function Hakkimizda() {
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Profesyonellik</h3>
+              <h3 className="text-xl text-slate-900 font-semibold mb-2">
+                Profesyonellik
+              </h3>
               <p className="text-gray-600">
                 Her işte profesyonel yaklaşım ve uzmanlık sergiliyoruz.
               </p>
@@ -153,7 +197,7 @@ export default function Hakkimizda() {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
             Ekibimiz
@@ -164,7 +208,7 @@ export default function Hakkimizda() {
                 <span className="text-gray-400">Fotoğraf</span>
               </div>
               <h3 className="text-xl font-semibold mb-1">
-                Av. Mehmet Dürdüsen
+                Av. Mehmet Durdu Şen
               </h3>
               <p className="text-amber-600 font-medium mb-2">Kurucu Avukat</p>
               <p className="text-gray-600 text-sm">
@@ -193,10 +237,10 @@ export default function Hakkimizda() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Stats Section */}
-      <section className="py-16 bg-slate-900 text-white">
+      {/* <section className="py-16 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
@@ -225,7 +269,7 @@ export default function Hakkimizda() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

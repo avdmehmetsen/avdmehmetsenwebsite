@@ -11,7 +11,7 @@ const slides = [
     title: "Hukukun Gücünü Yanınıza Alın",
     subtitle: "Haklarınız İçin Güvenilir Temsil",
     description:
-      "Deneyimli ekibimizle her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
+      "Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
   },
   {
     image: "/images/hero/hero2.jpg",
