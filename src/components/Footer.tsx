@@ -118,7 +118,9 @@ export default function Footer() {
                     No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
                   </span>
                 </div>
-                <PlaceButton label="Yol Tarifi" />
+                <div className="ml-6">
+                  <PlaceButton label="Yol Tarifi" />
+                </div>
               </li>
             </ul>
           </div>
