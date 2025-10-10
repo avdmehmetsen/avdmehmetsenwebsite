@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { colors } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthContext";
+import { auth } from "@/lib/firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 import Link from "next/link";
 
 export default function AdminLoginPage() {
@@ -16,6 +18,11 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetError, setResetError] = useState("");
+  const [resetSuccess, setResetSuccess] = useState("");
 
   // Redirect if already logged in
   useEffect(() => {
@@ -61,6 +68,50 @@ export default function AdminLoginPage() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetError("");
+    setResetSuccess("");
+
+    if (!resetEmail) {
+      setResetError("Lütfen e-posta adresinizi girin.");
+      return;
+    }
+
+    try {
+      setResetLoading(true);
+      await sendPasswordResetEmail(auth, resetEmail);
+      setResetSuccess(
+        "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin. Spam klasörünü de kontrol etmeyi unutmayın."
+      );
+      setResetEmail("");
+      // Auto-close after 5 seconds
+      setTimeout(() => {
+        setShowForgotPassword(false);
+        setResetSuccess("");
+      }, 5000);
+    } catch (error) {
+      console.error("Password reset error:", error);
+      const errorCode = (error as { code?: string }).code;
+
+      if (errorCode === "auth/user-not-found") {
+        setResetError("Bu e-posta adresiyle kayıtlı kullanıcı bulunamadı.");
+      } else if (errorCode === "auth/invalid-email") {
+        setResetError("Geçersiz e-posta adresi.");
+      } else if (errorCode === "auth/network-request-failed") {
+        setResetError(
+          "Ağ bağlantısı hatası. İnternet bağlantınızı kontrol edin."
+        );
+      } else {
+        setResetError(
+          "Şifre sıfırlama bağlantısı gönderilirken bir hata oluştu."
+        );
+      }
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -191,7 +242,113 @@ export default function AdminLoginPage() {
                 "Giriş Yap"
               )}
             </button>
+
+            {/* Forgot Password Link */}
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForgotPassword(!showForgotPassword);
+                  setResetError("");
+                  setResetSuccess("");
+                }}
+                className="text-sm text-slate-600 hover:text-amber-600 transition-colors"
+              >
+                Şifremi Unuttum
+              </button>
+            </div>
           </form>
+
+          {/* Forgot Password Section */}
+          {showForgotPassword && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="mt-6 pt-6 border-t border-slate-200"
+            >
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                Şifre Sıfırlama
+              </h3>
+              <p className="text-sm text-slate-600 mb-4">
+                E-posta adresinizi girin, size şifre sıfırlama bağlantısı
+                gönderelim.
+              </p>
+
+              <form onSubmit={handleForgotPassword} className="space-y-4">
+                {/* Reset Error Message */}
+                {resetError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm"
+                  >
+                    {resetError}
+                  </motion.div>
+                )}
+
+                {/* Reset Success Message */}
+                {resetSuccess && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm"
+                  >
+                    {resetSuccess}
+                  </motion.div>
+                )}
+
+                {/* Email Input */}
+                <div>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-slate-400" />
+                    </div>
+                    <input
+                      type="email"
+                      value={resetEmail}
+                      onChange={(e) => setResetEmail(e.target.value)}
+                      className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-0 transition-shadow"
+                      placeholder="E-posta adresiniz"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowForgotPassword(false);
+                      setResetEmail("");
+                      setResetError("");
+                      setResetSuccess("");
+                    }}
+                    className="flex-1 px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    İptal
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={resetLoading}
+                    className="flex-1 px-4 py-2 rounded-lg font-semibold text-white shadow hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ backgroundColor: colors.primary.main }}
+                  >
+                    {resetLoading ? (
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                        Gönderiliyor...
+                      </div>
+                    ) : (
+                      "Gönder"
+                    )}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          )}
         </div>
 
         {/* Back to Home */}

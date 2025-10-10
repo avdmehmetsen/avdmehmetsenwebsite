@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Çerez Politikası | Av. Mehmet Dürdüsen",
+  title: "Çerez Politikası | Av. Durdu Mehmet Şen",
   description: "Web sitesinde kullanılan çerezler hakkında detaylı bilgi.",
 };
 
