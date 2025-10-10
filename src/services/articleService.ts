@@ -111,6 +111,30 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   }
 }
 
+export async function getArticleById(id: string): Promise<Article | null> {
+  try {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return {
+        id: docSnap.id,
+        ...data,
+        createdAt: convertTimestamp(data.createdAt),
+        updatedAt: convertTimestamp(data.updatedAt),
+        editorStateJSON: data.editorStateJSON ?? null,
+      } as Article;
+    }
+    return null;
+  } catch (error) {
+    console.error("Error getting article by ID:", error);
+    throw error;
+  }
+}
+
+{
+  /*
 // Get article by ID
 export async function getArticleById(id: string): Promise<Article | null> {
   try {
@@ -132,8 +156,11 @@ export async function getArticleById(id: string): Promise<Article | null> {
     throw error;
   }
 }
-
+*/
+}
 // Create new article
+{
+  /*
 export async function createArticle(
   formData: ArticleFormData
 ): Promise<string> {
@@ -177,6 +204,61 @@ export async function updateArticle(
     };
 
     // If title is updated, update slug as well
+    if (formData.title) {
+      updateData.slug = createSlug(formData.title);
+    }
+
+    await updateDoc(docRef, updateData);
+  } catch (error) {
+    console.error("Error updating article:", error);
+    throw error;
+  }
+}
+*/
+}
+
+export async function createArticle(
+  formData: ArticleFormData
+): Promise<string> {
+  try {
+    const slug = createSlug(formData.title);
+    const now = new Date();
+
+    const dateStr = now.toLocaleDateString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+
+    const articleData = {
+      ...formData,
+      editorStateJSON: formData.editorStateJSON ?? null, // ✅ güvence
+      slug,
+      date: dateStr,
+      createdAt: Timestamp.fromDate(now),
+      updatedAt: Timestamp.fromDate(now),
+    };
+
+    const docRef = await addDoc(collection(db, COLLECTION_NAME), articleData);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error creating article:", error);
+    throw error;
+  }
+}
+
+export async function updateArticle(
+  id: string,
+  formData: Partial<ArticleFormData>
+): Promise<void> {
+  try {
+    const docRef = doc(db, COLLECTION_NAME, id);
+    const updateData: any = {
+      ...formData,
+      editorStateJSON: formData.editorStateJSON ?? null,
+      updatedAt: Timestamp.fromDate(new Date()),
+    };
+
     if (formData.title) {
       updateData.slug = createSlug(formData.title);
     }

@@ -46,6 +46,7 @@ function EditArticleContent() {
     tags: [],
     imageUrl: null,
     published: false,
+    editorStateJSON: null,
   });
   const [tagInput, setTagInput] = useState("");
 
@@ -63,6 +64,7 @@ function EditArticleContent() {
           tags: article.tags,
           imageUrl: article.imageUrl,
           published: article.published,
+          editorStateJSON: article.editorStateJSON ?? null,
         });
       } else {
         alert("Makale bulunamadı!");
@@ -276,6 +278,10 @@ function EditArticleContent() {
             <RichTextEditor
               value={formData.content}
               onChange={(html) => setFormData({ ...formData, content: html })}
+              initialEditorStateJSON={formData.editorStateJSON ?? null}
+              onStateChange={(stateJSON) =>
+                setFormData((prev) => ({ ...prev, editorStateJSON: stateJSON }))
+              }
               placeholder="Makale içeriğini yazın. Toolbar ile formatlandırabilirsiniz..."
             />
 

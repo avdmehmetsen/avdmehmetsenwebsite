@@ -24,6 +24,7 @@ export interface Article {
   published: boolean;
   createdAt: Date;
   updatedAt: Date;
+  editorStateJSON?: string | null;
 }
 
 // Article Form Data (for creating/editing)
@@ -36,4 +37,5 @@ export interface ArticleFormData {
   tags: string[];
   imageUrl?: string | null;
   published: boolean;
+  editorStateJSON?: string | null;
 }

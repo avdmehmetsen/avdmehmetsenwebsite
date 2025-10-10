@@ -11,6 +11,7 @@ import {
 import { Article } from "@/types";
 import { cn } from "@/lib/utils";
 import ArticleCard from "@/components/ArticleCard";
+import { colors } from "@/constants/colors";
 
 // next.config.ts'de tanımlı olan izin verilen hostlar
 const ALLOWED_IMAGE_HOSTS = [
@@ -331,7 +332,10 @@ export default function MakaleDetay() {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-500 to-amber-600">
+      <section
+        className="py-20"
+        style={{ backgroundColor: colors.primary.main }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Hukuki Danışmanlığa İhtiyacınız mı Var?

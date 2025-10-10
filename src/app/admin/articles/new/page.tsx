@@ -42,6 +42,7 @@ function NewArticleContent() {
     tags: [],
     imageUrl: null,
     published: false,
+    editorStateJSON: null,
   });
   const [tagInput, setTagInput] = useState("");
 
@@ -230,6 +231,10 @@ function NewArticleContent() {
             <RichTextEditor
               value={formData.content}
               onChange={(html) => setFormData({ ...formData, content: html })}
+              initialEditorStateJSON={null}
+              onStateChange={(stateJSON) =>
+                setFormData((prev) => ({ ...prev, editorStateJSON: stateJSON }))
+              }
               placeholder="Makale içeriğini yazın. Toolbar ile formatlandırabilirsiniz..."
             />
 
