@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Hakkımızda */}
           <div>
             <h3 className="text-white font-bold text-lg mb-4">
-              Av. Mehmet Durdu Şen
+              Av. Durdu Mehmet Şen
             </h3>
             <p className="text-sm">
               Müvekkillerimize en kaliteli hukuki hizmeti sunmak için
@@ -98,7 +98,7 @@ export default function Footer() {
                   className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
                   style={{ color: colors.primary.main }}
                 />
-                <span>info@avmehmetdurdusen.com</span>
+                <span>info@avdurdumehmetsen.com</span>
               </li>
               <li className="flex items-start">
                 <Phone
@@ -128,7 +128,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Av. Mehmet Durdu Şen. Tüm hakları
+            &copy; {new Date().getFullYear()} Av. Durdu Mehmet Şen. Tüm hakları
             saklıdır.
           </p>
         </div>

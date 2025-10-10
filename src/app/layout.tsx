@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Av. Mehmet Dürdüsen | Hukuk Bürosu",
+  title: "Av. Durdu Mehmet Şen | Hukuk Bürosu",
   description:
     "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Uzman kadromuzla yanınızdayız.",
-  keywords: "avukat, hukuk bürosu, hukuki danışmanlık, Mehmet Dürdüsen",
+  keywords: "avukat, hukuk bürosu, hukuki danışmanlık, Durdu Mehmet Şen",
 };
 
 export default function RootLayout({

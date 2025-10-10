@@ -50,7 +50,17 @@ export const colors = {
     medium: "rgba(15, 23, 42, 0.7)",
     light: "rgba(15, 23, 42, 0.5)",
   },
-} as const;
+
+  // Green tonları
+  theme2: {
+    darkGreen: "#1B4332", // dark green
+    mediumGreen: "#2D6A4F", // medium green
+    lightGreen: "#40916C", // Açık yeşil (hover veya vurgu için)
+    greenBackground: "#328E6E", // green background
+    grayBackground: "#F8F9FA", // gray background
+    goldenPrestige: "#C6A76E", // golden prestige
+  },
+};
 
 // Tailwind CSS class isimleri
 export const colorClasses = {

@@ -10,7 +10,7 @@ export default function Cerezler() {
     <div>
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Çerez Politikası
           </h1>
@@ -246,7 +246,7 @@ export default function Cerezler() {
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700">
-                <strong>E-posta:</strong> info@avmehmetdurdusen.com
+                <strong>E-posta:</strong> info@avdurdumehmetsen.com
                 <br />
                 <strong>Telefon:</strong> +90 (212) 555 55 55
                 <br />

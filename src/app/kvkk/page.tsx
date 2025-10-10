@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "KVKK Aydınlatma Metni | Av. Mehmet Dürdüsen",
+  title: "KVKK Aydınlatma Metni | Av. Durdu Mehmet Şen",
   description:
     "Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.",
 };
@@ -11,7 +11,7 @@ export default function KVKK() {
     <div>
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             KVKK Aydınlatma Metni
           </h1>
@@ -36,8 +36,8 @@ export default function KVKK() {
             </h2>
             <p className="text-gray-700 mb-4">
               6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;)
-              uyarınca, kişisel verileriniz; veri sorumlusu olarak Av. Mehmet
-              Dürdüsen Hukuk Bürosu tarafından aşağıda açıklanan kapsamda
+              uyarınca, kişisel verileriniz; veri sorumlusu olarak Av. Durdu
+              Mehmet Şen Şen Hukuk Bürosu tarafından aşağıda açıklanan kapsamda
               işlenebilecektir.
             </p>
 
@@ -183,12 +183,12 @@ export default function KVKK() {
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700">
-                <strong>Adres:</strong> Örnek Mahallesi, Hukuk Sokak No:15 Kat:3
-                Şişli / İstanbul
+                <strong>Adres:</strong> Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4.
+                Halil Atilla Sitesi No:233 C Blok K:5 D:9 Bayraklı / İzmir
                 <br />
-                <strong>E-posta:</strong> kvkk@avmehmetdurdusen.com
+                <strong>E-posta:</strong> info@avdurdumehmetsen.com
                 <br />
-                <strong>Telefon:</strong> +90 (212) 555 55 55
+                <strong>Telefon:</strong> +90 (507) 736 82 55
               </p>
             </div>
           </div>

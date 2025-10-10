@@ -100,7 +100,7 @@ export default function HeroSlider() {
 
                   <Link
                     href="/hakkimizda"
-                    className="inline-block bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all"
+                    className="inline-block bg-transparent border-2 border-gray-300 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 hover:text-slate-900 transition-all"
                   >
                     Hakkımızda
                   </Link>
@@ -136,7 +136,7 @@ export default function HeroSlider() {
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all ${
               index === currentSlide
-                ? "bg-amber-500 w-8"
+                ? "bg-[#cb8929] w-8"
                 : "bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Go to slide ${index + 1}`}

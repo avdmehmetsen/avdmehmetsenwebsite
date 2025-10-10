@@ -124,7 +124,7 @@ export default function ExpertiseAreasSection() {
             Uzmanlık Alanlarımız
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Geniş hukuk alanında uzman kadromuzla hizmetinizdeyiz
+            Hukukun farklı alanlarında güvenilir ve etkili çözümler sunuyorum
           </p>
           {/* Divider */}
           <div className="mx-auto mt-6 h-px w-24 bg-slate-300" />

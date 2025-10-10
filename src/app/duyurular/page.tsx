@@ -11,10 +11,10 @@ export default function Duyurular() {
   const announcements = [
     {
       id: "1",
-      title: "Ofis Yeri Değişikliği",
+      title: "Önemli Duyuru",
       date: "20 Mart 2024",
       content:
-        "1 Nisan 2024 tarihi itibariyle ofisimiz yeni adresine taşınmaktadır. Yeni adresimiz: Örnek Mahallesi, Hukuk Sokak No:15 Kat:3 İstanbul. Tüm müvekkillerimize duyurulur.",
+        "LÜTFEN HERHANGİ BİR NUMARADAN GÖNDERİLEN VE ALTINDA BÜROMUZUN VEYA AVUKATIMIZIN (ŞEN HUKUK BÜROSU -AV. DURDU MEHMET ŞEN) İSMİNİN BULUNDUĞU HİÇBİR MESAJ, ARAMA VEYA LİNKE İTİBAR ETMEYİNİZ. BAHSE KONU MESAJ,ARAMA VE LİNKLERİN BÜROMUZLA VE AVUKATIMIZLA HERHANGİ BİR İLGİSİ BULUNMAMAKTADIR.",
     },
     {
       id: "2",

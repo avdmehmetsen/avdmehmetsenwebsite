@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası | Av. Mehmet Dürdüsen",
+  title: "Gizlilik Politikası | Av. Durdu Mehmet Şen",
   description: "Web sitesi gizlilik politikası ve veri koruma uygulamaları.",
 };
 
@@ -11,7 +11,7 @@ export default function Gizlilik() {
     <div>
       {/* Hero Section */}
       <section className="bg-slate-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Gizlilik Politikası
           </h1>
@@ -35,8 +35,8 @@ export default function Gizlilik() {
               1. Giriş
             </h2>
             <p className="text-gray-700 mb-4">
-              Av. Mehmet Dürdüsen Hukuk Bürosu olarak, web sitemizi ziyaret eden
-              kullanıcılarımızın gizliliğine önem veririz. Bu Gizlilik
+              Av. Durdu Mehmet Şen Hukuk Bürosu olarak, web sitemizi ziyaret
+              eden kullanıcılarımızın gizliliğine önem veririz. Bu Gizlilik
               Politikası, web sitemizi kullanırken toplanan bilgilerin nasıl
               kullanıldığını ve korunduğunu açıklar.
             </p>
@@ -190,12 +190,12 @@ export default function Gizlilik() {
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700">
-                <strong>E-posta:</strong> info@avmehmetdurdusen.com
+                <strong>E-posta:</strong> info@avdurdumehmetsen.com
                 <br />
-                <strong>Telefon:</strong> +90 (212) 555 55 55
+                <strong>Telefon:</strong> +90 (507) 736 82 55
                 <br />
-                <strong>Adres:</strong> Örnek Mahallesi, Hukuk Sokak No:15 Kat:3
-                Şişli / İstanbul
+                <strong>Adres:</strong> Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4.
+                Halil Atilla Sitesi No:233 C Blok K:5 D:9 Bayraklı / İzmir
               </p>
             </div>
           </div>

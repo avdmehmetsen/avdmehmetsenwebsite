@@ -74,7 +74,7 @@ export default function ArticleCard({
                 />
 
                 {/* Okunabilirlik için koyu katman */}
-                <div className="absolute inset-0 bg-black/60" aria-hidden />
+                <div className="absolute inset-0 bg-gray-900/70" aria-hidden />
 
                 {/* İçerik - Flex ile yerleştirme */}
                 {/* <div className="absolute inset-0 flex flex-col justify-between p-6">

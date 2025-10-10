@@ -1,3 +1,4 @@
+import { colors } from "@/constants/colors";
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -101,7 +102,10 @@ export default function Hakkimizda() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div
+                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: colors.theme2.greenBackground }}
+              >
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -125,7 +129,10 @@ export default function Hakkimizda() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div
+                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: colors.theme2.greenBackground }}
+              >
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -149,7 +156,10 @@ export default function Hakkimizda() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div
+                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: colors.theme2.greenBackground }}
+              >
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"
@@ -170,7 +180,10 @@ export default function Hakkimizda() {
               </p>
             </div>
             <div className="text-center">
-              <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div
+                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                style={{ backgroundColor: colors.theme2.greenBackground }}
+              >
                 <svg
                   className="w-8 h-8 text-white"
                   fill="none"

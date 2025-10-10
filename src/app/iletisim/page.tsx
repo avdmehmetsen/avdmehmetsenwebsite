@@ -44,8 +44,8 @@ export default function Iletisim() {
               </h2>
               <p className="text-gray-600 mb-8">
                 Hukuki sorularınız ve danışmanlık talepleriniz için aşağıdaki
-                iletişim kanallarından bize ulaşabilirsiniz. Ekibimiz en kısa
-                sürede size dönüş yapacaktır.
+                iletişim kanallarından bize ulaşabilirsiniz. En kısa sürede size
+                dönüş yapılacaktır.
               </p>
 
               <motion.div
