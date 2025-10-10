@@ -100,7 +100,7 @@ export default function HeroSlider() {
 
                   <Link
                     href="/hakkimizda"
-                    className="inline-block bg-transparent border-2 border-gray-300 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 hover:text-slate-900 transition-all"
+                    className="inline-block bg-transparent border border-gray-300 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 hover:text-slate-900 transition-all"
                   >
                     Hakkımızda
                   </Link>
