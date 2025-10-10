@@ -201,7 +201,7 @@ function EditArticleContent() {
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow bg-white"
+              className="custom-select w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow bg-white"
               required
             >
               <option value="">Kategori Seçin...</option>
