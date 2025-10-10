@@ -196,16 +196,43 @@ function EditArticleContent() {
             <label className="block text-sm font-semibold text-slate-900 mb-2">
               Kategori <span className="text-red-500">*</span>
             </label>
-            <input
-              type="text"
+            <select
               value={formData.category}
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 transition-shadow"
-              placeholder="Örn: Ceza Hukuku, Ticaret Hukuku..."
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow bg-white"
               required
-            />
+            >
+              <option value="">Kategori Seçin...</option>
+              <option value="Ceza Hukuku">Ceza Hukuku</option>
+              <option value="Ticaret Hukuku">Ticaret Hukuku</option>
+              <option value="İş Hukuku">İş Hukuku</option>
+              <option value="Medeni Hukuk">Medeni Hukuk</option>
+              <option value="Aile Hukuku">Aile Hukuku</option>
+              <option value="Miras Hukuku">Miras Hukuku</option>
+              <option value="Borçlar Hukuku">Borçlar Hukuku</option>
+              <option value="İdare Hukuku">İdare Hukuku</option>
+              <option value="Vergi Hukuku">Vergi Hukuku</option>
+              <option value="Sigorta Hukuku">Sigorta Hukuku</option>
+              <option value="Gayrimenkul Hukuku">Gayrimenkul Hukuku</option>
+              <option value="Bilişim Hukuku">Bilişim Hukuku</option>
+              <option value="Tüketici Hukuku">Tüketici Hukuku</option>
+              <option value="Yabancılar ve Vatandaşlık Hukuku">
+                Yabancılar ve Vatandaşlık Hukuku
+              </option>
+              <option value="İcra ve İflas Hukuku">İcra ve İflas Hukuku</option>
+              <option value="Enerji ve Çevre Hukuku">
+                Enerji ve Çevre Hukuku
+              </option>
+              <option value="Sağlık Hukuku">Sağlık Hukuku</option>
+              <option value="Deniz ve Taşıma Hukuku">
+                Deniz ve Taşıma Hukuku
+              </option>
+              <option value="Spor Hukuku">Spor Hukuku</option>
+              <option value="Uluslararası Hukuk">Uluslararası Hukuk</option>
+              <option value="Genel">Genel</option>
+            </select>
           </div>
 
           {/* Author */}

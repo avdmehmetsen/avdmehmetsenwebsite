@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -28,12 +29,56 @@ type ArticleCardProps = {
   placeholderUrl?: string; // <<< sabit placeholder (varsayılan veriyoruz)
 };
 
+// next.config.ts'de tanımlı olan izin verilen hostlar
+const ALLOWED_IMAGE_HOSTS = [
+  "images.pexels.com",
+  "unsplash.com",
+  "images.unsplash.com",
+  "pixabay.com",
+  "cdn.pixabay.com",
+];
+
+// URL'nin geçerli ve izin verilen bir hostname'e sahip olup olmadığını kontrol et
+function isValidImageUrl(url: string | null | undefined): boolean {
+  if (!url) return false;
+
+  try {
+    const urlObj = new URL(url);
+    return ALLOWED_IMAGE_HOSTS.includes(urlObj.hostname);
+  } catch {
+    // Geçersiz URL formatı
+    return false;
+  }
+}
+
 export default function ArticleCard({
   article,
   index,
   placeholderUrl = "/images/article-placeholder.jpg",
 }: ArticleCardProps) {
-  const hasImage = !!article.imageUrl;
+  // URL yükleme hatası için state
+  const [imageError, setImageError] = useState(false);
+  // Resim yüklenme durumu için state
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // URL'nin geçerli olup olmadığını kontrol et (sadece bir kez hesapla)
+  const isValidUrl = useMemo(
+    () => isValidImageUrl(article.imageUrl),
+    [article.imageUrl]
+  );
+
+  // Geçersiz URL'leri logla (development'ta faydalı)
+  useEffect(() => {
+    if (article.imageUrl && !isValidUrl) {
+      console.warn(
+        `Geçersiz resim URL'si, placeholder gösteriliyor: ${article.imageUrl}\n` +
+          `İzin verilen hostlar: ${ALLOWED_IMAGE_HOSTS.join(", ")}`
+      );
+    }
+  }, [article.imageUrl, isValidUrl]);
+
+  // Resim varsa VE geçerli URL ise VE hata olmamışsa true
+  const hasImage = isValidUrl && !imageError;
 
   return (
     <motion.div
@@ -53,13 +98,35 @@ export default function ArticleCard({
           <div className="relative aspect-[16/9] overflow-hidden rounded-t-xl">
             {hasImage ? (
               <>
+                {/* Loading Skeleton */}
+                {imageLoading && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 animate-pulse">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer" />
+                  </div>
+                )}
+
                 <Image
                   src={article.imageUrl as string}
                   alt={article.title}
                   fill
-                  className="object-cover"
+                  className={cn(
+                    "object-cover transition-opacity duration-500",
+                    imageLoading ? "opacity-0" : "opacity-100"
+                  )}
                   sizes="(min-width: 1024px) 400px, 100vw"
                   priority={false}
+                  onLoad={() => {
+                    // Resim başarıyla yüklendi
+                    setImageLoading(false);
+                  }}
+                  onError={() => {
+                    // Resim yüklenemezse placeholder'a geç
+                    console.warn(
+                      `Resim yüklenemedi, placeholder gösteriliyor: ${article.imageUrl}`
+                    );
+                    setImageError(true);
+                    setImageLoading(false);
+                  }}
                 />
                 {/* Hover'da hafif koyulaştırma */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

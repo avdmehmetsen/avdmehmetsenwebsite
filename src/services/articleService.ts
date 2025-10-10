@@ -229,3 +229,42 @@ export async function getLatestArticles(count = 3): Promise<Article[]> {
     throw error;
   }
 }
+
+// Get related articles by category (excluding current article)
+export async function getRelatedArticles(
+  category: string,
+  currentArticleId: string,
+  count = 3
+): Promise<Article[]> {
+  try {
+    const articlesRef = collection(db, COLLECTION_NAME);
+    const q = query(
+      articlesRef,
+      where("published", "==", true),
+      where("category", "==", category),
+      orderBy("createdAt", "desc"),
+      limit(count + 1) // Get one extra in case current article is included
+    );
+
+    const querySnapshot = await getDocs(q);
+    const articles: Article[] = [];
+
+    querySnapshot.forEach((doc) => {
+      // Exclude current article
+      if (doc.id !== currentArticleId) {
+        const data = doc.data();
+        articles.push({
+          id: doc.id,
+          ...data,
+          createdAt: convertTimestamp(data.createdAt),
+          updatedAt: convertTimestamp(data.updatedAt),
+        } as Article);
+      }
+    });
+
+    return articles.slice(0, count); // Return only the requested count
+  } catch (error) {
+    console.error("Error getting related articles:", error);
+    throw error;
+  }
+}
