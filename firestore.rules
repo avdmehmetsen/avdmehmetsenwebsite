@@ -27,13 +27,13 @@ service cloud.firestore {
     
     // Articles Collection
     match /articles/{article} {
-      // Yayındaki makaleleri herkes okuyabilir
-      allow read: if resource.data.published == true;
+      // Get (tekil document okuma): Published veya admin
+      allow get: if resource.data.published == true || isAdmin();
       
-      // Admin tüm makaleleri okuyabilir (taslaklar dahil)
-      allow read: if isAdmin();
+      // List (collection query): Herkes (published filtresi kod tarafında yapılıyor)
+      allow list: if true;
       
-      // Sadece admin makale ekleyebilir, güncelleyebilir, silebilir
+      // Yazma izni: Sadece admin makale ekleyebilir, güncelleyebilir, silebilir
       allow create, update, delete: if isAdmin();
     }
   }

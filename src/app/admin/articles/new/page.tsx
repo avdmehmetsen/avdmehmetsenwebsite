@@ -1,14 +1,25 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Save, LogOut, Bold, Italic } from "lucide-react";
+import { ArrowLeft, Save, LogOut } from "lucide-react";
 import { colors } from "@/constants/colors";
 import { createArticle } from "@/services/articleService";
 import { ArticleFormData } from "@/types";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
+import dynamic from "next/dynamic";
+
+// Dynamic import to avoid SSR issues
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
+  ssr: false,
+  loading: () => (
+    <div className="border border-slate-300 rounded-lg p-8 text-center">
+      <p className="text-slate-500">Editor yükleniyor...</p>
+    </div>
+  ),
+});
 
 export default function NewArticlePage() {
   return (
@@ -21,7 +32,6 @@ export default function NewArticlePage() {
 function NewArticleContent() {
   const router = useRouter();
   const { logout } = useAuth();
-  const contentRef = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<ArticleFormData>({
     title: "",
@@ -87,52 +97,6 @@ function NewArticleContent() {
     });
   };
 
-  // Formatlandırma fonksiyonları
-  const insertContentTag = (
-    openTag: string,
-    closeTag: string,
-    placeholder = ""
-  ) => {
-    const textarea = contentRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = formData.content.substring(start, end);
-    const textToInsert = selectedText || placeholder;
-
-    const before = formData.content.substring(0, start);
-    const after = formData.content.substring(end);
-    const newText = before + openTag + textToInsert + closeTag + after;
-
-    setFormData({ ...formData, content: newText });
-
-    setTimeout(() => {
-      textarea.focus();
-      const newCursorPos = start + openTag.length + textToInsert.length;
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
-  };
-
-  const formatBold = () =>
-    insertContentTag("<strong>", "</strong>", "kalın metin");
-  const formatItalic = () => insertContentTag("<em>", "</em>", "italik metin");
-  const formatParagraph = () =>
-    insertContentTag("<p>", "</p>", "paragraf metni");
-  const formatHeading = () => insertContentTag("<h2>", "</h2>", "alt başlık");
-  const insertLineBreak = () => {
-    const textarea = contentRef.current;
-    if (!textarea) return;
-    const start = textarea.selectionStart;
-    const before = formData.content.substring(0, start);
-    const after = formData.content.substring(start);
-    setFormData({ ...formData, content: before + "<br>" + after });
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + 4, start + 4);
-    }, 0);
-  };
-
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}
@@ -175,8 +139,7 @@ function NewArticleContent() {
               onChange={(e) =>
                 setFormData({ ...formData, title: e.target.value })
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 transition-shadow"
-              style={{ focusRingColor: colors.primary.main }}
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow"
               placeholder="Makale başlığı..."
               required
             />
@@ -237,80 +200,18 @@ function NewArticleContent() {
               İçerik <span className="text-red-500">*</span>
             </label>
 
-            {/* Formatlandırma Toolbar */}
-            <div className="flex flex-wrap gap-2 mb-2 p-3 bg-slate-50 border border-slate-300 rounded-t-lg">
-              <button
-                type="button"
-                onClick={formatParagraph}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Paragraf ekle"
-              >
-                <span className="text-xs">P</span>
-                <span className="hidden sm:inline">Paragraf</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={formatHeading}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Alt başlık ekle"
-              >
-                <span className="text-xs font-bold">H2</span>
-                <span className="hidden sm:inline">Başlık</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={formatBold}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Kalın yap"
-              >
-                <Bold className="w-4 h-4" />
-                <span className="hidden sm:inline">Kalın</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={formatItalic}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="İtalik yap"
-              >
-                <Italic className="w-4 h-4" />
-                <span className="hidden sm:inline">İtalik</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={insertLineBreak}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Satır sonu ekle"
-              >
-                <span className="text-xs">↵</span>
-                <span className="hidden sm:inline">Satır Sonu</span>
-              </button>
-
-              <div className="ml-auto text-xs text-slate-500 flex items-center">
-                <span className="hidden md:inline">
-                  💡 Metni seçip butonlara tıklayın
-                </span>
-              </div>
-            </div>
-
-            <textarea
-              ref={contentRef}
+            <RichTextEditor
               value={formData.content}
-              onChange={(e) =>
-                setFormData({ ...formData, content: e.target.value })
-              }
-              className="w-full px-4 py-3 border border-slate-300 rounded-b-lg focus:outline-none focus:ring-2 transition-shadow h-96 resize-y text-sm"
-              placeholder="Makale içeriğini yazın. Yukarıdaki butonları kullanarak formatlandırabilirsiniz..."
-              required
+              onChange={(html) => setFormData({ ...formData, content: html })}
+              placeholder="Makale içeriğini yazın. Toolbar ile formatlandırabilirsiniz..."
             />
+
             <p className="text-xs text-gray-500 mt-2">
-              <strong>Kullanım:</strong> Metni seçin ve yukarıdaki butonlara
-              tıklayın. Örneğin, bir metni seçip &quot;Kalın&quot; butonuna
-              tıklayın. Alt başlık eklemek için &quot;H2&quot; butonuna
-              tıklayın.
+              <strong>Kullanım:</strong> Metni seçin ve toolbar&apos;daki
+              butonlara tıklayın.
+              <br />
+              <strong>Özellikler:</strong> Kalın, İtalik, Altı Çizili, Başlık
+              (H2, H3), Listeler
             </p>
           </div>
 

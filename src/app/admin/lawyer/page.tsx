@@ -95,7 +95,6 @@ function LawyerManagementContent() {
 
     setFormData({ ...formData, bio: newText });
 
-    // Cursor pozisyonunu ayarla
     setTimeout(() => {
       textarea.focus();
       const newCursorPos = start + openTag.length + textToInsert.length;
@@ -179,8 +178,7 @@ function LawyerManagementContent() {
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 transition-shadow"
-              style={{ color: colors.text.primary }}
+              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow"
               placeholder="Örn: Av. Mehmet Durdu Şen"
               required
             />
@@ -250,8 +248,7 @@ function LawyerManagementContent() {
               onChange={(e) =>
                 setFormData({ ...formData, bio: e.target.value })
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-b-lg focus:outline-none focus:ring-2 transition-shadow h-96 resize-y text-sm"
-              style={{ color: colors.text.primary }}
+              className="w-full px-4 py-3 border border-slate-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow h-96 resize-y text-sm"
               placeholder="Avukat hakkında bilgi yazın. Yukarıdaki butonları kullanarak formatlandırabilirsiniz..."
               required
             />

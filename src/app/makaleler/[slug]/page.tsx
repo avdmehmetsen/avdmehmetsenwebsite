@@ -1,88 +1,79 @@
-import { Metadata } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getArticleBySlug } from "@/services/articleService";
+import { Article } from "@/types";
 
-type Props = {
-  params: Promise<{ slug: string }>;
-};
+export default function MakaleDetay() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const article = await getArticleBySlug(slug);
-
-  if (!article) {
-    return {
-      title: "Makale Bulunamadı | Av. Mehmet Durdu Şen",
-      description: "Aradığınız makale bulunamadı.",
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        const fetchedArticle = await getArticleBySlug(slug);
+        setArticle(fetchedArticle);
+      } catch (error) {
+        console.error("Error fetching article:", error);
+      } finally {
+        setLoading(false);
+      }
     };
+
+    if (slug) {
+      fetchArticle();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-slate-900 mb-4"></div>
+          <p className="text-slate-600">Makale yükleniyor...</p>
+        </div>
+      </div>
+    );
   }
 
-  return {
-    title: `${article.title} | Av. Mehmet Durdu Şen`,
-    description: article.excerpt,
-  };
-}
-
-export default async function MakaleDetay({ params }: Props) {
-  const { slug } = await params;
-  const article = await getArticleBySlug(slug);
-
-  // If article not found, show 404
   if (!article) {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">
+            Makale Bulunamadı
+          </h1>
+          <p className="text-slate-600 mb-6">
+            Aradığınız makale bulunamadı veya yayından kaldırılmış olabilir.
+          </p>
+          <Link
+            href="/makaleler"
+            className="inline-block px-6 py-3 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors"
+          >
+            Makalelere Dön
+          </Link>
+        </div>
+      </div>
+    );
   }
 
-  // Fallback content for old static article
-  const fallbackArticle = {
-    title: "Ceza Hukukunda Zamanaşımı Sürelerinin Önemi",
-    category: "Ceza Hukuku",
-    date: "15 Mart 2024",
-    author: "Av. Mehmet Durdu Şen",
-    content: `
-      <p>Ceza hukukunda zamanaşımı, belirli bir süre geçtikten sonra kamu davasının açılamaması veya cezanın infaz edilememesi sonucunu doğuran bir kurumdur. Zamanaşımı sürelerinin doğru hesaplanması ve uygulanması, adaletin tecelli etmesi açısından büyük önem taşır.</p>
-
-      <h2>Zamanaşımı Türleri</h2>
-      <p>Ceza hukukunda iki tür zamanaşımı bulunmaktadır:</p>
-      <ul>
-        <li><strong>Dava zamanaşımı:</strong> Kamu davasının açılamamasına neden olan zamanaşımıdır.</li>
-        <li><strong>Ceza zamanaşımı:</strong> Mahkumiyet kararı verilmesine rağmen, cezanın infaz edilememesine neden olan zamanaşımıdır.</li>
-      </ul>
-
-      <h2>Zamanaşımı Süreleri</h2>
-      <p>Türk Ceza Kanunu'na göre zamanaşımı süreleri, suçun ağırlığına göre değişiklik göstermektedir:</p>
-      <ul>
-        <li>Ağırlaştırılmış müebbet hapis cezasını gerektiren suçlarda zamanaşımı işlemez</li>
-        <li>Müebbet hapis cezasını gerektiren suçlarda 30 yıl</li>
-        <li>20 yıldan fazla hapis cezasını gerektiren suçlarda 25 yıl</li>
-        <li>5 yıldan fazla 20 yıldan az hapis cezasını gerektiren suçlarda 15 yıl</li>
-        <li>5 yıldan az hapis cezasını gerektiren suçlarda 8 yıl</li>
-        <li>Sadece adli para cezasını gerektiren suçlarda 5 yıl</li>
-      </ul>
-
-      <h2>Zamanaşımının Kesilmesi ve Durması</h2>
-      <p>Bazı hallerde zamanaşımı süresi kesilir veya durur. Örneğin, kovuşturma için kanunda yazılı şartların gerçekleşmesine bağlı olan suçlarda, bu şart gerçekleşinceye kadar zamanaşımı işlemez.</p>
-
-      <p>Ayrıca, kamu davasının açılması ile zamanaşımı kesilir ve yeniden işlemeye başlar. Ancak kesinti hallerinde, her halde TCK'da belirtilen azami süre geçtiğinde zamanaşımı gerçekleşir.</p>
-
-      <h2>Sonuç</h2>
-      <p>Zamanaşımı, ceza hukukunun önemli kurumlarından biridir. Hem mağdur hem de sanık açısından hukuki güvenlik sağlar. Zamanaşımı sürelerinin doğru hesaplanması için mutlaka uzman bir avukattan destek alınması önerilir.</p>
-    `,
-    tags: ["Ceza Hukuku", "Zamanaşımı", "Kamu Davası", "TCK"],
-  };
-
-  // Use article data from Firebase or fallback
-  const displayArticle = article || fallbackArticle;
+  // Use article from Firebase
+  const displayArticle = article;
 
   return (
     <div>
       {/* Article Header */}
       <section className="bg-slate-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
-          <div className="mb-4">
+          <div className="mb-6">
             <Link
               href="/makaleler"
-              className="text-amber-500 hover:text-amber-400 flex items-center gap-2"
+              className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
             >
               <svg
                 className="w-5 h-5"
@@ -110,15 +101,6 @@ export default async function MakaleDetay({ params }: Props) {
             <span>{displayArticle.author}</span>
             <span>•</span>
             <span>{displayArticle.date}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Article Image */}
-      <section className="bg-gray-100">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-slate-200 h-96 flex items-center justify-center">
-            <span className="text-gray-400">Makale Görseli</span>
           </div>
         </div>
       </section>
@@ -174,15 +156,7 @@ export default async function MakaleDetay({ params }: Props) {
       </section>
 
       {/* Related Articles - TODO: Implement related articles feature */}
-      {/* <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8">
-            İlgili Makaleler
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          </div>
-        </div>
-      </section> */}
+      {/* <section className="py-16 bg-gray-50">...</section> */}
 
       {/* CTA Section */}
       <section className="py-16 bg-amber-500">

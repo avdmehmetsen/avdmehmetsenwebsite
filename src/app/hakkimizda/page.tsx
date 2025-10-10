@@ -1,16 +1,42 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { colors } from "@/constants/colors";
-import { Metadata } from "next";
 import Image from "next/image";
 import { getLawyerInfo } from "@/services/lawyerService";
+import { LawyerInfo } from "@/types";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda | Av. Mehmet Durdu Şen",
-  description: "Hukuk büromuz ve avukatlarımız hakkında bilgi edinin.",
-};
+export default function Hakkimizda() {
+  const [lawyerInfo, setLawyerInfo] = useState<LawyerInfo | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function Hakkimizda() {
-  // Fetch lawyer info from Firebase
-  const lawyerInfo = await getLawyerInfo();
+  useEffect(() => {
+    const fetchLawyerInfo = async () => {
+      try {
+        setLoading(true);
+        const info = await getLawyerInfo();
+        setLawyerInfo(info);
+      } catch (error) {
+        console.error("Error fetching lawyer info:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLawyerInfo();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-slate-900 mb-4"></div>
+          <p className="text-slate-600">Yükleniyor...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* Hero Section */}
