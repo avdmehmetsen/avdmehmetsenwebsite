@@ -1,13 +1,16 @@
 import { colors } from "@/constants/colors";
 import { Metadata } from "next";
 import Image from "next/image";
+import { getLawyerInfo } from "@/services/lawyerService";
 
 export const metadata: Metadata = {
   title: "Hakkımızda | Av. Mehmet Durdu Şen",
   description: "Hukuk büromuz ve avukatlarımız hakkında bilgi edinin.",
 };
 
-export default function Hakkimizda() {
+export default async function Hakkimizda() {
+  // Fetch lawyer info from Firebase
+  const lawyerInfo = await getLawyerInfo();
   return (
     <div>
       {/* Hero Section */}
@@ -66,21 +69,32 @@ export default function Hakkimizda() {
             {/* Text - Mobilde önce gelir */}
             <div className="order-1 lg:order-2">
               <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                Av. Mehmet Durdu Şen
+                {lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
               </h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan sonra
-                  mesleki tecrübesini bireysel ve kurumsal müvekkillere sunduğu
-                  hukuki danışmanlık hizmetleriyle pekiştirmiştir. Başta aile
-                  hukuku, iş hukuku, ceza hukuku ve ticaret hukuku olmak üzere
-                  birçok alanda faaliyet göstermektedir.
-                </p>
-                <p>
-                  Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
-                  müvekkillerinin haklarını en etkin biçimde korumayı ve
-                  adaletin sağlanmasına katkıda bulunmayı temel ilke edinmiştir.
-                </p>
+                {lawyerInfo?.bio ? (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: lawyerInfo.bio }}
+                    className="prose prose-gray max-w-none"
+                  />
+                ) : (
+                  <>
+                    <p>
+                      Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
+                      sonra mesleki tecrübesini bireysel ve kurumsal
+                      müvekkillere sunduğu hukuki danışmanlık hizmetleriyle
+                      pekiştirmiştir. Başta aile hukuku, iş hukuku, ceza hukuku
+                      ve ticaret hukuku olmak üzere birçok alanda faaliyet
+                      göstermektedir.
+                    </p>
+                    <p>
+                      Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
+                      müvekkillerinin haklarını en etkin biçimde korumayı ve
+                      adaletin sağlanmasına katkıda bulunmayı temel ilke
+                      edinmiştir.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
 
@@ -88,7 +102,7 @@ export default function Hakkimizda() {
             <div className="relative rounded-lg h-96 overflow-hidden order-2 lg:order-1">
               <Image
                 src="/images/hakkimizda/hakkimizda2.jpg"
-                alt="Av. Mehmet Durdu Şen"
+                alt={lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
                 fill
                 className="object-contain"
               />

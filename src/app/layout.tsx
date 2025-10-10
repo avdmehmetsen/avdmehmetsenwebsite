@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import ClientProvider from "@/components/ClientProvider";
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +19,9 @@ export const metadata: Metadata = {
   description:
     "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Uzman kadromuzla yanınızdayız.",
   keywords: "avukat, hukuk bürosu, hukuki danışmanlık, Durdu Mehmet Şen",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -32,10 +34,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <Navbar />
-        <main className="flex-grow">{children}</main>
-        <FloatingWhatsAppButton />
-        <Footer />
+        <ClientProvider>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </ClientProvider>
       </body>
     </html>
   );

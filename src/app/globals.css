@@ -50,3 +50,15 @@ body {
   opacity: 0;
   animation: fadeIn 0.8s ease-out 0.6s forwards;
 }
+
+/* Placeholder Styles - Daha belirgin renkler */
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8; /* slate-400 */
+  opacity: 1;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: #cbd5e1; /* slate-300 */
+}

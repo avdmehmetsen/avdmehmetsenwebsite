@@ -1,18 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ArticleCard from "@/components/ArticleCard";
 import { colors } from "@/constants/colors";
+import { getArticles } from "@/services/articleService";
+import { Article } from "@/types";
 
 export default function Makaleler() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [allArticles, setAllArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
   const articlesPerPage = 6;
 
-  // Bu veriler Firebase'den gelecek - şimdilik örnek data
-  const allArticles = [
+  // Fetch articles from Firebase
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setLoading(true);
+        const articles = await getArticles(true); // Only published articles
+        setAllArticles(articles);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  // Örnek data - Firebase'de makale yoksa fallback olarak kullanılacak
+  const fallbackArticles = [
     {
       id: "1",
       slug: "ceza-hukukunda-zamanaşımı",
@@ -96,11 +117,15 @@ export default function Makaleler() {
     },
   ];
 
+  // Use fallback articles if no articles from Firebase
+  const displayArticles =
+    allArticles.length > 0 ? allArticles : fallbackArticles;
+
   // Sayfalandırma hesaplamaları
-  const totalPages = Math.ceil(allArticles.length / articlesPerPage);
+  const totalPages = Math.ceil(displayArticles.length / articlesPerPage);
   const startIndex = (currentPage - 1) * articlesPerPage;
   const endIndex = startIndex + articlesPerPage;
-  const currentArticles = allArticles.slice(startIndex, endIndex);
+  const currentArticles = displayArticles.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -128,85 +153,111 @@ export default function Makaleler() {
       {/* Main Content */}
       <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {currentArticles.map((article, index) => (
-              <ArticleCard key={article.id} article={article} index={index} />
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 flex justify-center"
-          >
-            <div className="flex gap-2 items-center">
-              {/* Önceki Butonu */}
-              <button
-                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className={cn(
-                  "p-2 rounded-lg border transition-all",
-                  currentPage === 1
-                    ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
-                    : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
-                )}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-
-              {/* Sayfa Numaraları */}
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (page) => (
-                  <button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={cn(
-                      "px-4 py-2 rounded-lg font-medium transition-all",
-                      page === currentPage
-                        ? "text-white shadow-md"
-                        : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
-                    )}
-                    style={{
-                      backgroundColor:
-                        page === currentPage ? colors.primary.main : undefined,
-                    }}
-                  >
-                    {page}
-                  </button>
-                )
-              )}
-
-              {/* Sonraki Butonu */}
-              <button
-                onClick={() =>
-                  handlePageChange(Math.min(totalPages, currentPage + 1))
-                }
-                disabled={currentPage === totalPages}
-                className={cn(
-                  "p-2 rounded-lg border transition-all",
-                  currentPage === totalPages
-                    ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
-                    : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
-                )}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+          {/* Loading State */}
+          {loading ? (
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-slate-900 mb-4"></div>
+                <p className="text-slate-600">Makaleler yükleniyor...</p>
+              </div>
             </div>
-          </motion.div>
+          ) : currentArticles.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-slate-600 text-lg">
+                Henüz yayınlanmış makale bulunmamaktadır.
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Articles Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {currentArticles.map((article, index) => (
+                  <ArticleCard
+                    key={article.id}
+                    article={article}
+                    index={index}
+                  />
+                ))}
+              </div>
 
-          {/* Sayfa Bilgisi */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-4 text-center text-sm text-slate-600"
-          >
-            {startIndex + 1} - {Math.min(endIndex, allArticles.length)} arası
-            gösteriliyor (Toplam {allArticles.length} makale)
-          </motion.div>
+              {/* Pagination */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mt-12 flex justify-center"
+              >
+                <div className="flex gap-2 items-center">
+                  {/* Önceki Butonu */}
+                  <button
+                    onClick={() =>
+                      handlePageChange(Math.max(1, currentPage - 1))
+                    }
+                    disabled={currentPage === 1}
+                    className={cn(
+                      "p-2 rounded-lg border transition-all",
+                      currentPage === 1
+                        ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
+                        : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+                    )}
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+
+                  {/* Sayfa Numaraları */}
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        className={cn(
+                          "px-4 py-2 rounded-lg font-medium transition-all",
+                          page === currentPage
+                            ? "text-white shadow-md"
+                            : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
+                        )}
+                        style={{
+                          backgroundColor:
+                            page === currentPage
+                              ? colors.primary.main
+                              : undefined,
+                        }}
+                      >
+                        {page}
+                      </button>
+                    )
+                  )}
+
+                  {/* Sonraki Butonu */}
+                  <button
+                    onClick={() =>
+                      handlePageChange(Math.min(totalPages, currentPage + 1))
+                    }
+                    disabled={currentPage === totalPages}
+                    className={cn(
+                      "p-2 rounded-lg border transition-all",
+                      currentPage === totalPages
+                        ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
+                        : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
+                    )}
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </motion.div>
+
+              {/* Sayfa Bilgisi */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-4 text-center text-sm text-slate-600"
+              >
+                {startIndex + 1} - {Math.min(endIndex, displayArticles.length)}{" "}
+                arası gösteriliyor (Toplam {displayArticles.length} makale)
+              </motion.div>
+            </>
+          )}
         </div>
       </section>
 

@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getArticleBySlug } from "@/services/articleService";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -7,23 +9,36 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  // Firebase'den makale verisi gelecek
+  const article = await getArticleBySlug(slug);
+
+  if (!article) {
+    return {
+      title: "Makale Bulunamadı | Av. Mehmet Durdu Şen",
+      description: "Aradığınız makale bulunamadı.",
+    };
+  }
+
   return {
-    title: `${slug} | Av. Mehmet Durdu Şen`,
-    description: "Hukuk makalesi detayı",
+    title: `${article.title} | Av. Mehmet Durdu Şen`,
+    description: article.excerpt,
   };
 }
 
 export default async function MakaleDetay({ params }: Props) {
   const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
-  // Bu veri Firebase'den gelecek - şimdilik örnek data
-  const article = {
+  // If article not found, show 404
+  if (!article) {
+    notFound();
+  }
+
+  // Fallback content for old static article
+  const fallbackArticle = {
     title: "Ceza Hukukunda Zamanaşımı Sürelerinin Önemi",
     category: "Ceza Hukuku",
     date: "15 Mart 2024",
     author: "Av. Mehmet Durdu Şen",
-    readTime: "8 dk",
     content: `
       <p>Ceza hukukunda zamanaşımı, belirli bir süre geçtikten sonra kamu davasının açılamaması veya cezanın infaz edilememesi sonucunu doğuran bir kurumdur. Zamanaşımı sürelerinin doğru hesaplanması ve uygulanması, adaletin tecelli etmesi açısından büyük önem taşır.</p>
 
@@ -56,27 +71,8 @@ export default async function MakaleDetay({ params }: Props) {
     tags: ["Ceza Hukuku", "Zamanaşımı", "Kamu Davası", "TCK"],
   };
 
-  // İlgili makaleler - Firebase'den gelecek
-  const relatedArticles = [
-    {
-      id: "2",
-      slug: "ticaret-hukuku-sozlesmeler",
-      title: "Ticaret Hukukunda Sözleşme Serbestisi İlkesi",
-      category: "Ticaret Hukuku",
-    },
-    {
-      id: "3",
-      slug: "bosanma-davalarinda-velayet",
-      title: "Boşanma Davalarında Velayet Hakkı",
-      category: "Aile Hukuku",
-    },
-    {
-      id: "4",
-      slug: "ise-iade-davalari",
-      title: "İşe İade Davalarında Süre ve Usul",
-      category: "İş Hukuku",
-    },
-  ];
+  // Use article data from Firebase or fallback
+  const displayArticle = article || fallbackArticle;
 
   return (
     <div>
@@ -105,17 +101,15 @@ export default async function MakaleDetay({ params }: Props) {
             </Link>
           </div>
           <span className="text-amber-500 font-semibold">
-            {article.category}
+            {displayArticle.category}
           </span>
           <h1 className="text-3xl md:text-5xl font-bold mt-2 mb-6">
-            {article.title}
+            {displayArticle.title}
           </h1>
           <div className="flex flex-wrap items-center gap-4 text-gray-300">
-            <span>{article.author}</span>
+            <span>{displayArticle.author}</span>
             <span>•</span>
-            <span>{article.date}</span>
-            <span>•</span>
-            <span>{article.readTime} okuma</span>
+            <span>{displayArticle.date}</span>
           </div>
         </div>
       </section>
@@ -140,23 +134,25 @@ export default async function MakaleDetay({ params }: Props) {
             prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4
             prose-li:text-gray-700 prose-li:mb-2
             prose-strong:text-slate-900 prose-strong:font-semibold"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: displayArticle.content }}
           />
 
           {/* Tags */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <h3 className="text-lg font-semibold mb-4">Etiketler:</h3>
-            <div className="flex flex-wrap gap-2">
-              {article.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-amber-100 hover:text-amber-700 transition-colors"
-                >
-                  {tag}
-                </span>
-              ))}
+          {displayArticle.tags && displayArticle.tags.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <h3 className="text-lg font-semibold mb-4">Etiketler:</h3>
+              <div className="flex flex-wrap gap-2">
+                {displayArticle.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-amber-100 hover:text-amber-700 transition-colors"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Author Info */}
           <div className="mt-12 p-6 bg-gray-50 rounded-lg flex items-start gap-4">
@@ -164,7 +160,9 @@ export default async function MakaleDetay({ params }: Props) {
               <span className="text-gray-400 text-xs">Foto</span>
             </div>
             <div>
-              <h3 className="text-xl font-semibold mb-2">{article.author}</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                {displayArticle.author}
+              </h3>
               <p className="text-gray-600">
                 Ceza Hukuku ve Ticaret Hukuku alanlarında uzman. Yılların
                 deneyimi ile müvekkillerine profesyonel hukuki danışmanlık
@@ -175,35 +173,16 @@ export default async function MakaleDetay({ params }: Props) {
         </div>
       </section>
 
-      {/* Related Articles */}
-      <section className="py-16 bg-gray-50">
+      {/* Related Articles - TODO: Implement related articles feature */}
+      {/* <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-8">
             İlgili Makaleler
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {relatedArticles.map((related) => (
-              <Link
-                key={related.id}
-                href={`/makaleler/${related.slug}`}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
-              >
-                <div className="bg-slate-200 h-40 flex items-center justify-center">
-                  <span className="text-gray-400 text-sm">Makale Görseli</span>
-                </div>
-                <div className="p-6">
-                  <span className="text-amber-600 text-sm font-semibold">
-                    {related.category}
-                  </span>
-                  <h3 className="text-lg font-semibold text-slate-900 mt-2 group-hover:text-amber-600 transition-colors">
-                    {related.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16 bg-amber-500">

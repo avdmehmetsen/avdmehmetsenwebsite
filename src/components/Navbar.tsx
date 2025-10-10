@@ -12,16 +12,19 @@ import {
   Twitter,
   Instagram,
   Scale,
+  LogOut,
 } from "lucide-react";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { colors } from "@/constants/colors";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isScrolled } = useScrollPosition(); // scrollY > 8 gibi bir eşik önerilir
-
+  const { isScrolled } = useScrollPosition();
+  const { user, logout } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setIsOpen(false);
@@ -42,6 +45,15 @@ export default function Navbar() {
     { href: "/duyurular", label: "Duyurular" },
     { href: "/iletisim", label: "İletişim" },
   ];
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      router.push("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   // Tek noktadan arkaplan ve metin rengi
   const headerBg = isScrolled
@@ -191,13 +203,13 @@ export default function Navbar() {
                     style={{ color: colors.primary.main }}
                   />
                   <span className="ml-2 text-xl font-bold">
-                    Av. Durdu Mehmet Şen
+                    Şen Hukuk Bürosu
                   </span>
                 </div>
               </Link>
 
               {/* Desktop Navigation */}
-              <div className="hidden md:flex space-x-8">
+              <div className="hidden md:flex items-center space-x-8">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
                   return (
@@ -227,6 +239,17 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
+
+                {/* Logout Button */}
+                {user && (
+                  <button
+                    onClick={handleLogout}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg font-medium transition-all hover:bg-red-700 bg-red-600 text-white"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span className="text-sm">Çıkış</span>
+                  </button>
+                )}
               </div>
 
               {/* Mobile menu button */}
@@ -267,6 +290,22 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
+
+                {/* Logout Button (Mobile) */}
+                {user && (
+                  <div className="mt-4 pt-4 border-t border-slate-700">
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        handleLogout();
+                      }}
+                      className="flex items-center gap-2 w-full py-2 px-4 rounded-lg font-medium transition-all hover:bg-red-700 bg-red-600 text-white"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Çıkış Yap</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import HeroSlider from "@/components/HeroSlider";
 import ExpertiseAreasSection from "@/components/ExpertiseAreas";
 import ArticleCard from "@/components/ArticleCard";
@@ -8,8 +9,63 @@ import { CheckCircle, Clock, Users, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { colors } from "@/constants/colors";
+import { getLatestArticles } from "@/services/articleService";
+import { Article } from "@/types";
 
 export default function Home() {
+  const [latestArticles, setLatestArticles] = useState<Article[]>([]);
+
+  // Fetch latest articles from Firebase
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const articles = await getLatestArticles(3);
+        setLatestArticles(articles);
+      } catch (error) {
+        console.error("Error fetching latest articles:", error);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
+  // Fallback articles
+  const fallbackArticles = [
+    {
+      id: "1",
+      slug: "yeni-ceza-kanunu-degisiklikleri",
+      category: "Ceza Hukuku",
+      title: "Yeni Ceza Kanunu Değişiklikleri ve Uygulamaları",
+      excerpt:
+        "2024 yılında yürürlüğe giren ceza kanunu değişikliklerinin detaylı analizi ve pratik uygulamaları...",
+      date: "15 Mart 2024",
+      imageUrl: null,
+    },
+    {
+      id: "2",
+      slug: "sirket-kurulusunda-dikkat-edilmesi-gerekenler",
+      category: "Ticaret Hukuku",
+      title: "Şirket Kuruluşunda Dikkat Edilmesi Gerekenler",
+      excerpt:
+        "Ticaret hukukunda şirket kuruluş sürecinde önemli noktalar ve yasal gereklilikler hakkında bilgiler...",
+      date: "10 Mart 2024",
+      imageUrl: null,
+    },
+    {
+      id: "3",
+      slug: "bosanma-davalarinda-velayet-haklari",
+      category: "Aile Hukuku",
+      title: "Boşanma Davalarında Velayet Hakları",
+      excerpt:
+        "Boşanma sürecinde velayet haklarının belirlenmesi ve çocuğun üstün yararı ilkesi üzerine açıklamalar...",
+      date: "5 Mart 2024",
+      imageUrl: null,
+    },
+  ];
+
+  const displayArticles =
+    latestArticles.length > 0 ? latestArticles : fallbackArticles;
+
   return (
     <div>
       {/* Hero Slider */}
@@ -30,11 +86,11 @@ export default function Home() {
             <div className="text-center p-6">
               <div
                 className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: colors.theme2.lightGreen }}
+                style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <CheckCircle
                   className="w-8 h-8"
-                  style={{ color: colors.theme2.darkGreen }}
+                  style={{ color: colors.text.light }}
                 />
               </div>
               <h3 className="text-xl text-slate-900 font-semibold mb-2">
@@ -48,11 +104,11 @@ export default function Home() {
             <div className="text-center p-6">
               <div
                 className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: colors.theme2.lightGreen }}
+                style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <Clock
                   className="w-8 h-8"
-                  style={{ color: colors.theme2.darkGreen }}
+                  style={{ color: colors.text.light }}
                 />
               </div>
               <h3 className="text-xl text-slate-900 font-semibold mb-2">
@@ -66,11 +122,11 @@ export default function Home() {
             <div className="text-center p-6">
               <div
                 className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ backgroundColor: colors.theme2.lightGreen }}
+                style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <Users
                   className="w-8 h-8"
-                  style={{ color: colors.theme2.darkGreen }}
+                  style={{ color: colors.text.light }}
                 />
               </div>
               <h3 className="text-xl text-slate-900 font-semibold mb-2">
@@ -127,38 +183,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                id: "1",
-                slug: "yeni-ceza-kanunu-degisiklikleri",
-                category: "Ceza Hukuku",
-                title: "Yeni Ceza Kanunu Değişiklikleri ve Uygulamaları",
-                excerpt:
-                  "2024 yılında yürürlüğe giren ceza kanunu değişikliklerinin detaylı analizi ve pratik uygulamaları...",
-                date: "15 Mart 2024",
-                imageUrl: null,
-              },
-              {
-                id: "2",
-                slug: "sirket-kurulusunda-dikkat-edilmesi-gerekenler",
-                category: "Ticaret Hukuku",
-                title: "Şirket Kuruluşunda Dikkat Edilmesi Gerekenler",
-                excerpt:
-                  "Ticaret hukukunda şirket kuruluş sürecinde önemli noktalar ve yasal gereklilikler hakkında bilgiler...",
-                date: "10 Mart 2024",
-                imageUrl: null,
-              },
-              {
-                id: "3",
-                slug: "bosanma-davalarinda-velayet-haklari",
-                category: "Aile Hukuku",
-                title: "Boşanma Davalarında Velayet Hakları",
-                excerpt:
-                  "Boşanma sürecinde velayet haklarının belirlenmesi ve çocuğun üstün yararı ilkesi üzerine açıklamalar...",
-                date: "5 Mart 2024",
-                imageUrl: null,
-              },
-            ].map((article, index) => (
+            {displayArticles.map((article, index) => (
               <ArticleCard key={article.id} article={article} index={index} />
             ))}
           </div>
