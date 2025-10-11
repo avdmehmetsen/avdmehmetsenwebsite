@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FileText, User, LogOut, Bell } from "lucide-react";
+import { FileText, User, LogOut, Bell, Mail } from "lucide-react";
 import { colors } from "@/constants/colors";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
@@ -45,6 +45,13 @@ function AdminPageContent() {
       color: colors.status.info,
     },
     {
+      title: "Gelen Mesajlar",
+      description: "İletişim formundan gelen mesajları görüntüle",
+      icon: Mail,
+      href: "/admin/messages",
+      color: colors.status.success,
+    },
+    {
       title: "Avukat Bilgileri",
       description: "Avukat hakkında bilgileri güncelle",
       icon: User,
@@ -80,7 +87,7 @@ function AdminPageContent() {
 
       {/* Admin Cards */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {adminCards.map((card, index) => (
             <motion.div
               key={card.title}

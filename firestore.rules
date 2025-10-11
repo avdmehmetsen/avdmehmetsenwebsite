@@ -48,6 +48,16 @@ service cloud.firestore {
       // Yazma izni: Sadece admin duyuru ekleyebilir, güncelleyebilir, silebilir
       allow create, update, delete: if isAdmin();
     }
+    
+    // Contacts Collection
+    match /contacts/{contact} {
+      // Okuma: Sadece admin okuyabilir
+      allow read: if isAdmin();
+      
+      // Yazma: Herkes mesaj gönderebilir (create), sadece admin güncelleyebilir/silebilir
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
   }
 }
 

@@ -58,3 +58,24 @@ export interface AnnouncementFormData {
   content: string;
   published: boolean;
 }
+
+// Contact Message Type
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+  isRead: boolean;
+  createdAt: Date;
+}
+
+// Contact Form Data (for creating)
+export interface ContactFormData {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+}
