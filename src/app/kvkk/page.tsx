@@ -7,9 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function KVKK() {
+  const LAST_UPDATED = "1 Ekim 2025"; // istersen burayı güncelle
+
   return (
-    <div>
-      {/* Hero Section */}
+    <div className="min-h-screen bg-slate-50">
+      {/* Hero */}
       <section className="bg-slate-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -24,163 +26,147 @@ export default function KVKK() {
       {/* Content */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="prose prose-lg max-w-none">
-            <div className="bg-amber-50 border-l-4 border-amber-500 p-6 mb-8">
-              <p className="text-gray-700">
-                <strong>Son Güncelleme:</strong> 1 Ocak 2024
-              </p>
-            </div>
+          <div className="bg-amber-50 border-l-4 border-amber-500 p-6 mb-8">
+            <p className="text-gray-700">
+              <strong>Son Güncelleme:</strong> {LAST_UPDATED}
+            </p>
+          </div>
 
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              1. Veri Sorumlusu
-            </h2>
-            <p className="text-gray-700 mb-4">
-              6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;)
-              uyarınca, kişisel verileriniz; veri sorumlusu olarak Av. Durdu
-              Mehmet Şen Şen Hukuk Bürosu tarafından aşağıda açıklanan kapsamda
-              işlenebilecektir.
+          <div className="prose prose-lg max-w-none text-slate-800">
+            <h2>1. Veri Sorumlusu</h2>
+            <p>
+              Bu metin kapsamında veri sorumlusu:{" "}
+              <strong>Av. Durdu Mehmet Şen</strong> (Av. Durdu Mehmet Şen Hukuk
+              Bürosu) olup, sorumluya ilişkin iletişim bilgileri sayfanın
+              sonunda yer almaktadır.
             </p>
 
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              2. Kişisel Verilerin Hangi Amaçla İşleneceği
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Toplanan kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:
+            <h2>2. İşleme Amaçları</h2>
+            <p>
+              Kişisel verileriniz genel olarak aşağıdaki amaçlarla
+              işlenmektedir:
             </p>
-            <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
-              <li>Hukuki danışmanlık ve avukatlık hizmetlerinin sunulması</li>
-              <li>Müvekkil-avukat ilişkisinin kurulması ve yönetimi</li>
-              <li>İletişim taleplerinin karşılanması</li>
-              <li>Yasal yükümlülüklerin yerine getirilmesi</li>
-              <li>Hukuki işlemlerin yürütülmesi</li>
-              <li>Talep ve şikayetlerin yönetimi</li>
+            <ul>
+              <li>İletişim taleplerine yanıt vermek ve geri dönüş sağlamak</li>
+              <li>Hukuki danışmanlık talebi ve sözleşme hazırlığı</li>
+              <li>Hukuki yükümlülüklerin yerine getirilmesi</li>
+              <li>Hizmetlerin yürütülmesi ve kalite takibi</li>
             </ul>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              3. İşlenen Kişisel Veriler
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Hukuk büromuz tarafından işlenen kişisel veriler:
+            <p>
+              İletişim formu aracılığıyla alınan verilerde amaç öncelikle
+              <strong> iletişim kurmak</strong> olup, başka amaçlarla
+              kullanılmayacaktır.
             </p>
-            <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+
+            <h2>3. İşlenen Kişisel Veri Kategorileri</h2>
+            <p>Toplanan ve işlenebilecek temel veri kategorileri şunlardır:</p>
+            <ul>
+              <li>Kimlik bilgileri (varsa)</li>
+              <li>İletişim bilgileri (e-posta, telefon, adres vb.)</li>
+              <li>Mesaj/iletişim içeriği (gönderdiğiniz konu ve mesaj)</li>
               <li>
-                Kimlik Bilgileri: Ad, soyad, T.C. kimlik numarası, doğum tarihi
-              </li>
-              <li>İletişim Bilgileri: Telefon, e-posta, adres</li>
-              <li>
-                Müvekkil Bilgileri: Dava ve hukuki süreç ile ilgili bilgiler
-              </li>
-              <li>Finansal Bilgiler: Ödeme ve fatura bilgileri</li>
-              <li>
-                Diğer Bilgiler: İletişim formları ve yazışmalar üzerinden elde
-                edilen bilgiler
+                İşleme faaliyetinin gerektirdiği diğer hukuki ve idari bilgiler
               </li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              4. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebebi
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Kişisel verileriniz, web sitemiz, e-posta, telefon, yazılı
-              belgeler ve yüz yüze görüşmeler aracılığıyla toplanmaktadır.
-              Toplanan veriler KVKK&apos;nın 5. ve 6. maddelerinde belirtilen
-              kişisel veri işleme şartları ve amaçları kapsamında işlenmektedir.
+            <h2>4. İletişim Formu - Toplanan Alanlar</h2>
+            <p>
+              Web sitemizdeki iletişim formunda yalnızca aşağıdaki alanlar
+              istenmekte ve işlenmektedir:
             </p>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              5. Kişisel Verilerin Aktarılması
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Toplanan kişisel verileriniz, yasal yükümlülüklerimizi yerine
-              getirmek, hukuki işlemleri yürütmek ve hizmet kalitemizi artırmak
-              amacıyla;
-            </p>
-            <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
-              <li>Adli ve idari makamlara</li>
+            <ul>
               <li>
-                Yasal yükümlülükler çerçevesinde ilgili kurum ve kuruluşlara
+                <strong>Ad Soyad</strong>
               </li>
-              <li>Hizmet alınan ve/veya iş birliği yapılan üçüncü taraflara</li>
-              <li>Avukatlık mesleğinin gereği olarak gerekli taraflara</li>
+              <li>
+                <strong>E-posta</strong>
+              </li>
+              <li>
+                <strong>Telefon</strong>
+              </li>
+              <li>
+                <strong>Konu</strong>
+              </li>
+              <li>
+                <strong>Mesaj</strong>
+              </li>
             </ul>
-            <p className="text-gray-700 mb-4">aktarılabilecektir.</p>
+            <p>
+              Bu bilgiler yalnızca iletişime geçmek amacıyla işlenir. Başka
+              amaçlarla kullanılmaz.
+            </p>
 
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              6. Kişisel Veri Sahibinin Hakları
-            </h2>
-            <p className="text-gray-700 mb-4">
+            <h2>5. Yurt Dışına Aktarım</h2>
+            <p>
+              İletişim formunda sağladığınız kişisel verileriniz{" "}
+              <strong>yurt dışına aktarılmamaktadır</strong>.
+            </p>
+
+            <h2>7. İşleme Hukuki Sebebi</h2>
+            <p>
+              Veri işlemenin hukuki dayanağı; ilgili verinin niteliğine göre
+              sözleşmenin ifası, hukuki yükümlülüklerin yerine getirilmesi,
+              meşru menfaat ve/veya KVKK&apos;da sayılan diğer hukuki
+              sebeplerdir. İletişim formu bağlamında öncelikli amaç iletişim
+              olduğundan, ilgili işlemler genellikle meşru menfaat veya hizmet
+              sunumu kapsamında değerlendirilir.
+            </p>
+
+            <h2>8. Alıcılar</h2>
+            <p>
+              Kişisel verileriniz, yalnızca yasal zorunluluklar veya hizmetin
+              gerektirdiği durumlarda; ilgili üçüncü taraf hizmet sağlayıcılar
+              veya resmi makamlara aktarılabilir. İletişim formu özelinde
+              verilerinizin otomatik olarak üçüncü şahıslara paylaşıldığı bir
+              süreç bulunmamaktadır.
+            </p>
+
+            <h2>9. Kişisel Veri Sahibinin Hakları</h2>
+            <p>
               KVKK&apos;nın 11. maddesi uyarınca kişisel veri sahipleri olarak
               aşağıdaki haklara sahipsiniz:
             </p>
-            <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+            <ul>
               <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
               <li>
                 Kişisel verileriniz işlenmişse buna ilişkin bilgi talep etme
               </li>
+              <li>Kişisel verilerin işlenme amacını öğrenme</li>
+              <li>Kişisel verilerin düzeltilmesini veya silinmesini isteme</li>
               <li>
-                Kişisel verilerin işlenme amacını ve bunların amacına uygun
-                kullanılıp kullanılmadığını öğrenme
-              </li>
-              <li>
-                Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı
-                üçüncü kişileri bilme
-              </li>
-              <li>
-                Kişisel verilerin eksik veya yanlış işlenmiş olması hâlinde
-                bunların düzeltilmesini isteme
-              </li>
-              <li>
-                KVKK&apos;nın 7. maddesinde öngörülen şartlar çerçevesinde
-                kişisel verilerin silinmesini veya yok edilmesini isteme
-              </li>
-              <li>
-                Kişisel verilerin düzeltilmesi, silinmesi veya yok edilmesine
-                ilişkin işlemlerin, kişisel verilerin aktarıldığı üçüncü
-                kişilere bildirilmesini isteme
-              </li>
-              <li>
-                İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla
-                analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun
-                ortaya çıkmasına itiraz etme
-              </li>
-              <li>
-                Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle
-                zarara uğraması hâlinde zararın giderilmesini talep etme
+                İşlemenin hukuka aykırı olması hâlinde zararın giderilmesini
+                talep etme
               </li>
             </ul>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              7. Başvuru Yöntemi
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Yukarıda belirtilen haklarınızı kullanmak için kimliğinizi tespit
-              edici gerekli bilgiler ile KVKK&apos;nın 11. maddesinde belirtilen
-              haklardan kullanmayı talep ettiğiniz hakkınıza yönelik
-              açıklamalarınızı içeren talebinizi;
+            <p>
+              Haklarınıza ilişkin taleplerinizi açık kimlik bilgileri ile
+              birlikte yazılı olarak iletmeniz gerekmektedir; başvuru kanıtı ve
+              talep içeriği değerlendirildikten sonra Kanun&apos;da öngörülen
+              süreler içinde cevap verilecektir.
             </p>
-            <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
+
+            <h2>10. Başvuru Yöntemi</h2>
+            <p>
+              KVKK kapsamındaki taleplerinizi aşağıdaki kanallardan
+              iletebilirsiniz:
+            </p>
+            <ul>
+              <li>Ofisimize bizzat gelerek veya noter kanalıyla</li>
               <li>
-                Yazılı olarak kimliğinizi tespit edici belgeler ile birlikte
-                ofis adresimize bizzat elden iletebilir,
+                E-posta: <strong>info@avdurdumehmetsen.com</strong> (güvenli
+                kimlik doğrulaması gerekebilir)
               </li>
-              <li>Noter kanalıyla gönderebilir,</li>
-              <li>
-                Kayıtlı Elektronik Posta (KEP) adresiniz aracılığıyla KEP
-                adresimize iletebilir,
-              </li>
-              <li>
-                Güvenli elektronik imza ile imzalanarak e-posta adresimize
-                iletebilirsiniz.
-              </li>
+              <li>Yazılı talep halinde posta veya KEP kanalı</li>
             </ul>
 
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              8. İletişim
-            </h2>
-            <p className="text-gray-700 mb-4">
-              KVKK kapsamındaki talepleriniz için bizimle iletişime
-              geçebilirsiniz:
+            <h2>11. Kuruma Şikâyet Hakkı</h2>
+            <p>
+              Başvurularınıza Kanun&apos;da öngörülen şekilde yanıt alamamanız
+              veya ihlal şüpheniz halinde, KVKK (Kişisel Verileri Koruma
+              Kurumu)’na şikâyette bulunma hakkınız saklıdır.
             </p>
+
+            <h2>12. İletişim</h2>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-700">
                 <strong>Adres:</strong> Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4.
@@ -191,6 +177,15 @@ export default function KVKK() {
                 <strong>Telefon:</strong> +90 (507) 736 82 55
               </p>
             </div>
+
+            <h2>13. Güncelleme Politikası</h2>
+            <p>
+              Bu aydınlatma metni gerektiğinde güncellenebilir; güncellenmiş
+              metin sitede yayımlanacaktır. Önemli değişikliklerde uygun
+              iletişim kanalları ile bilgilendirme yapılacaktır.
+            </p>
+
+            <hr />
           </div>
         </div>
       </section>

@@ -27,7 +27,12 @@ export default function Gizlilik() {
           <div className="prose prose-lg max-w-none">
             <div className="bg-amber-50 border-l-4 border-amber-500 p-6 mb-8">
               <p className="text-gray-700">
-                <strong>Son Güncelleme:</strong> 1 Ocak 2024
+                <strong>Son Güncelleme:</strong>{" "}
+                {new Date().toLocaleDateString("tr-TR", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
               </p>
             </div>
 
@@ -45,40 +50,41 @@ export default function Gizlilik() {
               2. Toplanan Bilgiler
             </h2>
             <p className="text-gray-700 mb-4">
-              Web sitemiz aracılığıyla aşağıdaki bilgiler toplanabilir:
+              Web sitemiz aracılığıyla sadece iletişim formu üzerinden gönüllü
+              olarak paylaştığınız bilgiler toplanır:
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
               <li>
                 <strong>Kişisel Bilgiler:</strong> İletişim formu
-                doldurduğunuzda adınız, e-posta adresiniz, telefon numaranız ve
-                mesajınız
-              </li>
-              <li>
-                <strong>Teknik Bilgiler:</strong> IP adresi, tarayıcı türü,
-                işletim sistemi, ziyaret edilen sayfalar ve ziyaret süresi
-              </li>
-              <li>
-                <strong>Çerez Bilgileri:</strong> Web sitesinin işlevselliğini
-                artırmak için kullanılan çerezler
+                doldurduğunuzda adınız, e-posta adresiniz, telefon numaranız
+                (opsiyonel) ve mesajınız
               </li>
             </ul>
+
+            <div className="bg-green-50 border-l-4 border-green-500 p-6 my-6 rounded-r-lg">
+              <p className="text-gray-700 font-semibold mb-2">
+                📊 Teknik Bilgiler ve Çerezler
+              </p>
+              <p className="text-gray-700">
+                Bu web sitesinde teknik bilgiler (IP adresi, tarayıcı bilgileri
+                vb.) toplanmamaktadır ve çerez kullanılmamaktadır. Ziyaretçi
+                davranışları izlenmemektedir.
+              </p>
+            </div>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
               3. Bilgilerin Kullanım Amaçları
             </h2>
             <p className="text-gray-700 mb-4">
-              Toplanan bilgiler şu amaçlarla kullanılır:
+              İletişim formu üzerinden toplanan bilgiler sadece şu amaçlarla
+              kullanılır:
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
               <li>
                 Hukuki danışmanlık taleplerini değerlendirmek ve yanıtlamak
               </li>
-              <li>
-                Web sitesinin performansını ve kullanıcı deneyimini iyileştirmek
-              </li>
+              <li>Size geri dönüş yapmak ve iletişim kurmak</li>
               <li>Yasal yükümlülükleri yerine getirmek</li>
-              <li>İletişim kurmak ve bilgi vermek</li>
-              <li>Güvenlik ve dolandırıcılığı önlemek</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
@@ -93,10 +99,6 @@ export default function Gizlilik() {
               <li>Yasal bir zorunluluk olduğunda</li>
               <li>Mahkeme kararı veya yasal süreç gereği</li>
               <li>Hukuki haklarımızı korumak için gerekli olduğunda</li>
-              <li>
-                Hizmet sağlayıcılarımızla (ancak sadece hizmet sunumu için
-                gerekli olduğu ölçüde)
-              </li>
             </ul>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
@@ -104,22 +106,19 @@ export default function Gizlilik() {
             </h2>
             <p className="text-gray-700 mb-4">
               Kişisel bilgilerinizin güvenliğini sağlamak için teknik ve idari
-              önlemler alıyoruz. Bu önlemler şunları içerir:
+              önlemler alıyoruz:
             </p>
             <ul className="list-disc pl-6 mb-4 space-y-2 text-gray-700">
               <li>SSL sertifikası ile şifreli veri iletimi</li>
-              <li>Güvenli sunucu altyapısı</li>
+              <li>Sınırlı admin erişimi</li>
               <li>Düzenli güvenlik güncellemeleri</li>
-              <li>Yetkisiz erişime karşı koruma</li>
-              <li>Sınırlı personel erişimi</li>
             </ul>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
               6. Çerezler
             </h2>
             <p className="text-gray-700 mb-4">
-              Web sitemiz, kullanıcı deneyimini iyileştirmek için çerezler
-              kullanır. Çerezler hakkında detaylı bilgi için{" "}
+              Web sitemizde çerez kullanılmamaktadır. Detaylı bilgi için{" "}
               <Link
                 href="/cerezler"
                 className="text-amber-600 hover:underline font-semibold"
@@ -130,25 +129,7 @@ export default function Gizlilik() {
             </p>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              7. Üçüncü Taraf Bağlantıları
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Web sitemiz, üçüncü taraf web sitelerine bağlantılar içerebilir.
-              Bu sitelerin gizlilik politikalarından sorumlu değiliz. Üçüncü
-              taraf siteleri ziyaret ettiğinizde kendi gizlilik politikalarını
-              incelemenizi öneririz.
-            </p>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              8. Çocukların Gizliliği
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Web sitemiz 18 yaşın altındaki çocuklara yönelik değildir. Bilerek
-              18 yaşın altındaki bireylerden kişisel bilgi toplamayız.
-            </p>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              9. Haklarınız
+              7. Haklarınız
             </h2>
             <p className="text-gray-700 mb-4">
               Kişisel verilerinizle ilgili olarak aşağıdaki haklara sahipsiniz:
@@ -158,7 +139,6 @@ export default function Gizlilik() {
               <li>Verilerinizin düzeltilmesini isteme</li>
               <li>Verilerinizin silinmesini talep etme</li>
               <li>Veri işlemeye itiraz etme</li>
-              <li>Veri taşınabilirliği talep etme</li>
             </ul>
             <p className="text-gray-700 mb-4">
               Bu haklarınızı kullanmak için{" "}
@@ -172,32 +152,13 @@ export default function Gizlilik() {
             </p>
 
             <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              10. Politika Değişiklikleri
+              8. Politika Değişiklikleri
             </h2>
             <p className="text-gray-700 mb-4">
               Bu Gizlilik Politikası&apos;nı zaman zaman güncelleyebiliriz.
               Değişiklikler bu sayfada yayınlanacak ve &quot;Son
-              Güncelleme&quot; tarihi güncellenecektir. Düzenli olarak bu
-              sayfayı ziyaret ederek güncellemelerden haberdar olabilirsiniz.
+              Güncelleme&quot; tarihi güncellenecektir.
             </p>
-
-            <h2 className="text-2xl font-bold text-slate-900 mt-8 mb-4">
-              11. İletişim
-            </h2>
-            <p className="text-gray-700 mb-4">
-              Gizlilik Politikası ile ilgili sorularınız için bizimle iletişime
-              geçebilirsiniz:
-            </p>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <p className="text-gray-700">
-                <strong>E-posta:</strong> info@avdurdumehmetsen.com
-                <br />
-                <strong>Telefon:</strong> +90 (507) 736 82 55
-                <br />
-                <strong>Adres:</strong> Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4.
-                Halil Atilla Sitesi No:233 C Blok K:5 D:9 Bayraklı / İzmir
-              </p>
-            </div>
           </div>
         </div>
       </section>
