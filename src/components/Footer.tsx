@@ -55,6 +55,14 @@ export default function Footer() {
                   Makaleler
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/duyurular"
+                  className="hover:text-amber-500 transition-colors"
+                >
+                  Duyurular
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -122,6 +130,26 @@ export default function Footer() {
                   className="hover:text-amber-500 transition-colors"
                 >
                   Danıştay
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://vatandas.uyap.gov.tr/main/vatandas/giris.jsp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-500 transition-colors"
+                >
+                  UYAP vatandaş
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://avukatbeta.uyap.gov.tr/giris"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-500 transition-colors"
+                >
+                  Uyap avukat
                 </a>
               </li>
             </ul>
