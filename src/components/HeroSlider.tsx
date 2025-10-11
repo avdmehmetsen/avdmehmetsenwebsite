@@ -1,27 +1,31 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
+// Statik import: otomatik blurDataURL üretir
+import hero1 from "@/assets/hero/hero1.jpg";
+import hero2 from "@/assets/hero/hero2.jpg";
+import hero3 from "@/assets/hero/hero3.jpg";
 
 const slides = [
   {
-    image: "/images/hero/hero1.jpg",
+    image: hero1,
     title: "Hukukun Gücünü Yanınıza Alın",
     subtitle: "Haklarınız İçin Güvenilir Temsil",
     description:
       "Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
   },
   {
-    image: "/images/hero/hero2.jpg",
+    image: hero2,
     title: "Adalet İçin Kararlıyız",
     subtitle: "Her Adımda Profesyonel Destek",
     description:
       "Hukukun tüm alanlarında çözüm odaklı yaklaşımımızla, sizin için en doğru stratejiyi belirliyoruz.",
   },
   {
-    image: "/images/hero/hero3.jpg",
+    image: hero3,
     title: "Tecrübe, Güven ve Başarı",
     subtitle: "Uzman Kadromuzla Yanınızdayız",
     description:
@@ -32,103 +36,94 @@ const slides = [
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Basit “sonraki görseli ısıt” mekanizması
+  const nextIndex = useMemo(
+    () => (currentSlide + 1) % slides.length,
+    [currentSlide]
+  );
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // 5 saniyede bir değişir
-
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
-  {
-    /*
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-*/
-  }
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
+  useEffect(() => {
+    // Geçişten önce bir sonraki görseli ısıt
+    const img = new window.Image();
+    img.src = slides[nextIndex].image.src; // static import sayesinde gerçek URL
+  }, [nextIndex]);
+
+  const goToSlide = (index: number) => setCurrentSlide(index);
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      {/* Slides */}
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          {/* Background Image */}
-          <Image
-            src={slide.image}
-            alt={slide.title}
-            fill
-            className="object-cover"
-            priority={index === 0}
-            quality={90}
-          />
+      {slides.map((slide, index) => {
+        const isActive = index === currentSlide;
+        return (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              isActive ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden={!isActive}
+          >
+            {/* Background Image */}
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              className="object-cover"
+              // LCP için sadece ilk görsel: priority + high
+              priority={index === 0}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              placeholder="blur"
+              // Tarayıcıya “tam genişlik” ipucu: doğru çözünürlük indirsin
+              sizes="100vw"
+              // 90 genelde gereksiz; 70 çoğu projede fark edilmez ama ciddi küçültür
+              quality={index === 0 ? 75 : 70}
+            />
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/50 to-slate-900/30" />
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-900/50 to-slate-900/30" />
 
-          {/* Content */}
-          <div className="relative h-full flex items-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="max-w-3xl">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 animate-fade-in">
-                  {slide.title}
-                  <span className="block mt-2" style={{ color: "#cb8929" }}>
-                    {slide.subtitle}
-                  </span>
-                </h1>
-                <p className="text-sm sm:text-md md:text-lg text-gray-300 mb-8 animate-fade-in-delay">
-                  {slide.description}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2">
-                  <Link
-                    href="/iletisim"
-                    className="inline-block text-[#cb8929] border border-[#cb8929] px-8 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 hover:bg-[#cb8929] hover:text-white"
-                  >
-                    Hemen İletişime Geçin
-                  </Link>
+            {/* Content */}
+            <div className="relative h-full flex items-center">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="max-w-3xl">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    {slide.title}
+                    <span className="block mt-2" style={{ color: "#cb8929" }}>
+                      {slide.subtitle}
+                    </span>
+                  </h1>
+                  <p className="text-sm sm:text-md md:text-lg text-gray-300 mb-8">
+                    {slide.description}
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Link
+                      href="/iletisim"
+                      className="inline-block text-[#cb8929] border border-[#cb8929] px-8 py-4 rounded-lg font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-105 hover:bg-[#cb8929] hover:text-white"
+                    >
+                      Hemen İletişime Geçin
+                    </Link>
 
-                  <Link
-                    href="/hakkimizda"
-                    className="inline-block bg-transparent border border-gray-300 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 hover:text-slate-900 transition-all"
-                  >
-                    Hakkımızda
-                  </Link>
+                    <Link
+                      href="/hakkimizda"
+                      className="inline-block bg-transparent border border-gray-300 text-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-300 hover:text-slate-900 transition-all"
+                    >
+                      Hakkımızda
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
-      {/* Navigation Arrows 
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all z-10"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white p-3 rounded-full backdrop-blur-sm transition-all z-10"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-      */}
-
-      {/* Dots Navigation */}
+      {/* Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
         {slides.map((_, index) => (
           <button
