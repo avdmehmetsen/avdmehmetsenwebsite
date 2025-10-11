@@ -1,13 +1,24 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Save, LogOut, Bold, Italic } from "lucide-react";
+import { ArrowLeft, Save, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { colors } from "@/constants/colors";
 import { getLawyerInfo, updateLawyerInfo } from "@/services/lawyerService";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
+import dynamic from "next/dynamic";
+
+// Dynamic import to avoid SSR issues
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
+  ssr: false,
+  loading: () => (
+    <div className="border border-slate-300 rounded-lg p-8 text-center">
+      <p className="text-slate-500">Editor yükleniyor...</p>
+    </div>
+  ),
+});
 
 export default function LawyerManagementPage() {
   return (
@@ -20,12 +31,12 @@ export default function LawyerManagementPage() {
 function LawyerManagementContent() {
   const router = useRouter();
   const { logout } = useAuth();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",
+    editorStateJSON: null as string | null,
   });
 
   useEffect(() => {
@@ -40,6 +51,7 @@ function LawyerManagementContent() {
         setFormData({
           name: info.name || "",
           bio: info.bio || "",
+          editorStateJSON: info.editorStateJSON ?? null,
         });
       }
     } catch (error) {
@@ -77,45 +89,6 @@ function LawyerManagementContent() {
     } catch (error) {
       console.error("Logout error:", error);
     }
-  };
-
-  // Formatlandırma fonksiyonları
-  const insertTag = (openTag: string, closeTag: string, placeholder = "") => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = formData.bio.substring(start, end);
-    const textToInsert = selectedText || placeholder;
-
-    const before = formData.bio.substring(0, start);
-    const after = formData.bio.substring(end);
-    const newText = before + openTag + textToInsert + closeTag + after;
-
-    setFormData({ ...formData, bio: newText });
-
-    setTimeout(() => {
-      textarea.focus();
-      const newCursorPos = start + openTag.length + textToInsert.length;
-      textarea.setSelectionRange(newCursorPos, newCursorPos);
-    }, 0);
-  };
-
-  const formatBold = () => insertTag("<strong>", "</strong>", "kalın metin");
-  const formatItalic = () => insertTag("<em>", "</em>", "italik metin");
-  const formatParagraph = () => insertTag("<p>", "</p>", "paragraf metni");
-  const insertLineBreak = () => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-    const start = textarea.selectionStart;
-    const before = formData.bio.substring(0, start);
-    const after = formData.bio.substring(start);
-    setFormData({ ...formData, bio: before + "<br>" + after });
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + 4, start + 4);
-    }, 0);
   };
 
   if (loading) {
@@ -193,86 +166,24 @@ function LawyerManagementContent() {
               Hakkında <span className="text-red-500">*</span>
             </label>
 
-            {/* Formatlandırma Toolbar */}
-            <div className="flex flex-wrap gap-2 mb-2 p-3 bg-slate-50 border border-slate-300 rounded-t-lg">
-              <button
-                type="button"
-                onClick={formatParagraph}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Paragraf ekle"
-              >
-                <span className="text-xs">P</span>
-                <span className="hidden sm:inline">Paragraf</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={formatBold}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Kalın yap"
-              >
-                <Bold className="w-4 h-4" />
-                <span className="hidden sm:inline">Kalın</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={formatItalic}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="İtalik yap"
-              >
-                <Italic className="w-4 h-4" />
-                <span className="hidden sm:inline">İtalik</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={insertLineBreak}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 transition-colors text-sm font-medium text-slate-700"
-                title="Satır sonu ekle"
-              >
-                <span className="text-xs">↵</span>
-                <span className="hidden sm:inline">Satır Sonu</span>
-              </button>
-
-              <div className="ml-auto text-xs text-slate-500 flex items-center">
-                <span className="hidden md:inline">
-                  💡 Metni seçin ve butonlara tıklayın
-                </span>
-              </div>
-            </div>
-
-            <textarea
-              ref={textareaRef}
+            <RichTextEditor
               value={formData.bio}
-              onChange={(e) =>
-                setFormData({ ...formData, bio: e.target.value })
+              onChange={(html) => setFormData({ ...formData, bio: html })}
+              initialEditorStateJSON={formData.editorStateJSON ?? null}
+              onStateChange={(stateJSON) =>
+                setFormData((prev) => ({ ...prev, editorStateJSON: stateJSON }))
               }
-              className="w-full px-4 py-3 border border-slate-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-shadow h-96 resize-y text-sm"
-              placeholder="Avukat hakkında bilgi yazın. Yukarıdaki butonları kullanarak formatlandırabilirsiniz..."
-              required
+              placeholder="Avukat hakkında bilgi yazın. Toolbar ile formatlandırabilirsiniz..."
             />
+
             <p className="text-xs text-gray-500 mt-2">
-              <strong>Kullanım:</strong> Metni seçin ve yukarıdaki butonlara
-              tıklayın.
+              <strong>Kullanım:</strong> Metni seçin ve toolbar&apos;daki
+              butonlara tıklayın.
               <br />
-              <strong>Örnek:</strong> &quot;Mehmet Durdu Şen&quot; yazıp seçin,
-              sonra &quot;Kalın&quot; butonuna tıklayın.
+              <strong>Özellikler:</strong> Kalın, İtalik, Altı Çizili, Başlık
+              (H2, H3), Listeler, Alıntı, Hizalama, Metin/Arka Plan Rengi
             </p>
           </div>
-
-          {/* Preview */}
-          {formData.bio && (
-            <div className="mb-8 p-6 bg-slate-50 rounded-lg border border-slate-200">
-              <h3 className="text-sm font-semibold text-slate-900 mb-3">
-                Önizleme:
-              </h3>
-              <div
-                dangerouslySetInnerHTML={{ __html: formData.bio }}
-                className="prose prose-gray max-w-none text-gray-700"
-              />
-            </div>
-          )}
 
           {/* Submit Buttons */}
           <div className="flex gap-4">

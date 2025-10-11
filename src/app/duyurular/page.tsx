@@ -1,57 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { colors } from "@/constants/colors";
 import { Bell } from "lucide-react";
+import { getAnnouncements } from "@/services/announcementService";
+import { Announcement } from "@/types";
 
 export default function Duyurular() {
-  // Bu veriler Firebase'den gelecek - şimdilik örnek data
-  const announcements = [
-    {
-      id: "1",
-      title: "Önemli Duyuru",
-      date: "20 Mart 2024",
-      content:
-        "LÜTFEN HERHANGİ BİR NUMARADAN GÖNDERİLEN VE ALTINDA BÜROMUZUN VEYA AVUKATIMIZIN (ŞEN HUKUK BÜROSU -AV. DURDU MEHMET ŞEN) İSMİNİN BULUNDUĞU HİÇBİR MESAJ, ARAMA VEYA LİNKE İTİBAR ETMEYİNİZ. BAHSE KONU MESAJ,ARAMA VE LİNKLERİN BÜROMUZLA VE AVUKATIMIZLA HERHANGİ BİR İLGİSİ BULUNMAMAKTADIR.",
-    },
-    {
-      id: "2",
-      title: "Bayram Tatili Duyurusu",
-      date: "15 Mart 2024",
-      content:
-        "Ofisimiz 28 Mart - 31 Mart 2024 tarihleri arasında Ramazan Bayramı nedeniyle kapalı olacaktır. Acil durumlar için iletişim numaramızdan bize ulaşabilirsiniz.",
-    },
-    {
-      id: "3",
-      title: "Yeni Kanun Değişiklikleri Semineri",
-      date: "10 Mart 2024",
-      content:
-        "25 Mart 2024 tarihinde saat 14:00'te ofisimizde 'Yeni Kanun Değişiklikleri ve Uygulamadaki Etkileri' konulu bir seminer düzenlenecektir. Katılım ücretsizdir. Rezervasyon için bizimle iletişime geçiniz.",
-    },
-    {
-      id: "4",
-      title: "Online Danışmanlık Hizmeti Başladı",
-      date: "5 Mart 2024",
-      content:
-        "Müvekkillerimizin talepleri doğrultusunda online danışmanlık hizmeti başlatılmıştır. Randevu almak için iletişim formumuz üzerinden bize ulaşabilirsiniz.",
-    },
-    {
-      id: "5",
-      title: "KVKK Uyum Danışmanlığı",
-      date: "1 Mart 2024",
-      content:
-        "Şirketlerin KVKK'ya uyum süreçlerinde danışmanlık hizmeti vermeye başladık. Detaylı bilgi için iletişime geçiniz.",
-    },
-    {
-      id: "6",
-      title: "Yılbaşı Tatili",
-      date: "25 Aralık 2023",
-      content:
-        "Ofisimiz 31 Aralık 2023 - 2 Ocak 2024 tarihleri arasında yılbaşı tatili nedeniyle kapalı olacaktır. Mutlu yıllar dileriz.",
-    },
-  ];
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAnnouncements();
+  }, []);
+
+  const fetchAnnouncements = async () => {
+    try {
+      setLoading(true);
+      const fetchedAnnouncements = await getAnnouncements(true); // Only get published announcements
+      setAnnouncements(fetchedAnnouncements);
+    } catch (error) {
+      console.error("Error fetching announcements:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -96,49 +72,64 @@ export default function Duyurular() {
       {/* Announcements List */}
       <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="space-y-6"
-          >
-            {announcements.map((announcement) => (
-              <motion.div key={announcement.id} variants={item}>
-                <Card
-                  className={cn(
-                    "group rounded-xl border-l-4 border-slate-900 bg-white/80 backdrop-blur-sm",
-                    "shadow-sm transition-all duration-300",
-                    "hover:-translate-x-1 hover:shadow-xl"
-                  )}
-                >
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <div
-                        className="flex size-12 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-black/5 transition-all duration-300 group-hover:scale-110"
-                        style={{ backgroundColor: colors.background.light }}
-                      >
-                        <Bell className="size-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="text-2xl font-bold text-slate-900 mb-2">
-                          {announcement.title}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 text-sm text-slate-500">
-                          <span>{announcement.date}</span>
+          {loading ? (
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="text-center">
+                <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-slate-900 mb-4"></div>
+                <p className="text-slate-600">Duyurular yükleniyor...</p>
+              </div>
+            </div>
+          ) : announcements.length === 0 ? (
+            <div className="text-center py-20">
+              <p className="text-slate-600 text-lg">
+                Henüz hiç duyuru bulunmamaktadır.
+              </p>
+            </div>
+          ) : (
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.1 }}
+              className="space-y-6"
+            >
+              {announcements.map((announcement) => (
+                <motion.div key={announcement.id} variants={item}>
+                  <Card
+                    className={cn(
+                      "group rounded-xl border-l-4 border-slate-900 bg-white/80 backdrop-blur-sm",
+                      "shadow-sm transition-all duration-300",
+                      "hover:-translate-x-1 hover:shadow-xl"
+                    )}
+                  >
+                    <CardHeader>
+                      <div className="flex items-start gap-4">
+                        <div
+                          className="flex size-12 shrink-0 items-center justify-center rounded-xl shadow-sm ring-1 ring-black/5 transition-all duration-300 group-hover:scale-110"
+                          style={{ backgroundColor: colors.background.light }}
+                        >
+                          <Bell className="size-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <CardTitle className="text-2xl font-bold text-slate-900 mb-2">
+                            {announcement.title}
+                          </CardTitle>
+                          <div className="flex items-center gap-2 text-sm text-slate-500">
+                            <span>{announcement.date}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-slate-700 leading-relaxed">
-                      {announcement.content}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-slate-700 leading-relaxed">
+                        {announcement.content}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
     </div>

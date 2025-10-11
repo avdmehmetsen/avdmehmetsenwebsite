@@ -36,6 +36,18 @@ service cloud.firestore {
       // Yazma izni: Sadece admin makale ekleyebilir, güncelleyebilir, silebilir
       allow create, update, delete: if isAdmin();
     }
+    
+    // Announcements Collection
+    match /announcements/{announcement} {
+      // Get (tekil document okuma): Published veya admin
+      allow get: if resource.data.published == true || isAdmin();
+      
+      // List (collection query): Herkes (published filtresi kod tarafında yapılıyor)
+      allow list: if true;
+      
+      // Yazma izni: Sadece admin duyuru ekleyebilir, güncelleyebilir, silebilir
+      allow create, update, delete: if isAdmin();
+    }
   }
 }
 

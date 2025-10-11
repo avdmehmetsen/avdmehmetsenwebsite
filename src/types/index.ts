@@ -7,6 +7,7 @@ export interface LawyerInfo {
   experience?: string[];
   specializations?: string[];
   updatedAt: Date;
+  editorStateJSON?: string | null;
 }
 
 // Article Type
@@ -38,4 +39,22 @@ export interface ArticleFormData {
   imageUrl?: string | null;
   published: boolean;
   editorStateJSON?: string | null;
+}
+
+// Announcement Type
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Announcement Form Data (for creating/editing)
+export interface AnnouncementFormData {
+  title: string;
+  content: string;
+  published: boolean;
 }

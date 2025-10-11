@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -14,7 +14,13 @@ import { LinkNode } from "@lexical/link";
 import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { $getRoot, LexicalEditor, EditorState } from "lexical";
+import {
+  $getRoot,
+  LexicalEditor,
+  EditorState,
+  $createParagraphNode,
+  $createTextNode,
+} from "lexical";
 import ToolbarPlugin from "@/components/RichTextToolbar";
 
 interface RichTextEditorProps {
@@ -27,26 +33,6 @@ interface RichTextEditorProps {
    */
   initialEditorStateJSON?: string | null;
   onStateChange?: (stateJSON: string) => void;
-}
-
-// Simple debounce hook for expensive HTML generation
-function useDebouncedCallback<T extends (...args: any[]) => void>(
-  fn: T,
-  delay = 250
-) {
-  const fnRef = useMemo(() => fn, [fn]);
-  const [timer, setTimer] = useState<number | null>(null);
-
-  return useCallback(
-    ((...args: any[]) => {
-      if (timer) {
-        clearTimeout(timer);
-      }
-      const id = window.setTimeout(() => fnRef(...args), delay);
-      setTimer(id);
-    }) as T,
-    [delay, fnRef, timer]
-  );
 }
 
 // Plugin: load initial content
@@ -76,16 +62,60 @@ function InitialContentPlugin({
             const parsed = editor.parseEditorState(stateJSON);
             editor.setEditorState(parsed);
           } else if (html && html.trim()) {
-            // Best-effort HTML import
+            // Best-effort HTML import with validation
             const parser = new DOMParser();
             const dom = parser.parseFromString(html, "text/html");
             const nodes = $generateNodesFromDOM(editor, dom);
-            root.append(...nodes);
+
+            // Filter and validate nodes before appending
+            const validNodes = nodes.filter((node) => {
+              // Only allow ElementNode and DecoratorNode types
+              return (
+                node &&
+                node.getType &&
+                (node.getType() === "paragraph" ||
+                  node.getType() === "heading" ||
+                  node.getType() === "list" ||
+                  node.getType() === "listitem" ||
+                  node.getType() === "quote" ||
+                  node.getType() === "link")
+              );
+            });
+
+            if (validNodes.length > 0) {
+              root.append(...validNodes);
+            } else {
+              // Fallback: create a simple paragraph with the text content
+              const textContent =
+                dom.body.textContent || html.replace(/<[^>]*>/g, "");
+              if (textContent.trim()) {
+                const paragraphNode = $createParagraphNode();
+                const textNode = $createTextNode(textContent.trim());
+                paragraphNode.append(textNode);
+                root.append(paragraphNode);
+              }
+            }
           }
 
           setLoaded(true);
         } catch (err) {
           console.error("Error loading initial content:", err);
+          // Fallback: try to extract text content and create a simple paragraph
+          try {
+            const root = $getRoot();
+            root.clear();
+            if (html && html.trim()) {
+              const textContent = html.replace(/<[^>]*>/g, "").trim();
+              if (textContent) {
+                const paragraphNode = $createParagraphNode();
+                const textNode = $createTextNode(textContent);
+                paragraphNode.append(textNode);
+                root.append(paragraphNode);
+              }
+            }
+          } catch (fallbackErr) {
+            console.error("Fallback also failed:", fallbackErr);
+          }
           setLoaded(true);
         }
       });
@@ -131,18 +161,37 @@ export default function RichTextEditor({
     nodes: [HeadingNode, QuoteNode, ListNode, ListItemNode, LinkNode],
   } as const;
 
-  const debouncedOnChange = useDebouncedCallback(
+  const [debounceTimer, setDebounceTimer] = useState<number | null>(null);
+
+  const handleChange = useCallback(
     (editorState: EditorState, editor: LexicalEditor) => {
-      editorState.read(() => {
-        const html = $generateHtmlFromNodes(editor);
-        onChange(html);
-        // Persist exact Lexical state as JSON alongside HTML
-        const json = editor.getEditorState().toJSON();
-        onStateChange?.(JSON.stringify(json));
-      });
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+
+      const timer = window.setTimeout(() => {
+        editorState.read(() => {
+          const html = $generateHtmlFromNodes(editor);
+          onChange(html);
+          // Persist exact Lexical state as JSON alongside HTML
+          const json = editor.getEditorState().toJSON();
+          onStateChange?.(JSON.stringify(json));
+        });
+      }, 200);
+
+      setDebounceTimer(timer);
     },
-    200
+    [onChange, onStateChange, debounceTimer]
   );
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimer) {
+        clearTimeout(debounceTimer);
+      }
+    };
+  }, [debounceTimer]);
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
@@ -168,7 +217,7 @@ export default function RichTextEditor({
         <HistoryPlugin />
         <ListPlugin />
         <LinkPlugin />
-        <OnChangePlugin onChange={debouncedOnChange} />
+        <OnChangePlugin onChange={handleChange} />
         <InitialContentPlugin html={value} stateJSON={initialEditorStateJSON} />
       </div>
     </LexicalComposer>

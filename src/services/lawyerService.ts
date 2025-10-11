@@ -17,6 +17,7 @@ export async function getLawyerInfo(): Promise<LawyerInfo | null> {
         id: docSnap.id,
         ...data,
         updatedAt: data.updatedAt?.toDate() || new Date(),
+        editorStateJSON: data.editorStateJSON ?? null,
       } as LawyerInfo;
     }
     return null;
@@ -36,6 +37,7 @@ export async function updateLawyerInfo(
 
     const updateData = {
       ...data,
+      editorStateJSON: data.editorStateJSON ?? null,
       updatedAt: new Date(),
     };
 
