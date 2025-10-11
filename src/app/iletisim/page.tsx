@@ -94,7 +94,15 @@ export default function Iletisim() {
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       Telefon
                     </h3>
-                    <p className="text-gray-600">+90 (507) 736 82 55</p>
+                    <p className="text-gray-600 mb-3">+90 (507) 736 82 55</p>
+                    <a
+                      href="tel:+905077368255"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white transition-all duration-300 hover:opacity-90 text-sm"
+                      style={{ backgroundColor: colors.primary.main }}
+                    >
+                      <Phone className="w-4 h-4" />
+                      <span>Hemen Ara</span>
+                    </a>
                   </div>
                 </div>
 

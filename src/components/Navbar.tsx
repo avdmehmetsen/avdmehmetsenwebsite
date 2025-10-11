@@ -216,7 +216,7 @@ export default function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="transition-colors duration-200 font-medium"
+                      className="relative transition-colors duration-200 font-medium group"
                       style={{
                         color: isActive
                           ? colors.primary.main
@@ -236,6 +236,12 @@ export default function Navbar() {
                       }
                     >
                       {link.label}
+                      <span
+                        className={`absolute left-0 bottom-0 h-0.5 transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                        style={{ backgroundColor: colors.primary.main }}
+                      />
                     </Link>
                   );
                 })}
@@ -280,13 +286,19 @@ export default function Navbar() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className="block py-2 transition-colors duration-200"
+                      className="block py-2 transition-colors duration-200 relative group"
                       style={{
                         color: isActive ? colors.primary.main : "#d1d5db",
                       }}
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}
+                      <span
+                        className={`absolute left-0 bottom-0 h-0.5 transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
+                        style={{ backgroundColor: colors.primary.main }}
+                      />
                     </Link>
                   );
                 })}
