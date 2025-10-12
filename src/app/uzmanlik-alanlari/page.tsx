@@ -31,6 +31,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { colors } from "@/constants/colors";
+import Image from "next/image";
 
 // Icon map
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -315,7 +316,7 @@ export default function UzmanlikAlanlari() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-slate-900 text-white py-16">
+      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -329,6 +330,17 @@ export default function UzmanlikAlanlari() {
               Hukukun farklı alanlarında güvenilir ve etkili çözümler sunuyorum
             </p>
           </motion.div>
+        </div>
+
+        {/* Dekoratif SVG (alt sağ köşede) */}
+        <div className="hidden md:flex absolute bottom-0 right-0 items-end justify-end pointer-events-none">
+          <Image
+            src="/images/column.svg"
+            alt="Dekoratif sütun"
+            width={200}
+            height={200}
+            className="opacity-4 md:w-[180px] lg:w-[220px]"
+          />
         </div>
       </section>
 

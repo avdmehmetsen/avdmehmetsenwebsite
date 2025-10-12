@@ -5,6 +5,8 @@ import { colors } from "@/constants/colors";
 import Image from "next/image";
 import { getLawyerInfo } from "@/services/lawyerService";
 import { LawyerInfo } from "@/types";
+import hakkimizda1 from "@/assets/hakkimizda/hakkimizda1.jpg";
+import hakkimizda2 from "@/assets/hakkimizda/hakkimizda2.jpg";
 
 export default function Hakkimizda() {
   const [lawyerInfo, setLawyerInfo] = useState<LawyerInfo | null>(null);
@@ -22,7 +24,6 @@ export default function Hakkimizda() {
         setLoading(false);
       }
     };
-
     fetchLawyerInfo();
   }, []);
 
@@ -40,12 +41,24 @@ export default function Hakkimizda() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-slate-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
+        {/* Metin Alanı */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h1>
-          <p className="text-xl text-gray-300">
-            Müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz
+          <p className="text-xl text-gray-300 max-w-2xl">
+            Müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
           </p>
+        </div>
+
+        {/* Dekoratif SVG (alt sağ köşede) */}
+        <div className="hidden md:flex absolute bottom-0 right-0 items-end justify-end pointer-events-none">
+          <Image
+            src="/images/column.svg"
+            alt="Dekoratif sütun"
+            width={200}
+            height={200}
+            className="opacity-4 md:w-[180px] lg:w-[220px]"
+          />
         </div>
       </section>
 
@@ -76,13 +89,20 @@ export default function Hakkimizda() {
                 </p>
               </div>
             </div>
-            <div className="relative rounded-lg h-96 overflow-hidden">
-              <Image
-                src="/images/hakkimizda/hakkimizda1.jpg"
-                alt="Ofis Görseli"
-                fill
-                className="object-cover"
-              />
+
+            {/* Sabit oranlı kapsayıcı + sizes/placeholder */}
+            <div className="relative rounded-lg overflow-hidden">
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src={hakkimizda1}
+                  alt="Ofis Görseli"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -125,13 +145,18 @@ export default function Hakkimizda() {
             </div>
 
             {/* Image - Mobilde sonra gelir */}
-            <div className="relative rounded-lg h-96 overflow-hidden order-2 lg:order-1">
-              <Image
-                src="/images/hakkimizda/hakkimizda2.jpg"
-                alt={lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
-                fill
-                className="object-contain"
-              />
+            <div className="relative rounded-lg overflow-hidden order-2 lg:order-1">
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src={hakkimizda2}
+                  alt={lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
+                  fill
+                  className="object-contain bg-white"
+                  loading="lazy"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -143,7 +168,7 @@ export default function Hakkimizda() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
               <div
-                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <svg
@@ -168,9 +193,10 @@ export default function Hakkimizda() {
                 önceliğimizdir.
               </p>
             </div>
+
             <div className="text-center">
               <div
-                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <svg
@@ -195,9 +221,10 @@ export default function Hakkimizda() {
                 ediyoruz.
               </p>
             </div>
+
             <div className="text-center">
               <div
-                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <svg
@@ -219,9 +246,10 @@ export default function Hakkimizda() {
                 Hızlı ve etkili çözümler üreterek zamanınıza değer veriyoruz.
               </p>
             </div>
+
             <div className="text-center">
               <div
-                className=" w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
                 style={{ backgroundColor: colors.theme2.greenBackground }}
               >
                 <svg
@@ -248,81 +276,6 @@ export default function Hakkimizda() {
           </div>
         </div>
       </section>
-
-      {/* Team Section */}
-      {/* <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
-            Ekibimiz
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-400">Fotoğraf</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-1">
-                Av. Mehmet Durdu Şen
-              </h3>
-              <p className="text-amber-600 font-medium mb-2">Kurucu Avukat</p>
-              <p className="text-gray-600 text-sm">
-                Ceza Hukuku ve Ticaret Hukuku alanlarında uzman
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-400">Fotoğraf</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-1">Av. [İsim]</h3>
-              <p className="text-amber-600 font-medium mb-2">Kıdemli Avukat</p>
-              <p className="text-gray-600 text-sm">
-                Aile Hukuku ve İş Hukuku alanlarında uzman
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="bg-slate-200 w-48 h-48 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-gray-400">Fotoğraf</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-1">Av. [İsim]</h3>
-              <p className="text-amber-600 font-medium mb-2">Avukat</p>
-              <p className="text-gray-600 text-sm">
-                Gayrimenkul Hukuku ve Miras Hukuku alanlarında uzman
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Stats Section */}
-      {/* <section className="py-16 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
-                15+
-              </div>
-              <p className="text-gray-300">Yıllık Deneyim</p>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
-                500+
-              </div>
-              <p className="text-gray-300">Başarılı Dava</p>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
-                1000+
-              </div>
-              <p className="text-gray-300">Mutlu Müvekkil</p>
-            </div>
-            <div>
-              <div className="text-4xl md:text-5xl font-bold text-amber-500 mb-2">
-                %95
-              </div>
-              <p className="text-gray-300">Başarı Oranı</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 }
