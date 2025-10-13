@@ -58,7 +58,7 @@ export const metadata: Metadata = {
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
     images: [
       {
-        url: "/images/Logo1.png",
+        url: "/images/logo.png",
         width: 1200,
         height: 630,
         alt: "Av. Durdu Mehmet Şen - Hukuk Bürosu Logo",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
     description:
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri.",
-    images: ["/images/Logo1.png"],
+    images: ["/images/logo.png"],
   },
   robots: {
     index: true,

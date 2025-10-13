@@ -11,8 +11,8 @@ export default function StructuredData() {
     name: "Av. Durdu Mehmet Şen - Hukuk Bürosu",
     alternateName: "Şen Hukuk Bürosu",
     url: "https://avdmehmetsen.vercel.app",
-    logo: "https://avdmehmetsen.vercel.app/images/Logo1.png",
-    image: "https://avdmehmetsen.vercel.app/images/Logo1.png",
+    logo: "https://avdmehmetsen.vercel.app/images/logo.png",
+    image: "https://avdmehmetsen.vercel.app/images/logo.png",
     description:
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
     address: {
