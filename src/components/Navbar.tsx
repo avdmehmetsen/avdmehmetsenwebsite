@@ -199,12 +199,17 @@ export default function Navbar() {
               <Link href="/" className="flex items-center space-x-2">
                 <div className="flex items-center">
                   <Scale
-                    className="w-8 h-8"
+                    className="w-10 h-10"
                     style={{ color: colors.primary.main }}
                   />
-                  <span className="ml-2 text-xl font-bold">
-                    Şen Hukuk Bürosu
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="ml-2 text-xl font-bold">
+                      ŞEN HUKUK BÜROSU
+                    </span>
+                    <span className="ml-2 text-xl font-bold">
+                      Av. Durdu Mehmet Şen
+                    </span>
+                  </div>
                 </div>
               </Link>
 
