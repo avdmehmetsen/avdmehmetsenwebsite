@@ -153,8 +153,8 @@ export default function KVKK() {
             <ul>
               <li>Ofisimize bizzat gelerek veya noter kanalıyla</li>
               <li>
-                E-posta: <strong>info@avdurdumehmetsen.com</strong> (güvenli
-                kimlik doğrulaması gerekebilir)
+                E-posta: <strong>dmehmetsen@gmail.com</strong> (güvenli kimlik
+                doğrulaması gerekebilir)
               </li>
               <li>Yazılı talep halinde posta veya KEP kanalı</li>
             </ul>
@@ -172,7 +172,7 @@ export default function KVKK() {
                 <strong>Adres:</strong> Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4.
                 Halil Atilla Sitesi No:233 C Blok K:5 D:9 Bayraklı / İzmir
                 <br />
-                <strong>E-posta:</strong> info@avdurdumehmetsen.com
+                <strong>E-posta:</strong> dmehmetsen@gmail.com
                 <br />
                 <strong>Telefon:</strong> +90 (507) 736 82 55
               </p>

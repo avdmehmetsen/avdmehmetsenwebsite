@@ -133,7 +133,7 @@ export default function Iletisim() {
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       E-posta
                     </h3>
-                    <p className="text-gray-600">info@avdurdumehmetsen.com</p>
+                    <p className="text-gray-600">dmehmetsen@gmail.com</p>
                   </div>
                 </div>
 

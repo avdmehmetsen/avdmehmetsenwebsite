@@ -168,7 +168,7 @@ export default function ArticleCard({
                       className="text-sm md:text-base font-semibold drop-shadow-lg"
                       style={{ color: colors.primary.main }}
                     >
-                      www.avdurdumehmetsen.com
+                      dmehmetsen@gmail.com
                     </p>
                     <p
                       className="text-xs md:text-sm font-medium drop-shadow-lg"

@@ -33,100 +33,11 @@ export default function Makaleler() {
     fetchArticles();
   }, []);
 
-  // Örnek data - Firebase'de makale yoksa fallback olarak kullanılacak
-  const fallbackArticles = [
-    {
-      id: "1",
-      slug: "ceza-hukukunda-zamanaşımı",
-      title: "Ceza Hukukunda Zamanaşımı Sürelerinin Önemi",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Ceza hukukunda zamanaşımı sürelerinin hesaplanması ve hukuki sonuçları hakkında detaylı bir inceleme...",
-      date: "15 Mart 2024",
-    },
-    {
-      id: "2",
-      slug: "ticaret-hukuku-sozlesmeler",
-      title: "Ticaret Hukukunda Sözleşme Serbestisi İlkesi",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Ticari sözleşmelerde tarafların serbestisi, sınırları ve bu ilkenin uygulanmasında dikkat edilmesi gerekenler...",
-      date: "10 Mart 2024",
-    },
-    {
-      id: "3",
-      slug: "bosanma-davalarinda-velayet",
-      title: "Boşanma Davalarında Velayet Hakkı ve Çocuğun Üstün Yararı",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Boşanma davalarında velayet hakkının belirlenmesinde mahkemelerin yaklaşımı ve çocuğun üstün yararı ilkesi...",
-      date: "5 Mart 2024",
-    },
-    {
-      id: "4",
-      slug: "ise-iade-davalari",
-      title: "İşe İade Davalarında Süre ve Usul",
-      category: "Ceza Hukuku",
-      excerpt:
-        "İşten çıkarmalarda işçinin açabileceği işe iade davası, süreleri ve başvuru usulleri hakkında bilgiler...",
-      date: "1 Mart 2024",
-    },
-    {
-      id: "5",
-      slug: "tapu-iptal-tescil-davalari",
-      title: "Tapu İptal ve Tescil Davalarının Özellikleri",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Gayrimenkul hukukunda tapu iptal ve tescil davalarının açılma şartları, süreci ve sonuçları...",
-      date: "25 Şubat 2024",
-    },
-    {
-      id: "6",
-      slug: "miras-payi-hesaplama",
-      title: "Yasal Miras Paylarının Hesaplanması",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Miras hukukunda yasal mirasçılar, miras paylarının hesaplanması ve saklı pay kavramı üzerine açıklamalar...",
-      date: "20 Şubat 2024",
-    },
-    {
-      id: "7",
-      slug: "is-sozlesmesi-feshi",
-      title: "İş Sözleşmesinin Feshi ve Hukuki Sonuçları",
-      category: "Ceza Hukuku",
-      excerpt:
-        "İş sözleşmesinin fesih türleri, işveren ve işçinin fesih hakları ve tazminat talepleri...",
-      date: "15 Şubat 2024",
-    },
-    {
-      id: "8",
-      slug: "ticari-alacak-takibi",
-      title: "Ticari Alacakların Takibi ve İcra Süreci",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Ticari alacakların yasal yollarla tahsili, icra takibi ve alacaklı haklarının korunması...",
-      date: "10 Şubat 2024",
-    },
-    {
-      id: "9",
-      slug: "kira-sozlesmesi-tahliye",
-      title: "Kira Sözleşmeleri ve Tahliye Davaları",
-      category: "Ceza Hukuku",
-      excerpt:
-        "Kira hukukunda kiracı ve kiralayan hakları, tahliye davası açma şartları ve süreçleri...",
-      date: "5 Şubat 2024",
-    },
-  ];
-
-  // Use fallback articles if no articles from Firebase
-  const displayArticles =
-    allArticles.length > 0 ? allArticles : fallbackArticles;
-
   // Sayfalandırma hesaplamaları
-  const totalPages = Math.ceil(displayArticles.length / articlesPerPage);
+  const totalPages = Math.ceil(allArticles.length / articlesPerPage);
   const startIndex = (currentPage - 1) * articlesPerPage;
   const endIndex = startIndex + articlesPerPage;
-  const currentArticles = displayArticles.slice(startIndex, endIndex);
+  const currentArticles = allArticles.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -265,8 +176,8 @@ export default function Makaleler() {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="mt-4 text-center text-sm text-slate-600"
               >
-                {startIndex + 1} - {Math.min(endIndex, displayArticles.length)}{" "}
-                arası gösteriliyor (Toplam {displayArticles.length} makale)
+                {startIndex + 1} - {Math.min(endIndex, allArticles.length)}{" "}
+                arası gösteriliyor (Toplam {allArticles.length} makale)
               </motion.div>
             </>
           )}

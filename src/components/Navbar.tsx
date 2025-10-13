@@ -11,8 +11,8 @@ import {
   Linkedin,
   Twitter,
   Instagram,
-  Scale,
   LogOut,
+  Scale,
 } from "lucide-react";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { colors } from "@/constants/colors";
@@ -87,7 +87,7 @@ export default function Navbar() {
                     <span>+90 (507) 736 82 55</span>
                   </a>
                   <a
-                    href="mailto:info@avdurdumehmetsen.com"
+                    href="mailto:dmehmetsen@gmail.com"
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -95,7 +95,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span>info@avdurdumehmetsen.com</span>
+                    <span>dmehmetsen@gmail.com</span>
                   </a>
                 </div>
 
@@ -169,7 +169,7 @@ export default function Navbar() {
                 {/* Second Row: Email & Address */}
                 <div className="flex flex-col gap-1">
                   <a
-                    href="mailto:info@avdurdumehmetsen.com"
+                    href="mailto:dmehmetsen@gmail.com"
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -177,7 +177,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span className="text-xs">info@avdurdumehmetsen.com</span>
+                    <span className="text-xs">dmehmetsen@gmail.com</span>
                   </a>
                   <div
                     className={`flex items-center gap-1 text-xs ${linkColor}`}

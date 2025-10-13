@@ -18,11 +18,18 @@ import { Article, ArticleFormData } from "@/types";
 const COLLECTION_NAME = "articles";
 
 // Helper function to convert Firestore timestamp to Date
-function convertTimestamp(timestamp: any): Date {
-  if (timestamp?.toDate) {
+function convertTimestamp(
+  timestamp: { toDate?: () => Date } | Date | string | number
+): Date {
+  if (
+    timestamp &&
+    typeof timestamp === "object" &&
+    "toDate" in timestamp &&
+    timestamp.toDate
+  ) {
     return timestamp.toDate();
   }
-  return new Date(timestamp);
+  return new Date(timestamp as string | number | Date);
 }
 
 // Helper function to create slug from title
@@ -253,7 +260,10 @@ export async function updateArticle(
 ): Promise<void> {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    const updateData: any = {
+    const updateData: Partial<ArticleFormData> & {
+      updatedAt: Timestamp;
+      slug?: string;
+    } = {
       ...formData,
       editorStateJSON: formData.editorStateJSON ?? null,
       updatedAt: Timestamp.fromDate(new Date()),

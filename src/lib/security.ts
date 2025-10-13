@@ -28,12 +28,9 @@ export async function getUserAgent(): Promise<string> {
 }
 
 export function isSuspiciousIP(ip: string): boolean {
-  // Basit IP kontrolleri
-  const suspiciousPatterns = [
-    /^192\.168\./, // Local IPs (eğer gerekirse)
-    /^10\./, // Private IPs
-    /^172\./, // Private IPs
-  ];
+  // Basit IP kontrolleri - şimdilik production'da da local IP'lere izin ver
+  // İleride gerekirse bu kontroller aktifleştirilebilir:
+  // const suspiciousPatterns = [/^192\.168\./, /^10\./, /^172\./];
 
   // Development ortamında localhost'u allow et
   if (
@@ -96,7 +93,16 @@ export function checkRateLimit(
   };
 }
 
-export function validateAndSanitizeFormData(data: any): {
+interface FormData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+  [key: string]: unknown;
+}
+
+export function validateAndSanitizeFormData(data: FormData): {
   isValid: boolean;
   errors: string[];
   sanitizedData: {
@@ -108,7 +114,13 @@ export function validateAndSanitizeFormData(data: any): {
   };
 } {
   const errors: string[] = [];
-  const sanitizedData: any = {};
+  const sanitizedData: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    subject?: string;
+    message?: string;
+  } = {};
 
   console.log("Validating form data:", {
     hasName: !!data.name,

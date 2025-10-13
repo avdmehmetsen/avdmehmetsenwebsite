@@ -164,7 +164,7 @@ export default function Footer() {
                   className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
                   style={{ color: colors.primary.main }}
                 />
-                <span>info@avdurdumehmetsen.com</span>
+                <span>dmehmetsen@gmail.com</span>
               </li>
               <li className="flex flex-col items-start">
                 <div className="flex items-start mb-2">

@@ -16,11 +16,18 @@ import { ContactMessage, ContactFormData } from "@/types";
 const COLLECTION_NAME = "contacts";
 
 // Helper function to convert Firestore timestamp to Date
-function convertTimestamp(timestamp: any): Date {
-  if (timestamp?.toDate) {
+function convertTimestamp(
+  timestamp: { toDate?: () => Date } | Date | string | number
+): Date {
+  if (
+    timestamp &&
+    typeof timestamp === "object" &&
+    "toDate" in timestamp &&
+    timestamp.toDate
+  ) {
     return timestamp.toDate();
   }
-  return new Date(timestamp);
+  return new Date(timestamp as string | number | Date);
 }
 
 // Get all contact messages (with optional filter for unread only)

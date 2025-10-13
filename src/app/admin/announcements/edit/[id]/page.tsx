@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, useCallback, use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -43,11 +43,7 @@ function EditAnnouncementContent({
     published: false,
   });
 
-  useEffect(() => {
-    fetchAnnouncement();
-  }, [announcementId]);
-
-  const fetchAnnouncement = async () => {
+  const fetchAnnouncement = useCallback(async () => {
     try {
       setInitialLoading(true);
       const announcement = await getAnnouncementById(announcementId);
@@ -69,7 +65,11 @@ function EditAnnouncementContent({
     } finally {
       setInitialLoading(false);
     }
-  };
+  }, [announcementId, router]);
+
+  useEffect(() => {
+    fetchAnnouncement();
+  }, [fetchAnnouncement]);
 
   const handleLogout = async () => {
     try {

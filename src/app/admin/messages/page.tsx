@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
@@ -11,11 +11,9 @@ import {
   Trash2,
   Calendar,
   Phone,
-  User,
   LogOut,
   Tag,
 } from "lucide-react";
-import { colors } from "@/constants/colors";
 import {
   getContactMessages,
   markMessageAsRead,
@@ -40,11 +38,7 @@ function MessagesManagementContent() {
   const router = useRouter();
   const { logout } = useAuth();
 
-  useEffect(() => {
-    fetchMessages();
-  }, [filter]);
-
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback(async () => {
     try {
       setLoading(true);
       const fetchedMessages = await getContactMessages(filter === "unread");
@@ -55,7 +49,11 @@ function MessagesManagementContent() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
 
   const handleLogout = async () => {
     try {

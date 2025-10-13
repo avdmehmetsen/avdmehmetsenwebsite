@@ -29,43 +29,6 @@ export default function Home() {
     fetchArticles();
   }, []);
 
-  // Fallback articles
-  const fallbackArticles = [
-    {
-      id: "1",
-      slug: "yeni-ceza-kanunu-degisiklikleri",
-      category: "Ceza Hukuku",
-      title: "Yeni Ceza Kanunu Değişiklikleri ve Uygulamaları",
-      excerpt:
-        "2024 yılında yürürlüğe giren ceza kanunu değişikliklerinin detaylı analizi ve pratik uygulamaları...",
-      date: "15 Mart 2024",
-      imageUrl: null,
-    },
-    {
-      id: "2",
-      slug: "sirket-kurulusunda-dikkat-edilmesi-gerekenler",
-      category: "Ticaret Hukuku",
-      title: "Şirket Kuruluşunda Dikkat Edilmesi Gerekenler",
-      excerpt:
-        "Ticaret hukukunda şirket kuruluş sürecinde önemli noktalar ve yasal gereklilikler hakkında bilgiler...",
-      date: "10 Mart 2024",
-      imageUrl: null,
-    },
-    {
-      id: "3",
-      slug: "bosanma-davalarinda-velayet-haklari",
-      category: "Aile Hukuku",
-      title: "Boşanma Davalarında Velayet Hakları",
-      excerpt:
-        "Boşanma sürecinde velayet haklarının belirlenmesi ve çocuğun üstün yararı ilkesi üzerine açıklamalar...",
-      date: "5 Mart 2024",
-      imageUrl: null,
-    },
-  ];
-
-  const displayArticles =
-    latestArticles.length > 0 ? latestArticles : fallbackArticles;
-
   return (
     <div>
       {/* Hero Slider */}
@@ -164,51 +127,53 @@ export default function Home() {
       </section>
 
       {/* Latest Articles Preview */}
-      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Son Makaleler
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Hukuk dünyasından güncel yazılar ve analizler
-            </p>
-            <div className="mx-auto mt-6 h-px w-24 bg-slate-300" />
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {displayArticles.map((article, index) => (
-              <ArticleCard key={article.id} article={article} index={index} />
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-12"
-          >
-            <Link
-              href="/makaleler"
-              className={cn(
-                "inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold",
-                "bg-slate-900 text-white shadow-sm ring-1 ring-black/5 transition-all",
-                "hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md"
-              )}
+      {latestArticles.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
             >
-              Tüm Makaleler
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Son Makaleler
+              </h2>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                Hukuk dünyasından güncel yazılar ve analizler
+              </p>
+              <div className="mx-auto mt-6 h-px w-24 bg-slate-300" />
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {latestArticles.map((article, index) => (
+                <ArticleCard key={article.id} article={article} index={index} />
+              ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-center mt-12"
+            >
+              <Link
+                href="/makaleler"
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold",
+                  "bg-slate-900 text-white shadow-sm ring-1 ring-black/5 transition-all",
+                  "hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-md"
+                )}
+              >
+                Tüm Makaleler
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

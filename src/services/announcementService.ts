@@ -17,11 +17,18 @@ import { Announcement, AnnouncementFormData } from "@/types";
 const COLLECTION_NAME = "announcements";
 
 // Helper function to convert Firestore timestamp to Date
-function convertTimestamp(timestamp: any): Date {
-  if (timestamp?.toDate) {
+function convertTimestamp(
+  timestamp: { toDate?: () => Date } | Date | string | number
+): Date {
+  if (
+    timestamp &&
+    typeof timestamp === "object" &&
+    "toDate" in timestamp &&
+    timestamp.toDate
+  ) {
     return timestamp.toDate();
   }
-  return new Date(timestamp);
+  return new Date(timestamp as string | number | Date);
 }
 
 // Get all announcements (with optional filter for published only)
@@ -123,10 +130,11 @@ export async function updateAnnouncement(
 ): Promise<void> {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
-    const updateData: any = {
-      ...formData,
-      updatedAt: Timestamp.fromDate(new Date()),
-    };
+    const updateData: Partial<AnnouncementFormData> & { updatedAt: Timestamp } =
+      {
+        ...formData,
+        updatedAt: Timestamp.fromDate(new Date()),
+      };
 
     await updateDoc(docRef, updateData);
   } catch (error) {

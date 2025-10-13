@@ -12,6 +12,8 @@ import {
   COMMAND_PRIORITY_LOW,
   FORMAT_ELEMENT_COMMAND,
   ElementFormatType,
+  ElementNode,
+  $isElementNode,
 } from "lexical";
 import {
   $createHeadingNode,
@@ -48,7 +50,6 @@ import {
   Droplet,
   PaintBucket,
 } from "lucide-react";
-import { $isElementNode } from "lexical";
 
 // Optional: type for block state
 type BlockType = "paragraph" | "h2" | "h3" | "ul" | "ol" | "quote";
@@ -90,21 +91,19 @@ export default function ToolbarPlugin() {
       // --- BLOK TESPİTİ (güvenli) ---
       const anchorNode = selection.anchor.getNode();
 
-      let element: any = null;
+      let element: ElementNode | null = null;
       try {
-        if (
-          anchorNode &&
-          (anchorNode as any).getKey &&
-          (anchorNode as any).getKey() !== "root"
-        ) {
+        if (anchorNode && anchorNode.getKey && anchorNode.getKey() !== "root") {
           const baseEl = $isElementNode(anchorNode)
-            ? (anchorNode as any)
-            : (anchorNode as any).getParent?.();
+            ? anchorNode
+            : anchorNode.getParent?.();
 
           // Bazı Lexical sürümlerinde TextNode'da getTopLevelElementOrThrow yok
           element =
-            baseEl?.getTopLevelElementOrThrow?.() ??
-            baseEl?.getTopLevelElement?.() ??
+            (baseEl?.getTopLevelElementOrThrow?.() as
+              | ElementNode
+              | undefined) ??
+            (baseEl?.getTopLevelElement?.() as ElementNode | undefined) ??
             baseEl ??
             null;
         }
