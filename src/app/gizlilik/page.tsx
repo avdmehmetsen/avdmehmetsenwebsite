@@ -2,8 +2,17 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası | Av. Durdu Mehmet Şen",
-  description: "Web sitesi gizlilik politikası ve veri koruma uygulamaları.",
+  title: "Gizlilik Politikası",
+  description:
+    "Web sitesi gizlilik politikası, kişisel veri koruma uygulamaları ve kullanıcı hakları.",
+  openGraph: {
+    title: "Gizlilik Politikası | Av. Durdu Mehmet Şen",
+    description: "Web sitesi gizlilik politikası ve veri koruma uygulamaları.",
+    url: "https://avdmehmetsen.vercel.app/gizlilik",
+  },
+  alternates: {
+    canonical: "https://avdmehmetsen.vercel.app/gizlilik",
+  },
 };
 
 export default function Gizlilik() {

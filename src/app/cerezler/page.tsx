@@ -1,8 +1,17 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Çerez Politikası | Av. Durdu Mehmet Şen",
-  description: "Web sitesinde kullanılan çerezler hakkında detaylı bilgi.",
+  title: "Çerez Politikası",
+  description:
+    "Web sitesinde kullanılan çerezler, izleme teknolojileri ve gizlilik tercihleri hakkında detaylı bilgi.",
+  openGraph: {
+    title: "Çerez Politikası | Av. Durdu Mehmet Şen",
+    description: "Web sitesinde kullanılan çerezler hakkında detaylı bilgi.",
+    url: "https://avdmehmetsen.vercel.app/cerezler",
+  },
+  alternates: {
+    canonical: "https://avdmehmetsen.vercel.app/cerezler",
+  },
 };
 
 export default function Cerezler() {

@@ -1,9 +1,18 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "KVKK Aydınlatma Metni | Av. Durdu Mehmet Şen",
+  title: "KVKK Aydınlatma Metni",
   description:
-    "Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.",
+    "Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında aydınlatma metni ve veri işleme politikalarımız.",
+  openGraph: {
+    title: "KVKK Aydınlatma Metni | Av. Durdu Mehmet Şen",
+    description:
+      "Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.",
+    url: "https://avdmehmetsen.vercel.app/kvkk",
+  },
+  alternates: {
+    canonical: "https://avdmehmetsen.vercel.app/kvkk",
+  },
 };
 
 export default function KVKK() {

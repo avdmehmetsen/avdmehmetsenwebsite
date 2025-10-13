@@ -206,7 +206,7 @@ export default function Navbar() {
                     <span className="ml-2 text-xl font-bold">
                       ŞEN HUKUK BÜROSU
                     </span>
-                    <span className="ml-2 text-xl font-bold">
+                    <span className="ml-2 text-medium font-bold">
                       Av. Durdu Mehmet Şen
                     </span>
                   </div>
