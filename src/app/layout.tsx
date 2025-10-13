@@ -16,9 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Av. Durdu Mehmet Şen | Hukuk Bürosu",
-  description:
-    "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Uzman kadromuzla yanınızdayız.",
-  keywords: "avukat, hukuk bürosu, hukuki danışmanlık, Durdu Mehmet Şen",
+  description: "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri.",
+  keywords: "avukat, izmir, hukuk bürosu, hukuki danışmanlık, Durdu Mehmet Şen",
   icons: {
     icon: "/favicon.svg",
   },
