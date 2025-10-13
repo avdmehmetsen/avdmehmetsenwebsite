@@ -175,13 +175,17 @@ export default function Iletisim() {
                 </h3>
                 <div className="flex gap-4">
                   {[
-                    { Icon: Linkedin, label: "LinkedIn" },
-                    { Icon: Twitter, label: "Twitter" },
-                    { Icon: Instagram, label: "Instagram" },
-                  ].map(({ Icon, label }) => (
+                    {
+                      Icon: Linkedin,
+                      label: "LinkedIn",
+                      href: "https://www.linkedin.com/in/durdu-mehmet-%C5%9Fen-a3020a267/?originalSubdomain=tr",
+                    },
+                    { Icon: Twitter, label: "Twitter", href: "#" },
+                    { Icon: Instagram, label: "Instagram", href: "#" },
+                  ].map(({ Icon, label, href }) => (
                     <a
                       key={label}
-                      href="#"
+                      href={href}
                       className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 hover:shadow-md"
                       style={{ backgroundColor: colors.background.dark }}
                       onMouseEnter={(e) =>
