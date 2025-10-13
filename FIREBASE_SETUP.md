@@ -37,7 +37,7 @@ Proje kök dizininde `.env.local` dosyası oluşturun:
 
 # WhatsApp Configuration
 
-NEXT_PUBLIC_WHATSAPP_PHONE=905077368255
+NEXT_PUBLIC_WHATSAPP_PHONE=905077368251
 NEXT_PUBLIC_WHATSAPP_PREFILL=Merhaba, uygun olduğunuz bir zamanda görüşme talep ediyorum.
 
 # Firebase Configuration (Firebase Console'dan alın)

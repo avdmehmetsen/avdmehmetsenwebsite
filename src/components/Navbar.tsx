@@ -76,7 +76,7 @@ export default function Navbar() {
                 {/* Left Side - Contact Info */}
                 <div className="flex items-center gap-4">
                   <a
-                    href="tel:+905077368255"
+                    href="tel:+905077368251"
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -84,7 +84,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span>+90 (507) 736 82 55</span>
+                    <span>+90 (507) 736 82 51</span>
                   </a>
                   <a
                     href="mailto:dmehmetsen@gmail.com"
@@ -136,7 +136,7 @@ export default function Navbar() {
                 {/* First Row: Phone & Social Media */}
                 <div className="flex items-center justify-between">
                   <a
-                    href="tel:+905077368255"
+                    href="tel:+905077368251"
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -144,7 +144,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span className="text-xs">+90 (507) 736 82 55</span>
+                    <span className="text-xs">+90 (507) 736 82 51</span>
                   </a>
                   <div className="flex items-center gap-2">
                     {[Linkedin, Twitter, Instagram].map((Icon, i) => (

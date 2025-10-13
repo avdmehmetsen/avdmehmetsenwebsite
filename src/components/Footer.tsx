@@ -172,11 +172,11 @@ export default function Footer() {
                     className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
                     style={{ color: colors.primary.main }}
                   />
-                  <span>+90 (507) 736 82 55</span>
+                  <span>+90 (507) 736 82 51</span>
                 </div>
                 <div className="ml-6">
                   <a
-                    href="tel:+905077368255"
+                    href="tel:+905077368251"
                     className="inline-flex items-center gap-2 px-4 py-1 rounded-lg font-medium text-white transition-all duration-300 hover:opacity-90 text-sm"
                     style={{ backgroundColor: colors.primary.main }}
                   >

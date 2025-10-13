@@ -65,7 +65,7 @@ Sitemap: https://avdmehmetsen.vercel.app/sitemap.xml
   "name": "Av. Durdu Mehmet Şen - Hukuk Bürosu",
   "address": "...",
   "geo": { "latitude": "38.4652783", "longitude": "27.1906063" },
-  "telephone": "+90-507-736-82-55",
+  "telephone": "+90-507-736-82-51",
   "openingHours": "Mon-Fri 09:00-18:00",
   "serviceType": ["Ceza Hukuku", "Ticaret Hukuku", ...]
 }

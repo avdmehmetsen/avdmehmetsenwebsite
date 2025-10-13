@@ -183,7 +183,7 @@ export default function KVKK() {
                 <br />
                 <strong>E-posta:</strong> dmehmetsen@gmail.com
                 <br />
-                <strong>Telefon:</strong> +90 (507) 736 82 55
+                <strong>Telefon:</strong> +90 (507) 736 82 51
               </p>
             </div>
 

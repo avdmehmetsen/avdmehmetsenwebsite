@@ -31,12 +31,12 @@ export default function StructuredData() {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+90-507-736-82-55",
+      telephone: "+90-507-736-82-51",
       contactType: "customer service",
       areaServed: "TR",
       availableLanguage: ["Turkish"],
     },
-    telephone: "+90-507-736-82-55",
+    telephone: "+90-507-736-82-51",
     email: "dmehmetsen@gmail.com",
     founder: {
       "@type": "Person",

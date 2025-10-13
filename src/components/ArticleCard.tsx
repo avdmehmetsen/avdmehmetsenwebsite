@@ -174,7 +174,7 @@ export default function ArticleCard({
                       className="text-xs md:text-sm font-medium drop-shadow-lg"
                       style={{ color: colors.primary.main }}
                     >
-                      +90 (507) 736 82 55
+                      +90 (507) 736 82 51
                     </p>
                   </div>
                 </div> */}
