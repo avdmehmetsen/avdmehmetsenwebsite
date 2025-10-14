@@ -52,9 +52,9 @@ function InitPageContent() {
             Sistem Başlatma
           </h1>
           <p className="text-gray-600 mb-8">
-            Bu sayfa Firebase'de başlangıç iletişim bilgilerini oluşturur. Eğer
-            daha önce iletişim bilgileri oluşturulmamışsa, bu butona tıklayarak
-            varsayılan bilgileri ekleyebilirsiniz.
+            Bu sayfa Firebase&apos;de başlangıç iletişim bilgilerini oluşturur.
+            Eğer daha önce iletişim bilgileri oluşturulmamışsa, bu butona
+            tıklayarak varsayılan bilgileri ekleyebilirsiniz.
           </p>
 
           {status === "idle" && (
@@ -118,7 +118,7 @@ function InitPageContent() {
             <ul className="text-sm text-blue-800 space-y-1">
               <li>• Bu işlem sadece bir kere yapılmalıdır</li>
               <li>
-                • Varsayılan iletişim bilgileri Firebase'e kaydedilecektir
+                • Varsayılan iletişim bilgileri Firebase&apos;e kaydedilecektir
               </li>
               <li>• Daha sonra admin panelinden güncelleyebilirsiniz</li>
               <li>• Eğer veriler zaten mevcutsa, bu işlem atlanacaktır</li>

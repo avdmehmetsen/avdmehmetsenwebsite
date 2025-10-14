@@ -226,7 +226,7 @@ export default function ContactInfoPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Navbar'da mobil görünümde gösterilir
+                Navbar&apos;da mobil görünümde gösterilir
               </p>
             </div>
 
@@ -293,13 +293,15 @@ export default function ContactInfoPage() {
                   💡 Google Maps Embed URL Nasıl Alınır:
                 </p>
                 <ol className="text-xs text-blue-700 space-y-1 list-decimal list-inside">
-                  <li>Google Maps'te konumunuzu bulun</li>
-                  <li>"Paylaş" butonuna tıklayın</li>
-                  <li>"Harita ekle" sekmesine geçin</li>
+                  <li>Google Maps&apos;te konumunuzu bulun</li>
+                  <li>&quot;Paylaş&quot; butonuna tıklayın</li>
+                  <li>&quot;Harita ekle&quot; sekmesine geçin</li>
                   <li>
                     Görünen iframe kodundaki{" "}
-                    <code className="bg-blue-100 px-1 rounded">src="..."</code>{" "}
-                    kısmındaki URL'yi kopyalayın
+                    <code className="bg-blue-100 px-1 rounded">
+                      src=&quot;...&quot;
+                    </code>{" "}
+                    kısmındaki URL&apos;yi kopyalayın
                   </li>
                 </ol>
               </div>
