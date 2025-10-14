@@ -298,7 +298,9 @@ export default function ContactInfoPage() {
                   <li>&quot;Harita ekle&quot; sekmesine geçin</li>
                   <li>
                     Görünen iframe kodundaki{" "}
-                    <code className="bg-blue-100 px-1 rounded">src=&quot;...&quot;</code>{" "}
+                    <code className="bg-blue-100 px-1 rounded">
+                      src=&quot;...&quot;
+                    </code>{" "}
                     kısmındaki URL&apos;yi kopyalayın
                   </li>
                 </ol>
