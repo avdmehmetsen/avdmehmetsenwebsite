@@ -3,7 +3,15 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FileText, User, LogOut, Bell, Mail, Phone, Power } from "lucide-react";
+import {
+  FileText,
+  LogOut,
+  Bell,
+  Mail,
+  Phone,
+  Power,
+  Building2,
+} from "lucide-react";
 import { colors } from "@/constants/colors";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
@@ -89,11 +97,11 @@ function AdminPageContent() {
       color: colors.status.success,
     },
     {
-      title: "Avukat Bilgileri",
-      description: "Avukat hakkında bilgileri güncelle",
-      icon: User,
-      href: "/admin/lawyer",
-      color: colors.theme2.darkGreen,
+      title: "Hakkımızda Sayfası",
+      description: "Ofis ve avukat bilgilerini, metin ve fotoğrafları güncelle",
+      icon: Building2,
+      href: "/admin/about",
+      color: "#6366f1",
     },
     {
       title: "İletişim Bilgileri",

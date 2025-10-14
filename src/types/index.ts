@@ -117,3 +117,27 @@ export interface SiteSettingsFormData {
   isMaintenanceMode: boolean;
   maintenanceMessage?: string;
 }
+
+// About Page Type (for "Hakkımızda" page)
+export interface AboutPage {
+  id: string;
+  officeDescription: string; // HTML from RichTextEditor
+  officeImageUrl: string;
+  lawyerName: string;
+  lawyerBio: string; // HTML from RichTextEditor
+  lawyerImageUrl: string;
+  officeEditorStateJSON?: string | null; // Office RichTextEditor state
+  lawyerEditorStateJSON?: string | null; // Lawyer RichTextEditor state
+  updatedAt: Date;
+}
+
+// About Page Form Data
+export interface AboutPageFormData {
+  officeDescription: string;
+  officeImageUrl: string;
+  lawyerName: string;
+  lawyerBio: string;
+  lawyerImageUrl: string;
+  officeEditorStateJSON?: string | null;
+  lawyerEditorStateJSON?: string | null;
+}

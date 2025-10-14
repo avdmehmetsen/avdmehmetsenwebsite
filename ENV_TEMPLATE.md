@@ -33,6 +33,11 @@ SMTP_USER=dmehmetsen@gmail.com
 SMTP_PASS=your-gmail-app-password-here
 SMTP_FROM=dmehmetsen@gmail.com
 SMTP_TO=dmehmetsen@gmail.com
+
+# ===========================================
+# Vercel Blob Storage (Image Uploads)
+# ===========================================
+BLOB_READ_WRITE_TOKEN=vercel_blob_rw_xxxxx
 ```
 
 ## Setup Instructions
@@ -58,14 +63,24 @@ SMTP_TO=dmehmetsen@gmail.com
    - Copy the generated password
 4. Use this password as `SMTP_PASS` in `.env.local`
 
-### 3. Vercel Deployment
+### 3. Vercel Blob Configuration
+
+1. Go to Vercel Dashboard > Your Project
+2. Go to **Storage** tab
+3. Create a new **Blob Store** (if not already created)
+4. Copy the `BLOB_READ_WRITE_TOKEN` from the Blob Store settings
+5. Add it to your `.env.local` file
+
+### 4. Vercel Deployment
 
 When deploying to Vercel:
 
 1. Go to **Project Settings > Environment Variables**
-2. Add **all** variables from `.env.local`
+2. Add **all** variables from `.env.local` (including `BLOB_READ_WRITE_TOKEN`)
 3. Set for **Production, Preview, and Development** environments
 4. Redeploy after adding variables
+
+**Note:** If you created a Blob Store in Vercel, the `BLOB_READ_WRITE_TOKEN` will automatically be added to your project's environment variables. You only need to add it manually to your `.env.local` for local development.
 
 ## Security Notes
 
