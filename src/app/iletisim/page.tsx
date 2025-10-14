@@ -14,8 +14,24 @@ import {
 import { colors } from "@/constants/colors";
 import PlaceButton from "@/components/PlaceButton";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
 
 export default function Iletisim() {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
   return (
     <div>
       {/* Hero Section */}
@@ -82,10 +98,8 @@ export default function Iletisim() {
                       Adres
                     </h3>
                     <p className="text-gray-600 mb-2">
-                      Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. <br /> 4. Halil
-                      Atilla Sitesi No:233 C Blok K:5 D:9
-                      <br />
-                      Bayraklı / İzmir
+                      {contactInfo?.address ||
+                        "Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi No:233 C Blok K:5 D:9, Bayraklı/İzmir"}
                     </p>
                     <PlaceButton label="Yol Tarifi" />
                   </div>
@@ -106,9 +120,15 @@ export default function Iletisim() {
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       Telefon
                     </h3>
-                    <p className="text-gray-600 mb-3">+90 (507) 736 82 51</p>
+                    <p className="text-gray-600 mb-3">
+                      {contactInfo?.phone || "+90 (507) 736 82 51"}
+                    </p>
                     <a
-                      href="tel:+905077368251"
+                      href={`tel:${
+                        contactInfo?.phone
+                          .replace(/\s/g, "")
+                          .replace(/[()]/g, "") || "+905077368251"
+                      }`}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-white transition-all duration-300 hover:opacity-90 text-sm"
                       style={{ backgroundColor: colors.primary.main }}
                     >
@@ -133,7 +153,9 @@ export default function Iletisim() {
                     <h3 className="text-lg font-semibold text-slate-900 mb-1">
                       E-posta
                     </h3>
-                    <p className="text-gray-600">dmehmetsen@gmail.com</p>
+                    <p className="text-gray-600">
+                      {contactInfo?.email || "dmehmetsen@gmail.com"}
+                    </p>
                   </div>
                 </div>
 
@@ -226,7 +248,10 @@ export default function Iletisim() {
           </div>
           <div className="bg-slate-200 h-96 rounded-lg flex items-center justify-center shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3123.9689396410945!2d27.19060637655294!3d38.46527837181961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b97de32f1226ed%3A0x3487243a82ced214!2zQXZ1a2F0IER1cmR1IE1laG1ldCDFnmVuIC0gxZ5lbiBIdWt1ayBCw7xyb3N1IC0gxLB6bWlyIEF2dWthdCAtIMSwem1pciBLaXJhIEF2dWthdMSxIC0gxLB6bWlyIMSwxZ8gQXZ1a2F0xLEgLSDEsHptaXIgQm_Fn2FubWEgQXZ1a2F0xLE!5e0!3m2!1str!2str!4v1760042428526!5m2!1str!2str"
+              src={
+                contactInfo?.googleMapsIframe ||
+                "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3123.9689396410945!2d27.19060637655294!3d38.46527837181961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b97de32f1226ed%3A0x3487243a82ced214!2zQXZ1a2F0IER1cmR1IE1laG1ldCDFnmVuIC0gxZ5lbiBIdWt1ayBCw7xyb3N1IC0gxLB6bWlyIEF2dWthdCAtIMSwem1pciBLaXJhIEF2dWthdMSxIC0gxLB6bWlyIMSwxZ8gQXZ1a2F0xLEgLSDEsHptaXIgQm_Fn2FubWEgQXZ1a2F0xLE!5e0!3m2!1str!2str!4v1760042428526!5m2!1str!2str"
+              }
               width="100%"
               height="450"
               style={{ border: 0 }}

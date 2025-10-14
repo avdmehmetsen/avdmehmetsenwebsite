@@ -1,9 +1,28 @@
+"use client";
+
 /**
  * Schema.org JSON-LD Structured Data Component
  * SEO için zengin snippet'ler sağlar
  */
 
+import { useEffect, useState } from "react";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
+
 export default function StructuredData() {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LegalService",
@@ -18,6 +37,7 @@ export default function StructuredData() {
     address: {
       "@type": "PostalAddress",
       streetAddress:
+        contactInfo?.address ||
         "Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi No:233 C Blok K:5 D:9",
       addressLocality: "Bayraklı",
       addressRegion: "İzmir",
@@ -26,18 +46,26 @@ export default function StructuredData() {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "38.4652783",
-      longitude: "27.1906063",
+      latitude: contactInfo?.latitude || "38.4652783",
+      longitude: contactInfo?.longitude || "27.1906063",
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+90-507-736-82-51",
+      telephone:
+        contactInfo?.phone
+          .replace(/\s/g, "")
+          .replace(/[()]/g, "")
+          .replace(/^(\+90)/, "$1-") || "+90-507-736-82-51",
       contactType: "customer service",
       areaServed: "TR",
       availableLanguage: ["Turkish"],
     },
-    telephone: "+90-507-736-82-51",
-    email: "dmehmetsen@gmail.com",
+    telephone:
+      contactInfo?.phone
+        .replace(/\s/g, "")
+        .replace(/[()]/g, "")
+        .replace(/^(\+90)/, "$1-") || "+90-507-736-82-51",
+    email: contactInfo?.email || "dmehmetsen@gmail.com",
     founder: {
       "@type": "Person",
       name: "Durdu Mehmet Şen",

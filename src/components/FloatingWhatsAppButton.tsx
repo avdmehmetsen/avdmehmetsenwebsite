@@ -1,20 +1,41 @@
 "use client";
 
-import { useMemo } from "react";
-import { useScrollPosition } from "@/hooks/useScrollPosition"; // kendi hook'unu import et
+import { useMemo, useEffect, useState } from "react";
+import { useScrollPosition } from "@/hooks/useScrollPosition";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
 
 export default function FloatingWhatsAppButton() {
   const { isScrolled } = useScrollPosition();
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
 
   const href = useMemo(() => {
-    const phone = process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "";
+    // Önce dinamik telefonu kullan, yoksa env'den al, o da yoksa varsayılan
+    const phoneRaw =
+      contactInfo?.phone ||
+      process.env.NEXT_PUBLIC_WHATSAPP_PHONE ||
+      "+905077368251";
+    // Telefonu temizle (sadece rakamlar ve +)
+    const phone = phoneRaw.replace(/[\s()-]/g, "");
     const base = `https://wa.me/${phone}`;
     const prefill =
       process.env.NEXT_PUBLIC_WHATSAPP_PREFILL ??
       "Merhaba, uygun olduğunuz bir zamanda görüşme talep ediyorum.";
     const text = prefill;
     return `${base}?text=${encodeURIComponent(text)}`;
-  }, []);
+  }, [contactInfo]);
 
   return (
     <a

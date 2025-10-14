@@ -18,13 +18,29 @@ import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { colors } from "@/constants/colors";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const { isScrolled } = useScrollPosition();
   const { user, logout } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
+
+  // Load contact info on mount
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
 
   useEffect(() => {
     setIsOpen(false);
@@ -76,7 +92,11 @@ export default function Navbar() {
                 {/* Left Side - Contact Info */}
                 <div className="flex items-center gap-4">
                   <a
-                    href="tel:+905077368251"
+                    href={`tel:${
+                      contactInfo?.phone
+                        .replace(/\s/g, "")
+                        .replace(/[()]/g, "") || "+905077368251"
+                    }`}
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -84,10 +104,12 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span>+90 (507) 736 82 51</span>
+                    <span>{contactInfo?.phone || "+90 (507) 736 82 51"}</span>
                   </a>
                   <a
-                    href="mailto:dmehmetsen@gmail.com"
+                    href={`mailto:${
+                      contactInfo?.email || "dmehmetsen@gmail.com"
+                    }`}
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -95,7 +117,7 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span>dmehmetsen@gmail.com</span>
+                    <span>{contactInfo?.email || "dmehmetsen@gmail.com"}</span>
                   </a>
                 </div>
 
@@ -106,8 +128,8 @@ export default function Navbar() {
                   >
                     <MapPin className="w-3.5 h-3.5" />
                     <span>
-                      Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla
-                      Sitesi No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
+                      {contactInfo?.address ||
+                        "Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir"}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -136,7 +158,11 @@ export default function Navbar() {
                 {/* First Row: Phone & Social Media */}
                 <div className="flex items-center justify-between">
                   <a
-                    href="tel:+905077368251"
+                    href={`tel:${
+                      contactInfo?.phone
+                        .replace(/\s/g, "")
+                        .replace(/[()]/g, "") || "+905077368251"
+                    }`}
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -144,7 +170,9 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span className="text-xs">+90 (507) 736 82 51</span>
+                    <span className="text-xs">
+                      {contactInfo?.phone || "+90 (507) 736 82 51"}
+                    </span>
                   </a>
                   <div className="flex items-center gap-2">
                     {[Linkedin, Twitter, Instagram].map((Icon, i) => (
@@ -169,7 +197,9 @@ export default function Navbar() {
                 {/* Second Row: Email & Address */}
                 <div className="flex flex-col gap-1">
                   <a
-                    href="mailto:dmehmetsen@gmail.com"
+                    href={`mailto:${
+                      contactInfo?.email || "dmehmetsen@gmail.com"
+                    }`}
                     className={`flex items-center gap-1 transition-colors ${linkColor}`}
                     onMouseEnter={(e) =>
                       (e.currentTarget.style.color = colors.primary.main)
@@ -177,13 +207,17 @@ export default function Navbar() {
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span className="text-xs">dmehmetsen@gmail.com</span>
+                    <span className="text-xs">
+                      {contactInfo?.email || "dmehmetsen@gmail.com"}
+                    </span>
                   </a>
                   <div
                     className={`flex items-center gap-1 text-xs ${linkColor}`}
                   >
                     <MapPin className="w-3.5 h-3.5" />
-                    <span>Bayraklı / İzmir</span>
+                    <span>
+                      {contactInfo?.addressShort || "Bayraklı / İzmir"}
+                    </span>
                   </div>
                 </div>
               </div>
