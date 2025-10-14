@@ -1,13 +1,8 @@
 import {
-  collection,
   doc,
   getDoc,
-  getDocs,
   setDoc,
-  updateDoc,
   serverTimestamp,
-  query,
-  limit,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { ContactInfo, ContactInfoFormData } from "@/types";
