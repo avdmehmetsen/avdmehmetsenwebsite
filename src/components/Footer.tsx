@@ -1,9 +1,27 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Phone, MapPin } from "lucide-react";
 import PlaceButton from "./PlaceButton";
 import { colors } from "@/constants/colors";
+import { useState, useEffect } from "react";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
 
 export default function Footer() {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
   return (
     <footer className="bg-slate-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -164,7 +182,7 @@ export default function Footer() {
                   className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
                   style={{ color: colors.primary.main }}
                 />
-                <span>dmehmetsen@gmail.com</span>
+                <span>{contactInfo?.email || "dmehmetsen@gmail.com"}</span>
               </li>
               <li className="flex flex-col items-start">
                 <div className="flex items-start mb-2">
@@ -172,11 +190,15 @@ export default function Footer() {
                     className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
                     style={{ color: colors.primary.main }}
                   />
-                  <span>+90 (507) 736 82 51</span>
+                  <span>{contactInfo?.phone || "+90 (507) 736 82 51"}</span>
                 </div>
                 <div className="ml-6">
                   <a
-                    href="tel:+905077368251"
+                    href={`tel:${
+                      contactInfo?.phone
+                        .replace(/\s/g, "")
+                        .replace(/[()]/g, "") || "+905077368251"
+                    }`}
                     className="inline-flex items-center gap-2 px-4 py-1 rounded-lg font-medium text-white transition-all duration-300 hover:opacity-90 text-sm"
                     style={{ backgroundColor: colors.primary.main }}
                   >
@@ -192,8 +214,8 @@ export default function Footer() {
                     style={{ color: colors.primary.main }}
                   />
                   <span>
-                    Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi
-                    No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir
+                    {contactInfo?.address ||
+                      "Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi No:233 C Blok K:5 D:9, 35000 Bayraklı/İzmir"}
                   </span>
                 </div>
                 <div className="ml-6">

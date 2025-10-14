@@ -58,6 +58,15 @@ service cloud.firestore {
       allow create: if true;
       allow update, delete: if isAdmin();
     }
+    
+    // Contact Info Collection (Telefon, Email, Adres, Maps)
+    match /contactInfo/{document} {
+      // Herkes okuyabilir (public bilgi - sitede gösteriliyor)
+      allow read: if true;
+      
+      // Sadece admin yazabilir/güncelleyebilir
+      allow write: if isAdmin();
+    }
   }
 }
 

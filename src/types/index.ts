@@ -79,3 +79,27 @@ export interface ContactFormData {
   subject: string;
   message: string;
 }
+
+// Contact Info Type (for managing site contact information)
+export interface ContactInfo {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
+  addressShort: string; // Kısa adres (mobilde gösterilecek)
+  googleMapsIframe: string;
+  latitude: string;
+  longitude: string;
+  updatedAt: Date;
+}
+
+// Contact Info Form Data (for creating/editing)
+export interface ContactInfoFormData {
+  phone: string;
+  email: string;
+  address: string;
+  addressShort: string;
+  googleMapsIframe: string;
+  latitude: string;
+  longitude: string;
+}

@@ -182,8 +182,6 @@ export default function KVKK() {
                 Halil Atilla Sitesi No:233 C Blok K:5 D:9 Bayraklı / İzmir
                 <br />
                 <strong>E-posta:</strong> dmehmetsen@gmail.com
-                <br />
-                <strong>Telefon:</strong> +90 (507) 736 82 51
               </p>
             </div>
 

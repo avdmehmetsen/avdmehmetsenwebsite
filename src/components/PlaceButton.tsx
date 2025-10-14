@@ -5,6 +5,9 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { colors } from "@/constants/colors";
+import { useEffect, useState } from "react";
+import { getContactInfo } from "@/services/contactInfoService";
+import { ContactInfo } from "@/types";
 
 type Props = {
   /** Google Maps'te aranacak ifade (işletme adı + opsiyonel adres) */
@@ -19,12 +22,34 @@ const DEFAULT_QUERY = "Avukat Durdu Mehmet Şen";
 const buildSearchUrl = (q: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
+// Koordinatlara göre Google Maps linki oluştur
+const buildDirectionsUrl = (lat: string, lng: string) =>
+  `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
 export default function PlaceSearchButton({
-  query = DEFAULT_QUERY,
-  label = "Google Haritalar’da Ara",
+  query,
+  label = "Google Haritalar'da Ara",
   className,
 }: Props) {
-  const href = buildSearchUrl(query);
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    const loadContactInfo = async () => {
+      try {
+        const data = await getContactInfo();
+        setContactInfo(data);
+      } catch (error) {
+        console.error("Error loading contact info:", error);
+      }
+    };
+    loadContactInfo();
+  }, []);
+
+  // Eğer contactInfo varsa koordinatları kullan, yoksa query kullan
+  const href =
+    contactInfo?.latitude && contactInfo?.longitude
+      ? buildDirectionsUrl(contactInfo.latitude, contactInfo.longitude)
+      : buildSearchUrl(query || DEFAULT_QUERY);
 
   return (
     <Link

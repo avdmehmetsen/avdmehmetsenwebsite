@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FileText, User, LogOut, Bell, Mail } from "lucide-react";
+import { FileText, User, LogOut, Bell, Mail, Phone } from "lucide-react";
 import { colors } from "@/constants/colors";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
@@ -57,6 +57,13 @@ function AdminPageContent() {
       icon: User,
       href: "/admin/lawyer",
       color: colors.theme2.darkGreen,
+    },
+    {
+      title: "İletişim Bilgileri",
+      description: "Telefon, e-posta, adres ve harita bilgilerini güncelle",
+      icon: Phone,
+      href: "/admin/contact-info",
+      color: colors.status.warning,
     },
   ];
 
