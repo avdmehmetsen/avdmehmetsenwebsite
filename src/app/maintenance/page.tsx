@@ -74,56 +74,6 @@ export default function MaintenancePage() {
           >
             En kısa sürede tekrar sizlerle olacağız.
           </motion.p>
-
-          {/* İletişim Bilgileri */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="bg-slate-800 rounded-xl p-8 mb-8"
-          >
-            <h2 className="text-2xl font-bold text-white mb-6">
-              Acil Durumlarda Bize Ulaşın
-            </h2>
-
-            <div className="space-y-4">
-              {/* Email */}
-              <a
-                href={`mailto:${contactInfo?.email || "dmehmetsen@gmail.com"}`}
-                className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors justify-center"
-              >
-                <Mail
-                  className="w-5 h-5"
-                  style={{ color: colors.primary.main }}
-                />
-                <span>{contactInfo?.email || "dmehmetsen@gmail.com"}</span>
-              </a>
-
-              {/* Telefon */}
-              <a
-                href={`tel:${
-                  contactInfo?.phone.replace(/\s/g, "").replace(/[()]/g, "") ||
-                  "+905077368251"
-                }`}
-                className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors justify-center"
-              >
-                <Phone
-                  className="w-5 h-5"
-                  style={{ color: colors.primary.main }}
-                />
-                <span>{contactInfo?.phone || "+90 (507) 736 82 51"}</span>
-              </a>
-
-              {/* Çalışma Saatleri */}
-              <div className="flex items-center gap-3 text-gray-300 justify-center pt-4 border-t border-slate-700">
-                <Clock
-                  className="w-5 h-5"
-                  style={{ color: colors.primary.main }}
-                />
-                <span>Pazartesi - Cuma: 09:00 - 18:00</span>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
 
         {/* Animasyonlu Noktalar */}
