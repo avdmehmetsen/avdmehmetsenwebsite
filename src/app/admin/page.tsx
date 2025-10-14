@@ -3,10 +3,15 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { FileText, User, LogOut, Bell, Mail, Phone } from "lucide-react";
+import { FileText, User, LogOut, Bell, Mail, Phone, Power } from "lucide-react";
 import { colors } from "@/constants/colors";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
+import { useState, useEffect } from "react";
+import {
+  getSiteSettings,
+  toggleMaintenanceMode,
+} from "@/services/siteSettingsService";
 
 export default function AdminPage() {
   return (
@@ -19,6 +24,24 @@ export default function AdminPage() {
 function AdminPageContent() {
   const router = useRouter();
   const { logout } = useAuth();
+  const [isMaintenanceMode, setIsMaintenanceMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [toggling, setToggling] = useState(false);
+
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    try {
+      const settings = await getSiteSettings();
+      setIsMaintenanceMode(settings?.isMaintenanceMode || false);
+    } catch (error) {
+      console.error("Error loading settings:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -26,6 +49,20 @@ function AdminPageContent() {
       router.push("/");
     } catch (error) {
       console.error("Logout error:", error);
+    }
+  };
+
+  const handleToggleMaintenance = async () => {
+    try {
+      setToggling(true);
+      const newState = !isMaintenanceMode;
+      await toggleMaintenanceMode(newState);
+      setIsMaintenanceMode(newState);
+    } catch (error) {
+      console.error("Error toggling maintenance mode:", error);
+      alert("Bakım modu değiştirilemedi. Lütfen tekrar deneyin.");
+    } finally {
+      setToggling(false);
     }
   };
 
@@ -122,6 +159,72 @@ function AdminPageContent() {
             </motion.div>
           ))}
         </div>
+
+        {/* Bakım Modu Toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-12"
+        >
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-colors ${
+                    isMaintenanceMode ? "bg-red-100" : "bg-green-100"
+                  }`}
+                >
+                  <Power
+                    className={`w-6 h-6 ${
+                      isMaintenanceMode ? "text-red-600" : "text-green-600"
+                    }`}
+                  />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">
+                    Bakım Modu
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {isMaintenanceMode
+                      ? "Site şu anda ziyaretçilere kapalı"
+                      : "Site ziyaretçilere açık"}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={handleToggleMaintenance}
+                disabled={loading || toggling}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  isMaintenanceMode
+                    ? "bg-red-600 focus:ring-red-500"
+                    : "bg-green-600 focus:ring-green-500"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    isMaintenanceMode ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            {isMaintenanceMode && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg"
+              >
+                <p className="text-sm text-amber-800">
+                  ⚠️ <strong>Uyarı:</strong> Bakım modu aktif. Normal
+                  kullanıcılar siteyi göremez, sadece admin paneline
+                  erişebilirsiniz.
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </motion.div>
       </div>
     </div>
   );
