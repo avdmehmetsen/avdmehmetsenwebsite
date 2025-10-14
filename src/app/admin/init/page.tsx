@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { colors } from "@/constants/colors";
 import { initializeContactInfo } from "@/services/contactInfoService";
+import { initializeSiteSettings } from "@/services/siteSettingsService";
 import AdminGuard from "@/components/AdminGuard";
 
 export default function InitPage() {
@@ -24,13 +25,14 @@ function InitPageContent() {
   const handleInitialize = async () => {
     try {
       setStatus("loading");
-      setMessage("İletişim bilgileri oluşturuluyor...");
+      setMessage("Sistem ayarları oluşturuluyor...");
 
       await initializeContactInfo();
+      await initializeSiteSettings();
 
       setStatus("success");
       setMessage(
-        "İletişim bilgileri başarıyla oluşturuldu! Şimdi /admin/contact-info sayfasından düzenleyebilirsiniz."
+        "Sistem ayarları başarıyla oluşturuldu! Şimdi yönetim panelinden değiştirebilirsiniz."
       );
     } catch (error) {
       console.error("Error initializing:", error);
@@ -52,9 +54,9 @@ function InitPageContent() {
             Sistem Başlatma
           </h1>
           <p className="text-gray-600 mb-8">
-            Bu sayfa Firebase&apos;de başlangıç iletişim bilgilerini oluşturur.
-            Eğer daha önce iletişim bilgileri oluşturulmamışsa, bu butona
-            tıklayarak varsayılan bilgileri ekleyebilirsiniz.
+            Bu sayfa Firebase&apos;de başlangıç sistem ayarlarını (iletişim
+            bilgileri, bakım modu, vb.) oluşturur. İlk kurulumda bir kez
+            çalıştırmanız yeterlidir.
           </p>
 
           {status === "idle" && (
@@ -63,7 +65,7 @@ function InitPageContent() {
               className="w-full px-6 py-3 rounded-lg font-medium text-white transition-all hover:opacity-90"
               style={{ backgroundColor: colors.primary.main }}
             >
-              İletişim Bilgilerini Oluştur
+              Sistem Ayarlarını Oluştur
             </button>
           )}
 
@@ -86,11 +88,11 @@ function InitPageContent() {
               <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
               <p className="text-gray-700 font-medium">{message}</p>
               <a
-                href="/admin/contact-info"
+                href="/admin"
                 className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-white transition-all hover:opacity-90"
                 style={{ backgroundColor: colors.primary.main }}
               >
-                İletişim Bilgilerini Düzenle
+                Yönetim Paneline Dön
               </a>
             </motion.div>
           )}
@@ -118,7 +120,8 @@ function InitPageContent() {
             <ul className="text-sm text-blue-800 space-y-1">
               <li>• Bu işlem sadece bir kere yapılmalıdır</li>
               <li>
-                • Varsayılan iletişim bilgileri Firebase&apos;e kaydedilecektir
+                • İletişim bilgileri ve site ayarları Firebase&apos;e
+                kaydedilecektir
               </li>
               <li>• Daha sonra admin panelinden güncelleyebilirsiniz</li>
               <li>• Eğer veriler zaten mevcutsa, bu işlem atlanacaktır</li>

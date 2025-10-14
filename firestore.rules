@@ -67,6 +67,15 @@ service cloud.firestore {
       // Sadece admin yazabilir/güncelleyebilir
       allow write: if isAdmin();
     }
+    
+    // Site Settings Collection (Bakım Modu, vb.)
+    match /siteSettings/{document} {
+      // Herkes okuyabilir (bakım modu kontrolü için gerekli)
+      allow read: if true;
+      
+      // Sadece admin yazabilir/güncelleyebilir
+      allow write: if isAdmin();
+    }
   }
 }
 

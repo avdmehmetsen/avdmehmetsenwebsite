@@ -103,3 +103,17 @@ export interface ContactInfoFormData {
   latitude: string;
   longitude: string;
 }
+
+// Site Settings Type (for maintenance mode, etc.)
+export interface SiteSettings {
+  id: string;
+  isMaintenanceMode: boolean;
+  maintenanceMessage?: string;
+  updatedAt: Date;
+}
+
+// Site Settings Form Data
+export interface SiteSettingsFormData {
+  isMaintenanceMode: boolean;
+  maintenanceMessage?: string;
+}
