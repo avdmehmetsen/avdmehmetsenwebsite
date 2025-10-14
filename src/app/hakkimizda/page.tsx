@@ -3,28 +3,26 @@
 import { useEffect, useState } from "react";
 import { colors } from "@/constants/colors";
 import Image from "next/image";
-import { getLawyerInfo } from "@/services/lawyerService";
-import { LawyerInfo } from "@/types";
-import hakkimizda1 from "@/assets/hakkimizda/hakkimizda1.jpg";
-import hakkimizda2 from "@/assets/hakkimizda/hakkimizda2.jpg";
+import { getAboutPage } from "@/services/aboutService";
+import { AboutPage } from "@/types";
 
 export default function Hakkimizda() {
-  const [lawyerInfo, setLawyerInfo] = useState<LawyerInfo | null>(null);
+  const [aboutData, setAboutData] = useState<AboutPage | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLawyerInfo = async () => {
+    const fetchAboutData = async () => {
       try {
         setLoading(true);
-        const info = await getLawyerInfo();
-        setLawyerInfo(info);
+        const data = await getAboutPage();
+        setAboutData(data);
       } catch (error) {
-        console.error("Error fetching lawyer info:", error);
+        console.error("Error fetching about data:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchLawyerInfo();
+    fetchAboutData();
   }, []);
 
   if (loading) {
@@ -65,45 +63,55 @@ export default function Hakkimizda() {
       {/* Main Content */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>
-                  Şen Hukuk Bürosu olarak, müvekkillerimize en kaliteli hukuki
-                  hizmeti sunmak ve haklarını en iyi şekilde korumak için
-                  çalışıyoruz. Yılların verdiği tecrübe ve deneyimle, her davaya
-                  özel strateji geliştirerek, en iyi sonuçları elde etmeyi
-                  hedefliyoruz.
-                </p>
-                <p>
-                  Hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
-                  profesyonel ve güvenilir hukuki danışmanlık hizmeti
-                  vermektedir. Etik değerlere bağlı kalarak, adaletin tecelli
-                  etmesi için çalışıyoruz.
-                </p>
-                <p>
-                  Sürekli gelişen hukuk dünyasını yakından takip ederek,
-                  müvekkillerimize en güncel ve etkili çözümleri sunuyoruz.
-                  Uzman kadromuzla birlikte, her türlü hukuki sorunda
-                  yanınızdayız.
-                </p>
-              </div>
+          <div
+            className={`grid gap-12 items-center ${
+              aboutData?.officeImageUrl
+                ? "grid-cols-1 lg:grid-cols-2"
+                : "grid-cols-1"
+            }`}
+          >
+            <div
+              className={aboutData?.officeImageUrl ? "" : "max-w-4xl mx-auto"}
+            >
+              {aboutData?.officeDescription ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: aboutData.officeDescription,
+                  }}
+                  className="prose prose-gray max-w-none text-gray-700 leading-relaxed"
+                />
+              ) : (
+                /* Fallback content if no data */
+                <div className="space-y-4 text-gray-700 leading-relaxed">
+                  <p>
+                    Şen Hukuk Bürosu olarak, müvekkillerimize en kaliteli hukuki
+                    hizmeti sunmak ve haklarını en iyi şekilde korumak için
+                    çalışıyoruz.
+                  </p>
+                  <p>
+                    Hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
+                    profesyonel ve güvenilir hukuki danışmanlık hizmeti
+                    vermektedir.
+                  </p>
+                </div>
+              )}
             </div>
 
-            {/* Sabit oranlı kapsayıcı + sizes/placeholder */}
-            <div className="relative rounded-lg overflow-hidden">
-              <div className="relative w-full aspect-[4/3]">
-                <Image
-                  src={hakkimizda1}
-                  alt="Ofis Görseli"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  placeholder="blur"
-                  className="object-cover"
-                />
+            {/* Sabit oranlı kapsayıcı + sizes/placeholder - Only show if image exists */}
+            {aboutData?.officeImageUrl && (
+              <div className="relative rounded-lg overflow-hidden">
+                <div className="relative w-full aspect-[4/3]">
+                  <Image
+                    src={aboutData.officeImageUrl}
+                    alt="Ofis Görseli"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -111,16 +119,28 @@ export default function Hakkimizda() {
       {/* Lawyer Content */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div
+            className={`grid gap-12 items-center ${
+              aboutData?.lawyerImageUrl
+                ? "grid-cols-1 lg:grid-cols-2"
+                : "grid-cols-1"
+            }`}
+          >
             {/* Text - Mobilde önce gelir */}
-            <div className="order-1 lg:order-2">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                {lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
-              </h2>
+            <div
+              className={`order-1 ${
+                aboutData?.lawyerImageUrl ? "lg:order-2" : "max-w-4xl mx-auto"
+              }`}
+            >
+              {aboutData?.lawyerName && (
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                  {aboutData.lawyerName}
+                </h2>
+              )}
               <div className="space-y-4 text-gray-700 leading-relaxed">
-                {lawyerInfo?.bio ? (
+                {aboutData?.lawyerBio ? (
                   <div
-                    dangerouslySetInnerHTML={{ __html: lawyerInfo.bio }}
+                    dangerouslySetInnerHTML={{ __html: aboutData.lawyerBio }}
                     className="prose prose-gray max-w-none"
                   />
                 ) : (
@@ -144,20 +164,21 @@ export default function Hakkimizda() {
               </div>
             </div>
 
-            {/* Image - Mobilde sonra gelir */}
-            <div className="relative rounded-lg overflow-hidden order-2 lg:order-1">
-              <div className="relative w-full aspect-[4/3]">
-                <Image
-                  src={hakkimizda2}
-                  alt={lawyerInfo?.name || "Av. Mehmet Durdu Şen"}
-                  fill
-                  className="object-contain bg-white"
-                  loading="lazy"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  placeholder="blur"
-                />
+            {/* Image - Only show if image exists - Mobilde sonra gelir */}
+            {aboutData?.lawyerImageUrl && (
+              <div className="relative rounded-lg overflow-hidden order-2 lg:order-1">
+                <div className="relative w-full aspect-[4/3]">
+                  <Image
+                    src={aboutData.lawyerImageUrl}
+                    alt={aboutData?.lawyerName || "Av. Mehmet Durdu Şen"}
+                    fill
+                    className="object-contain bg-white"
+                    loading="lazy"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
