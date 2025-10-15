@@ -4,6 +4,8 @@ import "./globals.css";
 import ClientProvider from "@/components/ClientProvider";
 import ConditionalLayout from "@/components/ConditionalLayout";
 import StructuredData from "@/components/StructuredData";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -105,6 +107,8 @@ export default function RootLayout({
         <ClientProvider>
           <ConditionalLayout>{children}</ConditionalLayout>
         </ClientProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
