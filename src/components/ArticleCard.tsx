@@ -44,6 +44,11 @@ function isValidImageUrl(url: string | null | undefined): boolean {
 
   try {
     const urlObj = new URL(url);
+    // Vercel Blob URL'lerini kontrol et
+    if (urlObj.hostname.endsWith(".public.blob.vercel-storage.com")) {
+      return true;
+    }
+    // Diğer izin verilen hostları kontrol et
     return ALLOWED_IMAGE_HOSTS.includes(urlObj.hostname);
   } catch {
     // Geçersiz URL formatı
@@ -143,41 +148,23 @@ export default function ArticleCard({
                 {/* Okunabilirlik için koyu katman */}
                 <div className="absolute inset-0 bg-gray-900/70" aria-hidden />
 
-                {/* İçerik - Flex ile yerleştirme */}
-                {/* <div className="absolute inset-0 flex flex-col justify-between p-6">
+                {/* Alt kısımda avukat bilgileri */}
+                <div className="absolute inset-0 flex items-end justify-center p-2">
                   <div className="text-center">
-                    <h6
-                      className="text-lg md:text-xl font-semibold drop-shadow-lg"
-                      style={{ color: colors.primary.main }}
-                    >
-                      Av. Durdu Mehmet Şen
-                    </h6>
-                  </div>
-
-                  <div className="flex-1 flex items-center justify-center px-2">
-                    <h6
-                      className="text-center text-sm md:text-base  font-medium drop-shadow-md line-clamp-3"
-                      style={{ color: colors.text.light }}
-                    >
-                      {article.title}
-                    </h6>
-                  </div>
-
-                  <div className="text-center space-y-1">
                     <p
-                      className="text-sm md:text-base font-semibold drop-shadow-lg"
+                      className="text-xs md:text-base font-medium drop-shadow-lg"
                       style={{ color: colors.primary.main }}
                     >
-                      dmehmetsen@gmail.com
+                      Av. Mehmet Durdu Şen
                     </p>
                     <p
-                      className="text-xs md:text-sm font-medium drop-shadow-lg"
+                      className="text-xs md:text-sm font-normal drop-shadow-lg"
                       style={{ color: colors.primary.main }}
                     >
                       +90 (507) 736 82 51
                     </p>
                   </div>
-                </div> */}
+                </div>
               </>
             )}
           </div>

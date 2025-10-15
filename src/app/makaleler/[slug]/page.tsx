@@ -28,6 +28,11 @@ function isValidImageUrl(url: string | null | undefined): boolean {
 
   try {
     const urlObj = new URL(url);
+    // Vercel Blob URL'lerini kontrol et
+    if (urlObj.hostname.endsWith(".public.blob.vercel-storage.com")) {
+      return true;
+    }
+    // Diğer izin verilen hostları kontrol et
     return ALLOWED_IMAGE_HOSTS.includes(urlObj.hostname);
   } catch {
     return false;

@@ -3,13 +3,14 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
-import { ArrowLeft, Save, LogOut } from "lucide-react";
+import { ArrowLeft, Save, LogOut, Upload, Loader2, Trash2 } from "lucide-react";
 import { colors } from "@/constants/colors";
 import { getArticleById, updateArticle } from "@/services/articleService";
 import { ArticleFormData } from "@/types";
 import AdminGuard from "@/components/AdminGuard";
 import { useAuth } from "@/contexts/AuthContext";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 // Dynamic import to avoid SSR issues
 const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
@@ -37,6 +38,7 @@ function EditArticleContent() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState<ArticleFormData>({
     title: "",
     category: "",
@@ -131,6 +133,63 @@ function EditArticleContent() {
     setFormData({
       ...formData,
       tags: formData.tags.filter((tag) => tag !== tagToRemove),
+    });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file size
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      alert("Dosya boyutu 5MB'dan büyük olamaz!");
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Sadece JPEG, PNG ve WebP formatları kabul edilir!");
+      return;
+    }
+
+    try {
+      setUploading(true);
+
+      const formDataToUpload = new FormData();
+      formDataToUpload.append("file", file);
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formDataToUpload,
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Yükleme başarısız");
+      }
+
+      const data = await response.json();
+
+      setFormData((prev) => ({
+        ...prev,
+        imageUrl: data.url,
+      }));
+
+      alert("Kapak görseli başarıyla yüklendi!");
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert(error instanceof Error ? error.message : "Fotoğraf yüklenemedi!");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData({
+      ...formData,
+      imageUrl: null,
     });
   };
 
@@ -294,23 +353,58 @@ function EditArticleContent() {
             </p>
           </div>
 
-          {/* Image URL */}
+          {/* Cover Image Upload */}
           <div className="mb-6">
             <label className="block text-sm font-semibold text-slate-900 mb-2">
-              Kapak Görseli URL (Opsiyonel)
+              Kapak Görseli (Opsiyonel)
             </label>
-            <input
-              type="url"
-              value={formData.imageUrl || ""}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  imageUrl: e.target.value || null,
-                })
-              }
-              className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 transition-shadow"
-              placeholder="https://example.com/image.jpg"
-            />
+
+            {formData.imageUrl && (
+              <div className="mb-4 relative w-full max-w-md h-64 rounded-lg overflow-hidden group">
+                <Image
+                  src={formData.imageUrl}
+                  alt="Kapak Görseli"
+                  fill
+                  className="object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={handleRemoveImage}
+                  className="absolute top-2 right-2 p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors opacity-0 group-hover:opacity-100"
+                  title="Fotoğrafı Kaldır"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+
+            <div className="flex items-center gap-4">
+              <label className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
+                {uploading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Yükleniyor...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-5 h-5" />
+                    {formData.imageUrl ? "Değiştir" : "Fotoğraf Yükle"}
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                  disabled={uploading}
+                />
+              </label>
+              <p className="text-sm text-gray-500">Max 5MB • JPEG, PNG, WebP</p>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              💡 Kapak görseli yüklemek isteğe bağlıdır. Görsel yoksa
+              placeholder gösterilir.
+            </p>
           </div>
 
           {/* Tags */}
@@ -387,7 +481,7 @@ function EditArticleContent() {
           <div className="flex gap-4">
             <button
               type="submit"
-              disabled={saving}
+              disabled={saving || uploading}
               className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-white shadow-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ backgroundColor: colors.primary.main }}
             >
