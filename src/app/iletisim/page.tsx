@@ -200,7 +200,7 @@ export default function Iletisim() {
                     {
                       Icon: Linkedin,
                       label: "LinkedIn",
-                      href: "https://www.linkedin.com/in/durdu-mehmet-%C5%9Fen-a3020a267/?originalSubdomain=tr",
+                      href: "#",
                     },
                     { Icon: Twitter, label: "Twitter", href: "#" },
                     { Icon: Instagram, label: "Instagram", href: "#" },
