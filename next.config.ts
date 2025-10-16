@@ -35,11 +35,20 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
+        hostname: "7kqy7jfpwkah6hon.public.blob.vercel-storage.com",
         port: "",
         pathname: "/**",
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/ana-sayfa",
+        destination: "/",
+        permanent: true, // 308 permanent redirect - SEO için iyi
+      },
+    ];
   },
 };
 
