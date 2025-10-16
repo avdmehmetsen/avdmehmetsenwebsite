@@ -28,15 +28,17 @@ export default function Iletisim() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+      <section className="relative bg-slate-900 text-white py-12 md:py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">İletişim</h1>
-            <p className="text-xl text-gray-300">
+            <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+              İletişim
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300">
               Hukuki danışmanlık için bizimle iletişime geçin
             </p>
           </motion.div>
@@ -55,7 +57,7 @@ export default function Iletisim() {
       </section>
 
       {/* Contact Info and Form */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
@@ -238,7 +240,7 @@ export default function Iletisim() {
       </section>
 
       {/* Map Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
