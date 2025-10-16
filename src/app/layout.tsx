@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientProvider from "@/components/ClientProvider";
@@ -47,8 +47,20 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  // Zenginleştirilmiş favicon yapılandırması
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+      { url: "/favicon.svg", type: "image/svg+xml" }, // Modern tarayıcılar için SVG
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/site.webmanifest",
+  // Canonical URL - Duplicate content'i önler
+  alternates: {
+    canonical: "/",
   },
   openGraph: {
     type: "website",
@@ -60,10 +72,10 @@ export const metadata: Metadata = {
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
     images: [
       {
-        url: "/images/logo.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Av. Durdu Mehmet Şen - Hukuk Bürosu Logo",
+        alt: "Av. Durdu Mehmet Şen - Hukuk Bürosu",
       },
     ],
   },
@@ -72,7 +84,7 @@ export const metadata: Metadata = {
     title: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
     description:
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri.",
-    images: ["/images/logo.png"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -89,6 +101,10 @@ export const metadata: Metadata = {
     // Google Search Console verification eklenebilir
     // google: 'your-verification-code',
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
