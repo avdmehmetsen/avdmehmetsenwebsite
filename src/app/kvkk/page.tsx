@@ -8,10 +8,10 @@ export const metadata: Metadata = {
     title: "KVKK Aydınlatma Metni | Av. Durdu Mehmet Şen",
     description:
       "Kişisel Verilerin Korunması Kanunu kapsamında aydınlatma metni.",
-    url: "https://avdmehmetsen.vercel.app/kvkk",
+    url: "https://www.avdurdumehmetsen.com.tr/kvkk",
   },
   alternates: {
-    canonical: "https://avdmehmetsen.vercel.app/kvkk",
+    canonical: "https://www.avdurdumehmetsen.com.tr/kvkk",
   },
 };
 

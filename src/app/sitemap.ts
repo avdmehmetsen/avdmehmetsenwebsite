@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { getArticles } from "@/services/articleService";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://avdmehmetsen.vercel.app";
+  const baseUrl = "https://www.avdurdumehmetsen.com.tr";
 
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [

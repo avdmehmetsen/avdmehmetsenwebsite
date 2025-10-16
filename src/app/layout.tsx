@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://avdmehmetsen.vercel.app"),
+  metadataBase: new URL("https://www.avdurdumehmetsen.com.tr"),
   title: {
     default: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
     template: "%s | Av. Durdu Mehmet Şen",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://avdmehmetsen.vercel.app",
+    url: "https://www.avdurdumehmetsen.com.tr",
     siteName: "Av. Durdu Mehmet Şen | Hukuk Bürosu",
     title: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
     description:
