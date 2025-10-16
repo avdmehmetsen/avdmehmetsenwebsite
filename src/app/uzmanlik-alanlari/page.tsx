@@ -316,17 +316,17 @@ export default function UzmanlikAlanlari() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+      <section className="relative bg-slate-900 text-white py-12 md:py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
               Uzmanlık Alanlarımız
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-lg md:text-xl text-gray-300">
               Hukukun farklı alanlarında güvenilir ve etkili çözümler sunuyorum
             </p>
           </motion.div>
@@ -345,14 +345,13 @@ export default function UzmanlikAlanlari() {
       </section>
 
       {/* Expertise Areas Grid */}
-      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
+      <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={container}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+            animate="show"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
             {expertiseAreas.map((area, index) => {
               const Icon = iconMap[area.title] || Scale;
@@ -423,7 +422,7 @@ export default function UzmanlikAlanlari() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-slate-900 text-white">
+      <section className="py-12 md:py-16 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -431,24 +430,24 @@ export default function UzmanlikAlanlari() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
               Hukuki Danışmanlık İhtiyacınız mı Var?
             </h2>
-            <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-gray-300 text-base md:text-lg mb-6 md:mb-8 max-w-2xl mx-auto">
               Hukuki süreçlerinizde doğru adımlar atmanız için rehberlik
               ediyoruz. Sizin için en uygun çözümü birlikte belirleyelim.
             </p>
             <Link
               href="/iletisim"
               className={cn(
-                "inline-flex items-center gap-2 rounded-xl px-10 py-4 font-semibold",
+                "inline-flex items-center gap-2 rounded-xl px-6 py-3 md:px-10 md:py-4 font-semibold text-sm md:text-base",
                 "text-slate-900 shadow-lg transition-all",
                 "hover:-translate-y-0.5 hover:shadow-xl"
               )}
               style={{ backgroundColor: colors.primary.main }}
             >
               Hemen İletişime Geçin
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
             </Link>
           </motion.div>
         </div>

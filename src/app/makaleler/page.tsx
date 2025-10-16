@@ -47,15 +47,17 @@ export default function Makaleler() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+      <section className="relative bg-slate-900 text-white py-12 md:py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Makaleler</h1>
-            <p className="text-xl text-gray-300">
+            <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+              Makaleler
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300">
               Hukuk dünyasından güncel yazılar, analizler ve yorumlar
             </p>
           </motion.div>
@@ -74,7 +76,7 @@ export default function Makaleler() {
       </section>
 
       {/* Main Content */}
-      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
+      <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Loading State */}
           {loading ? (
@@ -85,15 +87,15 @@ export default function Makaleler() {
               </div>
             </div>
           ) : currentArticles.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-slate-600 text-lg">
+            <div className="text-center py-12 md:py-20">
+              <p className="text-slate-600 text-base md:text-lg">
                 Henüz yayınlanmış makale bulunmamaktadır.
               </p>
             </div>
           ) : (
             <>
               {/* Articles Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {currentArticles.map((article, index) => (
                   <ArticleCard
                     key={article.id}
@@ -108,9 +110,9 @@ export default function Makaleler() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="mt-12 flex justify-center"
+                className="mt-8 md:mt-12 flex justify-center"
               >
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-1.5 md:gap-2 items-center">
                   {/* Önceki Butonu */}
                   <button
                     onClick={() =>
@@ -118,13 +120,13 @@ export default function Makaleler() {
                     }
                     disabled={currentPage === 1}
                     className={cn(
-                      "p-2 rounded-lg border transition-all",
+                      "p-1.5 md:p-2 rounded-lg border transition-all",
                       currentPage === 1
                         ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
                         : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
                     )}
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
                   </button>
 
                   {/* Sayfa Numaraları */}
@@ -134,7 +136,7 @@ export default function Makaleler() {
                         key={page}
                         onClick={() => handlePageChange(page)}
                         className={cn(
-                          "px-4 py-2 rounded-lg font-medium transition-all",
+                          "px-3 py-2 md:px-4 rounded-lg font-medium transition-all text-sm md:text-base",
                           page === currentPage
                             ? "text-white shadow-md"
                             : "bg-white border border-slate-300 text-slate-700 hover:bg-slate-50"
@@ -158,13 +160,13 @@ export default function Makaleler() {
                     }
                     disabled={currentPage === totalPages}
                     className={cn(
-                      "p-2 rounded-lg border transition-all",
+                      "p-1.5 md:p-2 rounded-lg border transition-all",
                       currentPage === totalPages
                         ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
                         : "bg-white border-slate-300 text-slate-700 hover:bg-slate-50"
                     )}
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
                   </button>
                 </div>
               </motion.div>
@@ -174,7 +176,7 @@ export default function Makaleler() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                className="mt-4 text-center text-sm text-slate-600"
+                className="mt-3 md:mt-4 text-center text-xs md:text-sm text-slate-600"
               >
                 {startIndex + 1} - {Math.min(endIndex, allArticles.length)}{" "}
                 arası gösteriliyor (Toplam {allArticles.length} makale)

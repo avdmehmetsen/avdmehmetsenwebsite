@@ -212,17 +212,16 @@ export default function Navbar() {
                     }
                     onMouseLeave={(e) => (e.currentTarget.style.color = "")}
                   >
-                    <Mail className="w-3.5 h-3.5" />
+                    <Mail className="w-3.5 h-3.5 flex-shrink-0" />
                     <span className="text-xs">
                       {contactInfo?.email || "dmehmetsen@gmail.com"}
                     </span>
                   </a>
-                  <div
-                    className={`flex items-center gap-1 text-xs ${linkColor}`}
-                  >
-                    <MapPin className="w-3.5 h-3.5" />
-                    <span>
-                      {contactInfo?.addressShort || "Bayraklı / İzmir"}
+                  <div className={`flex items-start gap-1 ${linkColor}`}>
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                    <span className="text-[10px] leading-tight">
+                      {contactInfo?.address ||
+                        "Manavkuyu, Yüzbaşı İbrahim Hakkı Cd. 4. Halil Atilla Sitesi No:233 C Blok K:5 D:9, Bayraklı/İzmir"}
                     </span>
                   </div>
                 </div>

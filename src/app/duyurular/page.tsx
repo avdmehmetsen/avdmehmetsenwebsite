@@ -55,15 +55,17 @@ export default function Duyurular() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
+      <section className="relative bg-slate-900 text-white py-12 md:py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Duyurular</h1>
-            <p className="text-xl text-gray-300">
+            <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+              Duyurular
+            </h1>
+            <p className="text-lg md:text-xl text-gray-300">
               Hukuk büromuzdan güncel duyurular ve haberler
             </p>
           </motion.div>
@@ -82,7 +84,7 @@ export default function Duyurular() {
       </section>
 
       {/* Announcements List */}
-      <section className="py-20 bg-gradient-to-b from-white via-slate-50 to-white">
+      <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-b from-white via-slate-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center items-center min-h-[400px]">
@@ -92,8 +94,8 @@ export default function Duyurular() {
               </div>
             </div>
           ) : announcements.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-slate-600 text-lg">
+            <div className="text-center py-12 md:py-20">
+              <p className="text-slate-600 text-base md:text-lg">
                 Henüz hiç duyuru bulunmamaktadır.
               </p>
             </div>
@@ -101,8 +103,7 @@ export default function Duyurular() {
             <motion.div
               variants={container}
               initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.1 }}
+              animate="show"
               className="space-y-6"
             >
               {announcements.map((announcement) => (

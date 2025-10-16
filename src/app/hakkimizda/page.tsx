@@ -39,11 +39,13 @@ export default function Hakkimizda() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-16 overflow-hidden">
+      <section className="relative bg-slate-900 text-white py-12 md:py-16 overflow-hidden">
         {/* Metin Alanı */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h1>
-          <p className="text-xl text-gray-300 max-w-2xl">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
+          <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+            Hakkımızda
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
             Müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
           </p>
         </div>
@@ -61,7 +63,7 @@ export default function Hakkimizda() {
       </section>
 
       {/* Main Content */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className={`grid gap-12 items-center ${
@@ -117,7 +119,7 @@ export default function Hakkimizda() {
       </section>
 
       {/* Lawyer Content */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className={`grid gap-12 items-center ${
@@ -184,7 +186,7 @@ export default function Hakkimizda() {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
