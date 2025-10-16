@@ -11,7 +11,7 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Sitemap: https://avdmehmetsen.vercel.app/sitemap.xml
+Sitemap: https://www.avdurdumehmetsen.com.tr/sitemap.xml
 ```
 
 **Ne İşe Yarar:**
@@ -34,7 +34,7 @@ Sitemap: https://avdmehmetsen.vercel.app/sitemap.xml
 - 📅 Son güncelleme tarihlerini içerir
 - ⭐ Sayfa önceliklerini belirtir
 
-**Erişim:** `https://avdmehmetsen.vercel.app/sitemap.xml`
+**Erişim:** `https://www.avdurdumehmetsen.com.tr/sitemap.xml`
 
 ---
 
@@ -86,7 +86,7 @@ Sitemap: https://avdmehmetsen.vercel.app/sitemap.xml
 #### Root Layout
 
 - Title template: `%s | Av. Durdu Mehmet Şen`
-- MetadataBase: `https://avdmehmetsen.vercel.app`
+- MetadataBase: `https://www.avdurdumehmetsen.com.tr`
 - Keywords: İzmir, Bayraklı, hukuk alanları
 - Author & Publisher bilgileri
 
@@ -104,7 +104,7 @@ Her sayfa için duplicate content önleme:
 
 ```tsx
 alternates: {
-  canonical: "https://avdmehmetsen.vercel.app/page-url";
+  canonical: "https://www.avdurdumehmetsen.com.tr/page-url";
 }
 ```
 
@@ -140,7 +140,7 @@ Deploy'dan sonra şunları yapın:
 https://search.google.com/search-console
 ```
 
-1. **Property Ekle:** `https://avdmehmetsen.vercel.app`
+1. **Property Ekle:** `https://www.avdurdumehmetsen.com.tr`
 2. **Verify:** DNS veya HTML tag ile doğrula
 3. **Sitemap Gönder:** `/sitemap.xml`
 
@@ -215,7 +215,7 @@ https://business.google.com
 https://search.google.com/test/rich-results
 ```
 
-Test URL: `https://avdmehmetsen.vercel.app`
+Test URL: `https://www.avdurdumehmetsen.com.tr`
 
 ### 2. PageSpeed Insights
 

@@ -26,12 +26,12 @@ export default function StructuredData() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "LegalService",
-    "@id": "https://avdmehmetsen.vercel.app/#organization",
+    "@id": "https://www.avdurdumehmetsen.com.tr/#organization",
     name: "Av. Durdu Mehmet Şen - Hukuk Bürosu",
     alternateName: "Şen Hukuk Bürosu",
-    url: "https://avdmehmetsen.vercel.app",
-    logo: "https://avdmehmetsen.vercel.app/images/logo.png",
-    image: "https://avdmehmetsen.vercel.app/images/logo.png",
+    url: "https://www.avdurdumehmetsen.com.tr",
+    logo: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
+    image: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
     description:
       "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
     address: {
@@ -105,12 +105,7 @@ export default function StructuredData() {
       "Bilişim Hukuku",
       "Tüketici Hukuku",
     ],
-    sameAs: [
-      // Sosyal medya hesapları eklenebilir
-      // "https://www.linkedin.com/...",
-      // "https://twitter.com/...",
-      // "https://www.instagram.com/...",
-    ],
+    sameAs: ["https://www.instagram.com/avdmehmetsen?igsh=bDJ5MjU4YXc1MnRk"],
   };
 
   return (

@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Çerez Politikası | Av. Durdu Mehmet Şen",
     description: "Web sitesinde kullanılan çerezler hakkında detaylı bilgi.",
-    url: "https://avdmehmetsen.vercel.app/cerezler",
+    url: "https://www.avdurdumehmetsen.com.tr/cerezler",
   },
   alternates: {
-    canonical: "https://avdmehmetsen.vercel.app/cerezler",
+    canonical: "https://www.avdurdumehmetsen.com.tr/cerezler",
   },
 };
 

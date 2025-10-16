@@ -1,5 +1,5 @@
 # robots.txt - Av. Durdu Mehmet Şen Hukuk Bürosu
-# https://avdmehmetsen.vercel.app
+# https://www.avdurdumehmetsen.com.tr
 
 # Google ve diğer arama motorları için
 User-agent: *
@@ -8,7 +8,7 @@ Disallow: /admin/
 Disallow: /api/
 
 # Sitemap konumu
-Sitemap: https://avdmehmetsen.vercel.app/sitemap.xml
+Sitemap: https://www.avdurdumehmetsen.com.tr/sitemap.xml
 
 # Crawl hızı (isteğe bağlı)
 # Crawl-delay: 1
