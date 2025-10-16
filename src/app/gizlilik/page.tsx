@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   title: "Gizlilik Politikası",
   description:
     "Web sitesi gizlilik politikası, kişisel veri koruma uygulamaları ve kullanıcı hakları.",
+  alternates: {
+    canonical: "/gizlilik",
+  },
   openGraph: {
     title: "Gizlilik Politikası | Av. Durdu Mehmet Şen",
     description: "Web sitesi gizlilik politikası ve veri koruma uygulamaları.",
-    url: "https://www.avdurdumehmetsen.com.tr/gizlilik",
-  },
-  alternates: {
-    canonical: "https://www.avdurdumehmetsen.com.tr/gizlilik",
+    url: "/gizlilik",
   },
 };
 
