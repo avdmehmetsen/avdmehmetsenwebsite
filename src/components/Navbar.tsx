@@ -2,18 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import {
-  Menu,
-  X,
-  Phone,
-  Mail,
-  MapPin,
-  Linkedin,
-  Twitter,
-  Instagram,
-  LogOut,
-  Scale,
-} from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, LogOut, Scale } from "lucide-react";
+import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { colors } from "@/constants/colors";
 import { usePathname, useRouter } from "next/navigation";
@@ -133,10 +123,18 @@ export default function Navbar() {
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    {[Linkedin, Twitter, Instagram].map((Icon, i) => (
+                    {[
+                      { Icon: FaLinkedin, href: "#", label: "LinkedIn" },
+                      { Icon: FaXTwitter, href: "#", label: "Twitter" },
+                      {
+                        Icon: FaInstagram,
+                        href: "https://www.instagram.com/avdmehmetsen?igsh=bDJ5MjU4YXc1MnRk",
+                        label: "Instagram",
+                      },
+                    ].map(({ Icon, href, label }, i) => (
                       <a
                         key={i}
-                        href="#"
+                        href={href}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`transition-colors ${linkColor}`}
@@ -144,7 +142,7 @@ export default function Navbar() {
                           (e.currentTarget.style.color = colors.primary.main)
                         }
                         onMouseLeave={(e) => (e.currentTarget.style.color = "")}
-                        aria-label={Icon.name}
+                        aria-label={label}
                       >
                         <Icon className="w-4 h-4" />
                       </a>
@@ -175,10 +173,18 @@ export default function Navbar() {
                     </span>
                   </a>
                   <div className="flex items-center gap-2">
-                    {[Linkedin, Twitter, Instagram].map((Icon, i) => (
+                    {[
+                      { Icon: FaLinkedin, href: "#", label: "LinkedIn" },
+                      { Icon: FaXTwitter, href: "#", label: "Twitter" },
+                      {
+                        Icon: FaInstagram,
+                        href: "https://www.instagram.com/avdmehmetsen?igsh=bDJ5MjU4YXc1MnRk",
+                        label: "Instagram",
+                      },
+                    ].map(({ Icon, href, label }, i) => (
                       <a
                         key={i}
-                        href="#"
+                        href={href}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`transition-colors ${linkColor}`}
@@ -186,7 +192,7 @@ export default function Navbar() {
                           (e.currentTarget.style.color = colors.primary.main)
                         }
                         onMouseLeave={(e) => (e.currentTarget.style.color = "")}
-                        aria-label={Icon.name}
+                        aria-label={label}
                       >
                         <Icon className="w-3.5 h-3.5" />
                       </a>

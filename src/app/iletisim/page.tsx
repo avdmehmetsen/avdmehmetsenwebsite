@@ -2,15 +2,8 @@
 
 import ContactForm from "@/components/ContactForm";
 import { motion } from "framer-motion";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Linkedin,
-  Twitter,
-  Instagram,
-} from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { FaLinkedin, FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { colors } from "@/constants/colors";
 import PlaceButton from "@/components/PlaceButton";
 import Image from "next/image";
@@ -198,16 +191,22 @@ export default function Iletisim() {
                 <div className="flex gap-4">
                   {[
                     {
-                      Icon: Linkedin,
+                      Icon: FaLinkedin,
                       label: "LinkedIn",
                       href: "#",
                     },
-                    { Icon: Twitter, label: "Twitter", href: "#" },
-                    { Icon: Instagram, label: "Instagram", href: "#" },
+                    { Icon: FaXTwitter, label: "Twitter", href: "#" },
+                    {
+                      Icon: FaInstagram,
+                      label: "Instagram",
+                      href: "https://www.instagram.com/avdmehmetsen?igsh=bDJ5MjU4YXc1MnRk",
+                    },
                   ].map(({ Icon, label, href }) => (
                     <a
                       key={label}
                       href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 hover:shadow-md"
                       style={{ backgroundColor: colors.background.dark }}
                       onMouseEnter={(e) =>
