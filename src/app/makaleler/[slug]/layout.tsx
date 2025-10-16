@@ -3,10 +3,13 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  // Next.js 15'te params bir Promise
+  const { slug } = await params;
+
   // Slug'ı temiz bir başlığa çevirelim (SEO için)
-  const title = params.slug
+  const title = slug
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
@@ -14,10 +17,10 @@ export async function generateMetadata({
   return {
     title,
     alternates: {
-      canonical: `/makaleler/${params.slug}`,
+      canonical: `/makaleler/${slug}`,
     },
     openGraph: {
-      url: `/makaleler/${params.slug}`,
+      url: `/makaleler/${slug}`,
       type: "article",
     },
   };
