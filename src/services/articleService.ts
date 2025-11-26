@@ -14,6 +14,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { Article, ArticleFormData } from "@/types";
+import { ensureUniqueSlug } from "@/lib/slugify";
 
 const COLLECTION_NAME = "articles";
 
@@ -32,30 +33,25 @@ function convertTimestamp(
   return new Date(timestamp as string | number | Date);
 }
 
-// Helper function to create slug from title
-export function createSlug(title: string): string {
-  const turkishMap: { [key: string]: string } = {
-    ç: "c",
-    ğ: "g",
-    ı: "i",
-    İ: "i",
-    ö: "o",
-    ş: "s",
-    ü: "u",
-    Ç: "c",
-    Ğ: "g",
-    Ö: "o",
-    Ş: "s",
-    Ü: "u",
-  };
+async function slugExists(slug: string, excludeArticleId?: string): Promise<boolean> {
+  const articlesRef = collection(db, COLLECTION_NAME);
+  const q = query(articlesRef, where("slug", "==", slug), limit(1));
+  const snapshot = await getDocs(q);
 
-  return title
-    .toLowerCase()
-    .split("")
-    .map((char) => turkishMap[char] || char)
-    .join("")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+  if (snapshot.empty) {
+    return false;
+  }
+
+  const doc = snapshot.docs[0];
+  if (excludeArticleId && doc.id === excludeArticleId) {
+    return false;
+  }
+
+  return true;
+}
+
+async function resolveUniqueSlug(title: string, excludeArticleId?: string): Promise<string> {
+  return ensureUniqueSlug(title, (candidate) => slugExists(candidate, excludeArticleId));
 }
 
 // Get all articles (with optional filter for published only)
@@ -109,6 +105,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     return {
       id: doc.id,
       ...data,
+      legacySlugs: data.legacySlugs ?? [],
       createdAt: convertTimestamp(data.createdAt),
       updatedAt: convertTimestamp(data.updatedAt),
     } as Article;
@@ -116,6 +113,72 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
     console.error("Error getting article by slug:", error);
     throw error;
   }
+}
+
+export async function getArticleByLegacySlug(
+  legacySlug: string
+): Promise<Article | null> {
+  try {
+    const articlesRef = collection(db, COLLECTION_NAME);
+    const q = query(
+      articlesRef,
+      where("legacySlugs", "array-contains", legacySlug),
+      limit(1)
+    );
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return null;
+    }
+
+    const docSnap = querySnapshot.docs[0];
+    const data = docSnap.data();
+
+    return {
+      id: docSnap.id,
+      ...data,
+      legacySlugs: data.legacySlugs ?? [],
+      createdAt: convertTimestamp(data.createdAt),
+      updatedAt: convertTimestamp(data.updatedAt),
+    } as Article;
+  } catch (error) {
+    console.error("Error getting article by legacy slug:", error);
+    throw error;
+  }
+}
+
+export async function getArticleMetaBySlug(
+  slug: string
+): Promise<{
+  slug: string;
+  title: string;
+  description?: string;
+  imageUrl?: string | null;
+  author?: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+} | null> {
+  const article = await getArticleBySlug(slug);
+  if (!article) return null;
+
+  const publishedAt =
+    article.createdAt instanceof Date
+      ? article.createdAt.toISOString()
+      : undefined;
+  const modifiedAt =
+    article.updatedAt instanceof Date
+      ? article.updatedAt.toISOString()
+      : publishedAt;
+
+  return {
+    slug: article.slug,
+    title: article.title,
+    description: article.excerpt,
+    imageUrl: article.imageUrl,
+    author: article.author,
+    publishedAt,
+    modifiedAt,
+  };
 }
 
 export async function getArticleById(id: string): Promise<Article | null> {
@@ -128,6 +191,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
       return {
         id: docSnap.id,
         ...data,
+        legacySlugs: data.legacySlugs ?? [],
         createdAt: convertTimestamp(data.createdAt),
         updatedAt: convertTimestamp(data.updatedAt),
         editorStateJSON: data.editorStateJSON ?? null,
@@ -172,7 +236,7 @@ export async function createArticle(
   formData: ArticleFormData
 ): Promise<string> {
   try {
-    const slug = createSlug(formData.title);
+    const slug = await resolveUniqueSlug(formData.title);
     const now = new Date();
 
     // Format date as "DD Month YYYY" in Turkish
@@ -228,7 +292,7 @@ export async function createArticle(
   formData: ArticleFormData
 ): Promise<string> {
   try {
-    const slug = createSlug(formData.title);
+    const slug = await resolveUniqueSlug(formData.title);
     const now = new Date();
 
     const dateStr = now.toLocaleDateString("tr-TR", {
@@ -241,6 +305,7 @@ export async function createArticle(
       ...formData,
       editorStateJSON: formData.editorStateJSON ?? null, // ✅ güvence
       slug,
+      legacySlugs: [],
       date: dateStr,
       createdAt: Timestamp.fromDate(now),
       updatedAt: Timestamp.fromDate(now),
@@ -260,9 +325,22 @@ export async function updateArticle(
 ): Promise<void> {
   try {
     const docRef = doc(db, COLLECTION_NAME, id);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      throw new Error("Article not found");
+    }
+
+    const currentData = docSnap.data();
+    const currentSlug = currentData.slug as string;
+    const currentLegacy = Array.isArray(currentData.legacySlugs)
+      ? currentData.legacySlugs
+      : [];
+
     const updateData: Partial<ArticleFormData> & {
       updatedAt: Timestamp;
       slug?: string;
+      legacySlugs?: string[];
     } = {
       ...formData,
       editorStateJSON: formData.editorStateJSON ?? null,
@@ -270,7 +348,14 @@ export async function updateArticle(
     };
 
     if (formData.title) {
-      updateData.slug = createSlug(formData.title);
+      const nextSlug = await resolveUniqueSlug(formData.title, id);
+
+      if (nextSlug !== currentSlug) {
+        updateData.slug = nextSlug;
+        updateData.legacySlugs = Array.from(
+          new Set([...currentLegacy, currentSlug].filter(Boolean))
+        );
+      }
     }
 
     await updateDoc(docRef, updateData);

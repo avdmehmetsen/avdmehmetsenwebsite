@@ -14,6 +14,7 @@ export interface LawyerInfo {
 export interface Article {
   id: string;
   slug: string;
+  legacySlugs?: string[];
   title: string;
   category: string;
   excerpt: string;
