@@ -1,26 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wrench, Mail, Phone, Clock } from "lucide-react";
+import { Wrench } from "lucide-react";
 import { colors } from "@/constants/colors";
-import { useEffect, useState } from "react";
-import { getContactInfo } from "@/services/contactInfoService";
-import { ContactInfo } from "@/types";
-
-export default function MaintenancePage() {
-  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
-
-  useEffect(() => {
-    const loadContactInfo = async () => {
-      try {
-        const data = await getContactInfo();
-        setContactInfo(data);
-      } catch (error) {
-        console.error("Error loading contact info:", error);
-      }
-    };
-    loadContactInfo();
-  }, []);
 
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">

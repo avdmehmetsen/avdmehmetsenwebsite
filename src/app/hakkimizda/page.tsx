@@ -46,7 +46,7 @@ export default function Hakkimizda() {
             İzmir Avukat - Hakkımızda
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
-            İzmir'de profesyonel avukatlık hizmeti sunan Şen Hukuk Bürosu olarak müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
+            İzmir&apos;de profesyonel avukatlık hizmeti sunan Şen Hukuk Bürosu olarak müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ export default function Hakkimizda() {
                 /* Fallback content if no data */
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
-                    Şen Hukuk Bürosu olarak, İzmir'de avukat hizmeti veren bir hukuk bürosu olarak müvekkillerimize en kaliteli hukuki
+                    Şen Hukuk Bürosu olarak, İzmir&apos;de avukat hizmeti veren bir hukuk bürosu olarak müvekkillerimize en kaliteli hukuki
                     hizmeti sunmak ve haklarını en iyi şekilde korumak için
                     çalışıyoruz.
                   </p>
@@ -151,12 +151,12 @@ export default function Hakkimizda() {
                       İzmir avukat olarak hizmet veren Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
                       sonra mesleki tecrübesini bireysel ve kurumsal
                       müvekkillere sunduğu hukuki danışmanlık hizmetleriyle
-                      pekiştirmiştir. İzmir'de başta aile hukuku, iş hukuku, ceza hukuku
+                      pekiştirmiştir. İzmir&apos;de başta aile hukuku, iş hukuku, ceza hukuku
                       ve ticaret hukuku olmak üzere birçok alanda avukatlık hizmeti
                       vermektedir.
                     </p>
                     <p>
-                      İzmir'de avukat olarak çalışan Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
+                      İzmir&apos;de avukat olarak çalışan Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
                       müvekkillerinin haklarını en etkin biçimde korumayı ve
                       adaletin sağlanmasına katkıda bulunmayı temel ilke
                       edinmiştir.

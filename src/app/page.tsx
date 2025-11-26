@@ -39,7 +39,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
-              Neden İzmir'de Bizi Tercih Etmelisiniz?
+              Neden İzmir&apos;de Bizi Tercih Etmelisiniz?
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               İzmir avukat olarak müvekkillerimize en iyi hukuki danışmanlık hizmetini sunmak için çalışıyoruz
@@ -111,11 +111,11 @@ export default function Home() {
       <section className="py-16" style={{ backgroundColor: "#cb8929" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            İzmir'de Hukuki Sorunlarınız İçin Avukat Desteği
+            İzmir&apos;de Hukuki Sorunlarınız İçin Avukat Desteği
           </h2>
           <p className="text-slate-800 text-lg mb-8 max-w-2xl mx-auto">
             İzmir avukat olarak size yardımcı olmaktan memnuniyet duyarız. Formumuzu doldurarak ya
-            da bizi arayarak İzmir'de avukat danışmanlık talebinde bulunabilirsiniz.
+            da bizi arayarak İzmir&apos;de avukat danışmanlık talebinde bulunabilirsiniz.
           </p>
           <Link
             href="/iletisim"
