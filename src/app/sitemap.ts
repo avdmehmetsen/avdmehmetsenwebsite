@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { getArticles } from "@/services/articleService";
+import { getArticles, getAllTagSlugsWithCount } from "@/services/articleService";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://www.avdurdumehmetsen.com.tr";
@@ -76,7 +76,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Error fetching articles for sitemap:", error);
   }
 
+  // Tag pages (only tags with 2+ articles)
+  let tagPages: MetadataRoute.Sitemap = [];
+  try {
+    const tags = await getAllTagSlugsWithCount();
+    tagPages = tags
+      .filter((t) => t.count >= 2)
+      .map((t) => ({
+        url: `${baseUrl}/makaleler/etiket/${t.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.3,
+      }));
+  } catch (error) {
+    console.error("Error fetching tags for sitemap:", error);
+  }
+
   // Note: Announcements are not individual pages, so not included in sitemap
 
-  return [...staticPages, ...articlePages];
+  return [...staticPages, ...articlePages, ...tagPages];
 }

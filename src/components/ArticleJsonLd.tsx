@@ -7,6 +7,7 @@ type ArticleJsonLdProps = {
     author?: string;
     publishedAt?: string;
     modifiedAt?: string;
+    tags?: string[];
   };
 };
 
@@ -36,6 +37,7 @@ export default function ArticleJsonLd({ meta }: ArticleJsonLdProps) {
       : undefined,
     datePublished: meta.publishedAt,
     dateModified: meta.modifiedAt ?? meta.publishedAt,
+    keywords: meta.tags && meta.tags.length > 0 ? meta.tags.join(", ") : undefined,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${siteUrl}/makaleler/${meta.slug}`,

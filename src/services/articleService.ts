@@ -407,29 +407,29 @@ export async function getLatestArticles(count = 3): Promise<Article[]> {
   }
 }
 
-// Get related articles by category (excluding current article)
-export async function getRelatedArticles(
-  category: string,
-  currentArticleId: string,
-  count = 3
-): Promise<Article[]> {
+// Get articles by tag slug
+export async function getArticlesByTag(tagSlug: string): Promise<Article[]> {
   try {
     const articlesRef = collection(db, COLLECTION_NAME);
     const q = query(
       articlesRef,
       where("published", "==", true),
-      where("category", "==", category),
-      orderBy("createdAt", "desc"),
-      limit(count + 1) // Get one extra in case current article is included
+      orderBy("createdAt", "desc")
     );
 
     const querySnapshot = await getDocs(q);
     const articles: Article[] = [];
+    const { slugifyTR } = await import("@/lib/slugify");
 
     querySnapshot.forEach((doc) => {
-      // Exclude current article
-      if (doc.id !== currentArticleId) {
-        const data = doc.data();
+      const data = doc.data();
+      const tags = (data.tags as string[]) || [];
+      // Check if any tag matches the slug (case-insensitive slug comparison)
+      const hasMatchingTag = tags.some(
+        (tag) => slugifyTR(tag) === tagSlug
+      );
+
+      if (hasMatchingTag) {
         articles.push({
           id: doc.id,
           ...data,
@@ -439,7 +439,141 @@ export async function getRelatedArticles(
       }
     });
 
-    return articles.slice(0, count); // Return only the requested count
+    return articles;
+  } catch (error) {
+    console.error("Error getting articles by tag:", error);
+    throw error;
+  }
+}
+
+// Get all tag slugs with article count (for sitemap)
+export async function getAllTagSlugsWithCount(): Promise<
+  Array<{ slug: string; count: number }>
+> {
+  try {
+    const articles = await getArticles(true); // Only published
+    const { slugifyTR } = await import("@/lib/slugify");
+    const tagCountMap = new Map<string, number>();
+
+    articles.forEach((article) => {
+      const tags = article.tags || [];
+      tags.forEach((tag) => {
+        const slug = slugifyTR(tag);
+        tagCountMap.set(slug, (tagCountMap.get(slug) || 0) + 1);
+      });
+    });
+
+    return Array.from(tagCountMap.entries()).map(([slug, count]) => ({
+      slug,
+      count,
+    }));
+  } catch (error) {
+    console.error("Error getting tag slugs with count:", error);
+    return [];
+  }
+}
+
+// Get related articles by category and tags (excluding current article)
+export async function getRelatedArticles(
+  category: string,
+  currentArticleId: string,
+  currentArticleTags: string[] = [],
+  count = 3
+): Promise<Article[]> {
+  try {
+    const articlesRef = collection(db, COLLECTION_NAME);
+    const q = query(
+      articlesRef,
+      where("published", "==", true),
+      orderBy("createdAt", "desc"),
+      limit(50) // Get more to score and filter
+    );
+
+    const querySnapshot = await getDocs(q);
+    const { slugifyTR } = await import("@/lib/slugify");
+    const currentTagSlugs = new Set(
+      currentArticleTags.map((tag) => slugifyTR(tag))
+    );
+
+    const scoredArticles: Array<{ article: Article; score: number }> = [];
+
+    querySnapshot.forEach((doc) => {
+      // Exclude current article
+      if (doc.id === currentArticleId) return;
+
+      const data = doc.data();
+      const article = {
+        id: doc.id,
+        ...data,
+        createdAt: convertTimestamp(data.createdAt),
+        updatedAt: convertTimestamp(data.updatedAt),
+      } as Article;
+
+      // Calculate score: (common tags × 2) + (same category × 1)
+      const articleTags = (article.tags as string[]) || [];
+      const articleTagSlugs = new Set(
+        articleTags.map((tag) => slugifyTR(tag))
+      );
+
+      let score = 0;
+      // Count common tags
+      currentTagSlugs.forEach((tagSlug) => {
+        if (articleTagSlugs.has(tagSlug)) {
+          score += 2;
+        }
+      });
+      // Same category bonus
+      if (article.category === category) {
+        score += 1;
+      }
+
+      if (score > 0) {
+        scoredArticles.push({ article, score });
+      }
+    });
+
+    // Sort by score (descending), then by date (descending)
+    scoredArticles.sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return (
+        b.article.createdAt.getTime() - a.article.createdAt.getTime()
+      );
+    });
+
+    // If we don't have enough scored articles, fill with same category
+    if (scoredArticles.length < count) {
+      const categoryQ = query(
+        articlesRef,
+        where("published", "==", true),
+        where("category", "==", category),
+        orderBy("createdAt", "desc"),
+        limit(count + 1)
+      );
+      const categorySnapshot = await getDocs(categoryQ);
+      const existingIds = new Set(
+        scoredArticles.map((s) => s.article.id)
+      );
+      existingIds.add(currentArticleId);
+
+      categorySnapshot.forEach((doc) => {
+        if (!existingIds.has(doc.id)) {
+          const data = doc.data();
+          scoredArticles.push({
+            article: {
+              id: doc.id,
+              ...data,
+              createdAt: convertTimestamp(data.createdAt),
+              updatedAt: convertTimestamp(data.updatedAt),
+            } as Article,
+            score: 0, // Lower priority
+          });
+        }
+      });
+    }
+
+    return scoredArticles.slice(0, count).map((s) => s.article);
   } catch (error) {
     console.error("Error getting related articles:", error);
     throw error;

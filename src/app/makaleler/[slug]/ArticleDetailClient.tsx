@@ -7,6 +7,7 @@ import { Article } from "@/types";
 import { cn } from "@/lib/utils";
 import ArticleCard from "@/components/ArticleCard";
 import { colors } from "@/constants/colors";
+import { slugifyTR } from "@/lib/slugify";
 
 const ALLOWED_IMAGE_HOSTS = [
   "images.pexels.com",
@@ -179,14 +180,18 @@ export default function ArticleDetailClient({
             <div className="mt-12 pt-8 border-t border-slate-200">
               <h3 className="text-xl font-bold text-slate-900 mb-4">Etiketler</h3>
               <div className="flex flex-wrap gap-3">
-                {article.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-5 py-2.5 bg-slate-100 text-slate-800 rounded-full text-sm font-medium hover:bg-amber-100 hover:text-amber-800 transition-colors cursor-default"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+                {article.tags.map((tag) => {
+                  const tagSlug = slugifyTR(tag);
+                  return (
+                    <Link
+                      key={tag}
+                      href={`/makaleler/etiket/${tagSlug}`}
+                      className="px-5 py-2.5 bg-slate-100 text-slate-800 rounded-full text-sm font-medium hover:bg-amber-100 hover:text-amber-800 transition-colors"
+                    >
+                      #{tag}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}

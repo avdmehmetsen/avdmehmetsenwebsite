@@ -27,6 +27,7 @@ export default async function MakaleDetay({
   const relatedArticles = await getRelatedArticles(
     article.category,
     article.id,
+    article.tags || [],
     3
   );
 
@@ -39,6 +40,7 @@ export default async function MakaleDetay({
           imageUrl: article.imageUrl ?? undefined,
           slug: article.slug,
           author: article.author,
+          tags: article.tags,
           publishedAt:
             article.createdAt instanceof Date
               ? article.createdAt.toISOString()
