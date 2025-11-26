@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Wrench } from "lucide-react";
 import { colors } from "@/constants/colors";
 
+export default function MaintenancePage() {
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full">
