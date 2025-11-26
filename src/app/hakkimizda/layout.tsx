@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Hakkımızda | İzmir Avukat - Av. Durdu Mehmet Şen",
   description:
-    "İzmir avukat olarak hizmet veren Şen Hukuk Bürosu ve Av. Durdu Mehmet Şen hakkında detaylı bilgi. İzmir Bayraklı'da güvenilir ve profesyonel avukatlık hizmetleri.",
+    "İzmir&apos;de hizmet veren Şen Hukuk Bürosu ve Av. Durdu Mehmet Şen hakkında detaylı bilgi. İzmir Bayraklı&apos;da güvenilir ve profesyonel avukatlık hizmetleri.",
   keywords: [
     "izmir avukat",
     "bayraklı avukat",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Hakkımızda | İzmir Avukat - Av. Durdu Mehmet Şen",
     description:
-      "İzmir avukat olarak hizmet veren Şen Hukuk Bürosu ve Av. Durdu Mehmet Şen hakkında detaylı bilgi. İzmir Bayraklı'da güvenilir ve profesyonel avukatlık hizmetleri.",
+      "İzmir&apos;de hizmet veren Şen Hukuk Bürosu ve Av. Durdu Mehmet Şen hakkında detaylı bilgi. İzmir Bayraklı&apos;da güvenilir ve profesyonel avukatlık hizmetleri.",
     url: "/hakkimizda",
   },
 };

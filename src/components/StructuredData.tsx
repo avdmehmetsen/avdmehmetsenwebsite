@@ -33,7 +33,7 @@ export default function StructuredData() {
     logo: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
     image: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
     description:
-      "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. İzmir avukat olarak Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında hizmet veriyoruz.",
+      "İzmir Bayraklı&apos;da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. İzmir&apos;de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında hizmet veriyoruz.",
     address: {
       "@type": "PostalAddress",
       streetAddress:

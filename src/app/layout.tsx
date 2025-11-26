@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | İzmir Avukat - Av. Durdu Mehmet Şen",
   },
   description:
-    "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir'de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
+    "İzmir Bayraklı&apos;da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir&apos;de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
   keywords: [
     "avukat",
     "izmir avukat",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
     title: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
     description:
-      "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir'de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
+      "İzmir Bayraklı&apos;da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir&apos;de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
     images: [
       {
         url: "/og-image.png",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
     description:
-      "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz.",
+      "İzmir Bayraklı&apos;da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz.",
     images: ["/og-image.png"],
   },
   robots: {

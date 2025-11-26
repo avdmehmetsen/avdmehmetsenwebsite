@@ -91,7 +91,7 @@ export default function Hakkimizda() {
                     çalışıyoruz.
                   </p>
                   <p>
-                    İzmir avukat olarak hizmet veren hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
+                    İzmir&apos;de hizmet veren hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
                     profesyonel ve güvenilir avukatlık danışmanlık hizmeti
                     vermektedir.
                   </p>
@@ -148,7 +148,7 @@ export default function Hakkimizda() {
                 ) : (
                   <>
                     <p>
-                      İzmir avukat olarak hizmet veren Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
+                      İzmir&apos;de hizmet veren Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
                       sonra mesleki tecrübesini bireysel ve kurumsal
                       müvekkillere sunduğu hukuki danışmanlık hizmetleriyle
                       pekiştirmiştir. İzmir&apos;de başta aile hukuku, iş hukuku, ceza hukuku

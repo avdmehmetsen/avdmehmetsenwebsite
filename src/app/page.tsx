@@ -42,7 +42,7 @@ export default function Home() {
               Neden İzmir&apos;de Bizi Tercih Etmelisiniz?
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              İzmir avukat olarak müvekkillerimize en iyi hukuki danışmanlık hizmetini sunmak için çalışıyoruz
+              İzmir&apos;de hizmet veren hukuk büromuz, müvekkillerimize en iyi hukuki danışmanlık hizmetini sunmak için çalışıyoruz
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -114,8 +114,8 @@ export default function Home() {
             İzmir&apos;de Hukuki Sorunlarınız İçin Avukat Desteği
           </h2>
           <p className="text-slate-800 text-lg mb-8 max-w-2xl mx-auto">
-            İzmir avukat olarak size yardımcı olmaktan memnuniyet duyarız. Formumuzu doldurarak ya
-            da bizi arayarak İzmir&apos;de avukat danışmanlık talebinde bulunabilirsiniz.
+            İzmir&apos;de hizmet veren avukatlarımız, size yardımcı olmaktan memnuniyet duyar. Formumuzu doldurarak ya
+            da bizi arayarak hukuki danışmanlık talebinde bulunabilirsiniz.
           </p>
           <Link
             href="/iletisim"
