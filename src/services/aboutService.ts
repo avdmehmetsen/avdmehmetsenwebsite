@@ -3,11 +3,6 @@ import {
   getDoc,
   setDoc,
   serverTimestamp,
-  collection,
-  query,
-  orderBy,
-  limit,
-  getDocs,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { AboutPage, AboutPageFormData } from "@/types";

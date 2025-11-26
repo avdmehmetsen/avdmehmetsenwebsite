@@ -15,12 +15,12 @@ const slides = [
     title: "İzmir Avukat",
     subtitle: "Haklarınız İçin Güvenilir Temsil",
     description:
-      "İzmir'de profesyonel avukatlık hizmeti sunuyoruz. Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
+      "İzmir&apos;de profesyonel avukatlık hizmeti sunuyoruz. Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
   },
   {
     image: hero2,
     title: "Adalet İçin Kararlıyız",
-    subtitle: "İzmir'de Her Adımda Profesyonel Destek",
+    subtitle: "İzmir&apos;de Her Adımda Profesyonel Destek",
     description:
       "İzmir avukat olarak hukukun tüm alanlarında çözüm odaklı yaklaşımımızla, sizin için en doğru stratejiyi belirliyoruz.",
   },
@@ -29,7 +29,7 @@ const slides = [
     title: "Tecrübe, Güven ve Başarı",
     subtitle: "İzmir Hukuk Bürosu",
     description:
-      "İzmir'de yılların birikimiyle müvekkillerimize güçlü, etik ve etkili bir avukatlık hizmeti sunuyoruz.",
+      "İzmir&apos;de yılların birikimiyle müvekkillerimize güçlü, etik ve etkili bir avukatlık hizmeti sunuyoruz.",
   },
 ];
 
