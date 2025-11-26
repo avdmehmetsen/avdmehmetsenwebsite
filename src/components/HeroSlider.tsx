@@ -12,24 +12,24 @@ import hero3 from "@/assets/hero/hero3.jpg";
 const slides = [
   {
     image: hero1,
-    title: "Hukukun Gücünü Yanınıza Alın",
+    title: "İzmir Avukat",
     subtitle: "Haklarınız İçin Güvenilir Temsil",
     description:
-      "Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
+      "İzmir'de profesyonel avukatlık hizmeti sunuyoruz. Her davada adaletin sesi oluyor, müvekkillerimizin haklarını kararlılıkla savunuyoruz.",
   },
   {
     image: hero2,
     title: "Adalet İçin Kararlıyız",
-    subtitle: "Her Adımda Profesyonel Destek",
+    subtitle: "İzmir'de Her Adımda Profesyonel Destek",
     description:
-      "Hukukun tüm alanlarında çözüm odaklı yaklaşımımızla, sizin için en doğru stratejiyi belirliyoruz.",
+      "İzmir avukat olarak hukukun tüm alanlarında çözüm odaklı yaklaşımımızla, sizin için en doğru stratejiyi belirliyoruz.",
   },
   {
     image: hero3,
     title: "Tecrübe, Güven ve Başarı",
-    subtitle: "Uzman Kadromuzla Yanınızdayız",
+    subtitle: "İzmir Hukuk Bürosu",
     description:
-      "Yılların birikimiyle müvekkillerimize güçlü, etik ve etkili bir hukuk hizmeti sunuyoruz.",
+      "İzmir'de yılların birikimiyle müvekkillerimize güçlü, etik ve etkili bir avukatlık hizmeti sunuyoruz.",
   },
 ];
 

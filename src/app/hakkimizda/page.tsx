@@ -43,10 +43,10 @@ export default function Hakkimizda() {
         {/* Metin Alanı */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-24 md:pt-28">
           <h1 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">
-            Hakkımızda
+            İzmir Avukat - Hakkımızda
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-2xl">
-            Müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
+            İzmir'de profesyonel avukatlık hizmeti sunan Şen Hukuk Bürosu olarak müvekkillerimize en iyi hizmeti sunma misyonuyla çalışıyoruz.
           </p>
         </div>
 
@@ -86,13 +86,13 @@ export default function Hakkimizda() {
                 /* Fallback content if no data */
                 <div className="space-y-4 text-gray-700 leading-relaxed">
                   <p>
-                    Şen Hukuk Bürosu olarak, müvekkillerimize en kaliteli hukuki
+                    Şen Hukuk Bürosu olarak, İzmir'de avukat hizmeti veren bir hukuk bürosu olarak müvekkillerimize en kaliteli hukuki
                     hizmeti sunmak ve haklarını en iyi şekilde korumak için
                     çalışıyoruz.
                   </p>
                   <p>
-                    Hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
-                    profesyonel ve güvenilir hukuki danışmanlık hizmeti
+                    İzmir avukat olarak hizmet veren hukuk büromuz, müvekkil memnuniyetini ön planda tutarak,
+                    profesyonel ve güvenilir avukatlık danışmanlık hizmeti
                     vermektedir.
                   </p>
                 </div>
@@ -148,15 +148,15 @@ export default function Hakkimizda() {
                 ) : (
                   <>
                     <p>
-                      Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
+                      İzmir avukat olarak hizmet veren Avukat Mehmet Durdu Şen, hukuk eğitimini tamamladıktan
                       sonra mesleki tecrübesini bireysel ve kurumsal
                       müvekkillere sunduğu hukuki danışmanlık hizmetleriyle
-                      pekiştirmiştir. Başta aile hukuku, iş hukuku, ceza hukuku
-                      ve ticaret hukuku olmak üzere birçok alanda faaliyet
-                      göstermektedir.
+                      pekiştirmiştir. İzmir'de başta aile hukuku, iş hukuku, ceza hukuku
+                      ve ticaret hukuku olmak üzere birçok alanda avukatlık hizmeti
+                      vermektedir.
                     </p>
                     <p>
-                      Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
+                      İzmir'de avukat olarak çalışan Av. Mehmet Durdu Şen, her dosyaya özenle yaklaşarak
                       müvekkillerinin haklarını en etkin biçimde korumayı ve
                       adaletin sağlanmasına katkıda bulunmayı temel ilke
                       edinmiştir.

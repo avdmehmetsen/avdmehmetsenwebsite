@@ -20,11 +20,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.avdurdumehmetsen.com.tr"),
   title: {
-    default: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
-    template: "%s | Av. Durdu Mehmet Şen",
+    default: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
+    template: "%s | İzmir Avukat - Av. Durdu Mehmet Şen",
   },
   description:
-    "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
+    "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir'de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
   keywords: [
     "avukat",
     "izmir avukat",
@@ -66,10 +66,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "tr_TR",
     url: "https://www.avdurdumehmetsen.com.tr",
-    siteName: "Av. Durdu Mehmet Şen | Hukuk Bürosu",
-    title: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
+    siteName: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
+    title: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
     description:
-      "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
+      "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz. İzmir'de Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında avukat hizmeti veriyoruz.",
     images: [
       {
         url: "/og-image.png",
@@ -81,9 +81,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Av. Durdu Mehmet Şen | Hukuk Bürosu - İzmir",
+    title: "İzmir Avukat | Av. Durdu Mehmet Şen - Hukuk Bürosu",
     description:
-      "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri.",
+      "İzmir avukat olarak Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri sunuyoruz.",
     images: ["/og-image.png"],
   },
   robots: {

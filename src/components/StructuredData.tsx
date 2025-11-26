@@ -25,15 +25,15 @@ export default function StructuredData() {
   }, []);
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "LegalService",
+    "@type": ["LegalService", "Attorney", "LocalBusiness"],
     "@id": "https://www.avdurdumehmetsen.com.tr/#organization",
-    name: "Av. Durdu Mehmet Şen - Hukuk Bürosu",
-    alternateName: "Şen Hukuk Bürosu",
+    name: "Av. Durdu Mehmet Şen - İzmir Avukat | Hukuk Bürosu",
+    alternateName: ["Şen Hukuk Bürosu", "İzmir Avukat", "Bayraklı Avukat"],
     url: "https://www.avdurdumehmetsen.com.tr",
     logo: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
     image: "https://www.avdurdumehmetsen.com.tr/images/logo.png",
     description:
-      "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası.",
+      "İzmir Bayraklı'da profesyonel hukuki danışmanlık ve avukatlık hizmetleri. İzmir avukat olarak Ceza, Ticaret, Aile, İş Hukuku ve daha fazlası alanlarında hizmet veriyoruz.",
     address: {
       "@type": "PostalAddress",
       streetAddress:
