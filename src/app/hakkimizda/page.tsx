@@ -9,6 +9,8 @@ import { AboutPage } from "@/types";
 export default function Hakkimizda() {
   const [aboutData, setAboutData] = useState<AboutPage | null>(null);
   const [loading, setLoading] = useState(true);
+  const [officeImageError, setOfficeImageError] = useState(false);
+  const [lawyerImageError, setLawyerImageError] = useState(false);
 
   useEffect(() => {
     const fetchAboutData = async () => {
@@ -100,7 +102,7 @@ export default function Hakkimizda() {
             </div>
 
             {/* Sabit oranlı kapsayıcı + sizes/placeholder - Only show if image exists */}
-            {aboutData?.officeImageUrl && (
+            {aboutData?.officeImageUrl && !officeImageError && (
               <div className="relative rounded-lg overflow-hidden">
                 <div className="relative w-full aspect-[4/3]">
                   <Image
@@ -110,6 +112,10 @@ export default function Hakkimizda() {
                     priority
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
+                    onError={() => {
+                      console.warn("Office image failed to load:", aboutData.officeImageUrl);
+                      setOfficeImageError(true);
+                    }}
                   />
                 </div>
               </div>
@@ -167,7 +173,7 @@ export default function Hakkimizda() {
             </div>
 
             {/* Image - Only show if image exists - Mobilde sonra gelir */}
-            {aboutData?.lawyerImageUrl && (
+            {aboutData?.lawyerImageUrl && !lawyerImageError && (
               <div className="relative rounded-lg overflow-hidden order-2 lg:order-1">
                 <div className="relative w-full aspect-[4/3]">
                   <Image
@@ -177,6 +183,10 @@ export default function Hakkimizda() {
                     className="object-contain bg-white"
                     loading="lazy"
                     sizes="(max-width: 1024px) 100vw, 50vw"
+                    onError={() => {
+                      console.warn("Lawyer image failed to load:", aboutData.lawyerImageUrl);
+                      setLawyerImageError(true);
+                    }}
                   />
                 </div>
               </div>
